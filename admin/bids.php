@@ -125,10 +125,8 @@
 											<p><b><?php echo $row['bid_price'] ?></b></p>
 										</td>
 										<td class="text-center">
-											<!-- data-id="<?php echo $row['id'] ?>" -->
-											<!-- data-id="<?php echo $row['id'] ?>" -->
 											<button class="btn btn-sm btn-outline-primary edit_product" type="button">Edit</button>
-											<button class="btn btn-sm btn-outline-danger delete_product" type="button">Delete</button>
+											<button class="btn btn-sm btn-outline-danger delete_product" id="<?php echo $row['id'] ?>" onclick="delete_(this.id)" type="button">Delete</button>
 										</td>
 									</tr>
 								<?php endwhile; ?>
@@ -170,47 +168,23 @@
 				type: 'post',
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
-					alert(result)
 					var dropdown_player = document.getElementById("player_div").style.display = "none";
 					var category_id = document.getElementById("category").value = "select";
 					var category_id = document.getElementById("base_price").value = "";
 					var category_id = document.getElementById("bid_price").value = "";
 					var category_id = document.getElementById("team").value = "select";
 
-					array = result.split(";");
-
-					var data_array ;
-
-					for (var i = 0; i < array.length; i++) {
-
-						if (i % 5 == 0) {
-
-							data_array = [array[i],array[i+1],array[i+2],array[i+3],array[i+4]];
-							addRows(data_array)
-
-						}
-
-					}
-
+					window.location.replace("index.php?page=bids");
 
 				}
 
 			})
 
-		}
+		} else if (id == "delete") {
 
-		function addRows(data_array) {
-			var table = document.getElementById('bid_table');
-			var row = table.insertRow(rowCount);
 
-			for (var i = 0; i < 6; i++) {
-				var cell = 'cell' + i;
-				cell = row.insertCell(i);
-				cell.innerHTML = data_array[i];
-			}
-		}
 
-		if (id == "category") {
+		} else if (id == "category") {
 
 			var dropdown_player = document.getElementById("player_div");
 			dropdown_player.style.display = "block";
@@ -252,9 +226,7 @@
 				}
 			})
 
-		}
-
-		if (id == "player") {
+		} else if (id == "player") {
 
 			var player_id = document.getElementById("player");
 			var player_id_value = player_id.value;
@@ -278,6 +250,21 @@
 
 		}
 
+	}
+
+	function delete_(id) {
+
+		jQuery.ajax({
+			url: 'get_players.php',
+			type: 'post',
+			data: '&bid_id=' + id + '&data=delete',
+			success: function(result) {
+
+				window.location.replace("index.php?page=bids");
+
+			}
+
+		})
 
 	}
 

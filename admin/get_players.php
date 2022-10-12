@@ -3,6 +3,14 @@
 require('db_connect.php');
 require('functions.php');
 
+
+if ($_POST['data'] == "delete") {
+
+    $bid_id = get_safe_value($conn, $_POST['bid_id']);
+    $result = mysqli_query($conn, "delete from bids where id = $bid_id");
+
+}
+
 if ($_POST['data'] == "category") {
 
     $pro_id = get_safe_value($conn, $_POST['pro_id']);
