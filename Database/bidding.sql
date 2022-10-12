@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2022 at 09:22 AM
+-- Generation Time: Oct 12, 2022 at 05:34 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -37,11 +37,6 @@ CREATE TABLE IF NOT EXISTS `batting_hand` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
--- Truncate table before insert `batting_hand`
---
-
-TRUNCATE TABLE `batting_hand`;
---
 -- Dumping data for table `batting_hand`
 --
 
@@ -62,11 +57,6 @@ CREATE TABLE IF NOT EXISTS `bowling_style` (
   PRIMARY KEY (`bs_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
---
--- Truncate table before insert `bowling_style`
---
-
-TRUNCATE TABLE `bowling_style`;
 --
 -- Dumping data for table `bowling_style`
 --
@@ -107,81 +97,76 @@ CREATE TABLE IF NOT EXISTS `player` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Truncate table before insert `player`
---
-
-TRUNCATE TABLE `player`;
---
 -- Dumping data for table `player`
 --
 
 INSERT INTO `player` (`id`, `player_name`, `team_id`, `pro_id`, `bs_id`, `bth_id`, `matches`, `batting`, `bowling`, `semester`, `base_price`) VALUES
-('IM201', 'Mahir Mansuri', 1, NULL, 4, 1, 5, '85.00', '7.00', 7, 1000),
-('IM202', 'Malek Afzal', 1, NULL, 7, 1, 5, '52.00', '4.00', 3, 1000),
-('IM203', 'Siddh shah', 2, NULL, 7, 1, 4, '9.00', '5.00', 3, 1000),
-('IM204', 'Darshil patel', 2, NULL, 7, NULL, 4, '33.00', '2.00', 3, 1000),
-('IM205', 'Abdulla Mansuri', 3, 1, 4, 1, 5, '4.00', '4.00', 3, 500),
-('IM206', 'Jainil Brahmkshatriya', 4, 6, 4, 1, 2, '2.95', '0.00', NULL, NULL),
-('IM207', 'Devansh Upadhyay', 1, 3, 7, NULL, 3, '0.00', '3.63', NULL, NULL),
-('IM208', 'Trushil Sutariya', 5, NULL, 4, NULL, 2, '0.09', '4.20', NULL, NULL),
-('IM209', 'Jay Jani', 6, NULL, 7, NULL, 2, '0.00', '4.22', NULL, NULL),
-('IM210', 'Piyush Chauhan', 7, 4, 7, 1, 2, '2.00', '2.00', 3, 500),
-('IM211', 'Manav Patel', 2, 3, 4, 1, 4, '1.49', '0.06', NULL, NULL),
-('IM212', 'Navid khanusiya', 1, 1, 4, 1, 4, '6.00', '2.00', 5, 500),
-('IM213', 'Vraj Joshi', 8, 1, 7, 1, 2, '10.00', '2.00', 5, 500),
-('IM214', 'Harshil Chauhan', 3, NULL, NULL, 1, 5, '2.73', '0.00', NULL, NULL),
-('IM215', 'Khushil', 3, NULL, 4, NULL, 2, '2.44', '0.00', NULL, NULL),
-('IM216', 'Soham', 4, NULL, 7, 1, 2, '1.00', '1.00', 3, 500),
-('IM217', 'Prashant Purani', 4, 4, 4, 1, 2, '2.74', '0.00', NULL, NULL),
-('IM218', 'Sahil Makwana', 9, NULL, NULL, 1, 2, '2.73', '0.00', NULL, NULL),
-('IM219', 'Vansh Vp', 3, 1, 4, 1, 4, '2.14', '0.00', NULL, NULL),
-('IM220', 'Brij Prajapati', 2, 5, 4, 1, 4, '2.49', '0.00', NULL, NULL),
-('IM221', 'Ronit prasad', 6, 1, 6, 1, 2, '12.00', '1.00', 3, 300),
-('IM222', 'Harshil panchal', 9, NULL, 7, 1, 2, '24.00', '1.00', 3, 300),
-('IM223', 'Ritesh Vishwakarma', 2, 6, 4, 1, 3, '3.00', '1.00', 7, 300),
-('IM224', 'Mohit', 6, 4, 7, 1, 2, '0.00', '1.00', 3, 300),
-('IM225', 'Karan Soni', 5, NULL, NULL, 1, 2, '1.95', '0.00', NULL, NULL),
-('IM226', 'Kirtan soni', 9, NULL, 7, 1, 2, '3.00', '1.00', 3, 300),
-('IM227', 'Aditya Amali', 4, NULL, 7, 1, 2, '0.00', '1.44', NULL, NULL),
-('IM228', 'Abdurrehman Risaldar', 5, 5, 4, 1, 1, '1.13', '0.00', NULL, NULL),
-('IM229', 'Rushan Khan', 1, NULL, NULL, 1, 2, '1.82', '0.00', NULL, NULL),
-('IM230', 'Kathan Chauhan', 5, NULL, 7, 1, 2, '16.00', '1.00', 5, 300),
-('IM231', 'Aarsh desai', 7, NULL, NULL, 1, 1, '1.51', '0.00', NULL, NULL),
-('IM232', 'Smeet soni', 5, 5, 4, 1, 2, '1.48', '0.00', NULL, NULL),
-('IM233', 'Ammar Malek', 5, 5, 4, NULL, 2, '1.51', '0.00', NULL, NULL),
-('IM234', 'Mistry Harsh', 5, 4, 4, 1, 1, '0.19', '0.00', NULL, NULL),
-('IM235', 'Rahul A Daiya', 8, NULL, 7, NULL, 2, '0.00', '1.28', NULL, NULL),
-('IM236', 'Y Vataliya', 4, NULL, NULL, 1, 2, '1.04', '0.00', NULL, NULL),
-('IM237', 'Justin Parmar', 8, NULL, NULL, 1, 1, '1.21', '0.00', NULL, NULL),
-('IM238', 'Shubh Patel', 6, NULL, NULL, 1, 2, '1.15', '0.00', NULL, NULL),
-('IM239', 'Pathan Hisban Khan', 4, 3, 4, 1, 1, '1.11', '0.00', NULL, NULL),
-('IM240', 'Yashkumar Barot', 2, NULL, NULL, 1, 2, '1.07', '0.00', NULL, NULL),
-('IM241', 'Dhruvang Upadhyay ', 7, NULL, NULL, NULL, 1, '1.04', '0.00', NULL, NULL),
-('IM242', 'Shrimali Jay', 9, NULL, NULL, 1, 1, '0.85', '0.00', NULL, NULL),
-('IM243', 'Harsh Parmar', 6, 4, 4, NULL, 1, '0.85', '0.00', NULL, NULL),
-('IM244', 'Panchal Jaymin', 4, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
-('IM245', 'Paramveer Singh', 4, 1, 7, 1, 1, '0.74', '-0.05', NULL, NULL),
-('IM246', 'Aadil', 1, NULL, NULL, 1, 2, '0.10', '0.00', NULL, NULL),
-('IM247', 'Jaydeep rathod', 2, NULL, NULL, 1, 1, '0.39', '0.00', NULL, NULL),
-('IM248', 'Abhijeet', 3, NULL, NULL, 1, 1, '0.48', '0.00', NULL, NULL),
-('IM249', 'Ayush Soni', 9, NULL, 7, 1, 2, '0.10', '0.02', NULL, NULL),
-('IM250', 'Hit Khant', 8, 1, 4, 1, 1, '0.43', '-0.05', NULL, NULL),
-('IM251', 'Yash Thakkar', 6, 1, 6, 1, 1, '0.33', '0.00', NULL, NULL),
-('IM252', 'Faizan Shaikh', 6, 6, 7, 1, 2, '0.00', '0.00', NULL, NULL),
-('IM253', 'Patel Kush', 5, NULL, NULL, 1, 2, '0.29', '0.00', NULL, NULL),
-('IM254', 'Mann Shah', 6, NULL, NULL, 1, 1, '0.29', '0.00', NULL, NULL),
-('IM255', 'Bhargav Jariwala', 3, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
-('IM256', 'jeel jadav', 9, NULL, NULL, 1, 2, '0.20', '0.00', NULL, NULL),
-('IM257', 'Dave Megh', 7, NULL, NULL, 1, 1, '0.19', '0.00', NULL, NULL),
-('IM258', 'Sagar Bhilocha', 1, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
-('IM259', 'Kuldeep S', 7, 3, 4, NULL, 1, '0.10', '0.00', NULL, NULL),
-('IM260', 'Dhanraj Bagul', 5, NULL, NULL, 1, 1, '0.10', '0.00', NULL, NULL),
-('IM261', 'Vaishal Shah', 7, 4, 4, 1, 1, '0.09', '0.00', NULL, NULL),
-('IM262', 'Vatsal', 4, 1, 7, 1, 2, '0.00', '-0.13', NULL, NULL),
-('IM263', 'Lay Joshi', 8, 1, 7, 1, 1, '0.00', '-0.04', NULL, NULL),
-('IM264', 'Dhairya Dave', 3, 4, 4, 1, 1, '0.00', '-0.04', NULL, NULL),
-('IM265', 'Krish patel', 4, 1, 4, 1, 1, '0.00', '-0.05', NULL, NULL),
-('IM266', 'devang Modi', 9, 4, 4, 1, 2, '0.00', '-0.11', NULL, NULL);
+('IM201', 'Mahir Mansuri', NULL, NULL, 4, 1, 5, '85.00', '7.00', 7, 1000),
+('IM202', 'Malek Afzal', NULL, NULL, 7, 1, 5, '52.00', '4.00', 3, 1000),
+('IM203', 'Siddh shah', NULL, NULL, 7, 1, 4, '9.00', '5.00', 3, 1000),
+('IM204', 'Darshil patel', NULL, NULL, 7, NULL, 4, '33.00', '2.00', 3, 1000),
+('IM205', 'Abdulla Mansuri', NULL, 1, 4, 1, 5, '4.00', '4.00', 3, 500),
+('IM206', 'Jainil Brahmkshatriya', NULL, 6, 4, 1, 2, '2.95', '0.00', NULL, NULL),
+('IM207', 'Devansh Upadhyay', NULL, 3, 7, NULL, 3, '0.00', '3.63', NULL, NULL),
+('IM208', 'Trushil Sutariya', NULL, NULL, 4, NULL, 2, '0.09', '4.20', NULL, NULL),
+('IM209', 'Jay Jani', NULL, NULL, 7, NULL, 2, '0.00', '4.22', NULL, NULL),
+('IM210', 'Piyush Chauhan', NULL, 4, 7, 1, 2, '2.00', '2.00', 3, 500),
+('IM211', 'Manav Patel', NULL, 3, 4, 1, 4, '1.49', '0.06', NULL, NULL),
+('IM212', 'Navid khanusiya', NULL, 1, 4, 1, 4, '6.00', '2.00', 5, 500),
+('IM213', 'Vraj Joshi', NULL, 1, 7, 1, 2, '10.00', '2.00', 5, 500),
+('IM214', 'Harshil Chauhan', NULL, NULL, NULL, 1, 5, '2.73', '0.00', NULL, NULL),
+('IM215', 'Khushil', NULL, NULL, 4, NULL, 2, '2.44', '0.00', NULL, NULL),
+('IM216', 'Soham', NULL, NULL, 7, 1, 2, '1.00', '1.00', 3, 500),
+('IM217', 'Prashant Purani', NULL, 4, 4, 1, 2, '2.74', '0.00', NULL, NULL),
+('IM218', 'Sahil Makwana', NULL, NULL, NULL, 1, 2, '2.73', '0.00', NULL, NULL),
+('IM219', 'Vansh Vp', NULL, 1, 4, 1, 4, '2.14', '0.00', NULL, NULL),
+('IM220', 'Brij Prajapati', NULL, 5, 4, 1, 4, '2.49', '0.00', NULL, NULL),
+('IM221', 'Ronit prasad', NULL, 1, 6, 1, 2, '12.00', '1.00', 3, 300),
+('IM222', 'Harshil panchal', NULL, NULL, 7, 1, 2, '24.00', '1.00', 3, 300),
+('IM223', 'Ritesh Vishwakarma', NULL, 6, 4, 1, 3, '3.00', '1.00', 7, 300),
+('IM224', 'Mohit', NULL, 4, 7, 1, 2, '0.00', '1.00', 3, 300),
+('IM225', 'Karan Soni', NULL, NULL, NULL, 1, 2, '1.95', '0.00', NULL, NULL),
+('IM226', 'Kirtan soni', NULL, NULL, 7, 1, 2, '3.00', '1.00', 3, 300),
+('IM227', 'Aditya Amali', NULL, NULL, 7, 1, 2, '0.00', '1.44', NULL, NULL),
+('IM228', 'Abdurrehman Risaldar', NULL, 5, 4, 1, 1, '1.13', '0.00', NULL, NULL),
+('IM229', 'Rushan Khan', NULL, NULL, NULL, 1, 2, '1.82', '0.00', NULL, NULL),
+('IM230', 'Kathan Chauhan', NULL, NULL, 7, 1, 2, '16.00', '1.00', 5, 300),
+('IM231', 'Aarsh desai', NULL, NULL, NULL, 1, 1, '1.51', '0.00', NULL, NULL),
+('IM232', 'Smeet soni', NULL, 5, 4, 1, 2, '1.48', '0.00', NULL, NULL),
+('IM233', 'Ammar Malek', NULL, 5, 4, NULL, 2, '1.51', '0.00', NULL, NULL),
+('IM234', 'Mistry Harsh', NULL, 4, 4, 1, 1, '0.19', '0.00', NULL, NULL),
+('IM235', 'Rahul A Daiya', NULL, NULL, 7, NULL, 2, '0.00', '1.28', NULL, NULL),
+('IM236', 'Y Vataliya', NULL, NULL, NULL, 1, 2, '1.04', '0.00', NULL, NULL),
+('IM237', 'Justin Parmar', NULL, NULL, NULL, 1, 1, '1.21', '0.00', NULL, NULL),
+('IM238', 'Shubh Patel', NULL, NULL, NULL, 1, 2, '1.15', '0.00', NULL, NULL),
+('IM239', 'Pathan Hisban Khan', NULL, 3, 4, 1, 1, '1.11', '0.00', NULL, NULL),
+('IM240', 'Yashkumar Barot', NULL, NULL, NULL, 1, 2, '1.07', '0.00', NULL, NULL),
+('IM241', 'Dhruvang Upadhyay ', NULL, NULL, NULL, NULL, 1, '1.04', '0.00', NULL, NULL),
+('IM242', 'Shrimali Jay', NULL, NULL, NULL, 1, 1, '0.85', '0.00', NULL, NULL),
+('IM243', 'Harsh Parmar', NULL, 4, 4, NULL, 1, '0.85', '0.00', NULL, NULL),
+('IM244', 'Panchal Jaymin', NULL, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
+('IM245', 'Paramveer Singh', NULL, 1, 7, 1, 1, '0.74', '-0.05', NULL, NULL),
+('IM246', 'Aadil', NULL, NULL, NULL, 1, 2, '0.10', '0.00', NULL, NULL),
+('IM247', 'Jaydeep rathod', NULL, NULL, NULL, 1, 1, '0.39', '0.00', NULL, NULL),
+('IM248', 'Abhijeet', NULL, NULL, NULL, 1, 1, '0.48', '0.00', NULL, NULL),
+('IM249', 'Ayush Soni', NULL, NULL, 7, 1, 2, '0.10', '0.02', NULL, NULL),
+('IM250', 'Hit Khant', NULL, 1, 4, 1, 1, '0.43', '-0.05', NULL, NULL),
+('IM251', 'Yash Thakkar', NULL, 1, 6, 1, 1, '0.33', '0.00', NULL, NULL),
+('IM252', 'Faizan Shaikh', NULL, 6, 7, 1, 2, '0.00', '0.00', NULL, NULL),
+('IM253', 'Patel Kush', NULL, NULL, NULL, 1, 2, '0.29', '0.00', NULL, NULL),
+('IM254', 'Mann Shah', NULL, NULL, NULL, 1, 1, '0.29', '0.00', NULL, NULL),
+('IM255', 'Bhargav Jariwala', NULL, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
+('IM256', 'jeel jadav', NULL, NULL, NULL, 1, 2, '0.20', '0.00', NULL, NULL),
+('IM257', 'Dave Megh', NULL, NULL, NULL, 1, 1, '0.19', '0.00', NULL, NULL),
+('IM258', 'Sagar Bhilocha', NULL, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
+('IM259', 'Kuldeep S', NULL, 3, 4, NULL, 1, '0.10', '0.00', NULL, NULL),
+('IM260', 'Dhanraj Bagul', NULL, NULL, NULL, 1, 1, '0.10', '0.00', NULL, NULL),
+('IM261', 'Vaishal Shah', NULL, 4, 4, 1, 1, '0.09', '0.00', NULL, NULL),
+('IM262', 'Vatsal', NULL, 1, 7, 1, 2, '0.00', '-0.13', NULL, NULL),
+('IM263', 'Lay Joshi', NULL, 1, 7, 1, 1, '0.00', '-0.04', NULL, NULL),
+('IM264', 'Dhairya Dave', NULL, 4, 4, 1, 1, '0.00', '-0.04', NULL, NULL),
+('IM265', 'Krish patel', NULL, 1, 4, 1, 1, '0.00', '-0.05', NULL, NULL),
+('IM266', 'devang Modi', NULL, 4, 4, 1, 2, '0.00', '-0.11', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -196,11 +181,6 @@ CREATE TABLE IF NOT EXISTS `player_role` (
   PRIMARY KEY (`pro_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
---
--- Truncate table before insert `player_role`
---
-
-TRUNCATE TABLE `player_role`;
 --
 -- Dumping data for table `player_role`
 --
@@ -224,27 +204,52 @@ CREATE TABLE IF NOT EXISTS `team` (
   `team_Id` int(11) NOT NULL AUTO_INCREMENT,
   `team_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`team_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
---
--- Truncate table before insert `team`
---
-
-TRUNCATE TABLE `team`;
 --
 -- Dumping data for table `team`
 --
 
 INSERT INTO `team` (`team_Id`, `team_name`) VALUES
-(1, 'Eddies Knights'),
-(2, 'Covenant Super Kings'),
-(3, 'TITANS (Cpl) 11'),
-(4, 'Illusion'),
-(5, '_wolves_XI'),
-(6, 'Super Kings (AIM Primer League)'),
-(7, 'Empire ( Cpl )'),
-(8, 'DESIGNAMITES'),
-(9, 'Challengers(cpl)');
+(1, 'Knights'),
+(2, 'Hurricanes'),
+(3, 'Empire'),
+(4, 'Wolves XI'),
+(5, 'Titans'),
+(6, 'Falcons'),
+(7, 'Panthers'),
+(8, 'Blasters'),
+(9, 'Strikers'),
+(10, 'Royals'),
+(11, 'Super Kings'),
+(12, 'Stars');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(30) NOT NULL,
+  `name` text NOT NULL,
+  `username` varchar(200) NOT NULL,
+  `password` text NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `contact` varchar(100) NOT NULL,
+  `address` text NOT NULL,
+  `type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1=Admin,2=Subscriber',
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `contact`, `address`, `type`, `date_created`) VALUES
+(1, 'Administrator', 'admin', '0192023a7bbd73250516f069df18b500', 'admin@admin.com', '+123456789', '', 1, '2020-10-27 09:19:59'),
+(5, 'John Smith', 'jsmith', '1254737c076cf867dc53d60a0364f38e', 'jsmith@sample.com', '+18456-5455-55', 'Sample', 2, '2020-10-27 14:18:32');
 
 --
 -- Constraints for dumped tables
