@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2022 at 05:34 AM
+-- Generation Time: Oct 12, 2022 at 01:56 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -37,6 +37,11 @@ CREATE TABLE IF NOT EXISTS `batting_hand` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 
 --
+-- Truncate table before insert `batting_hand`
+--
+
+TRUNCATE TABLE `batting_hand`;
+--
 -- Dumping data for table `batting_hand`
 --
 
@@ -44,6 +49,29 @@ INSERT INTO `batting_hand` (`bth_Id`, `hand`) VALUES
 (1, 'RHB'),
 (2, 'LHB');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bids`
+--
+
+DROP TABLE IF EXISTS `bids`;
+CREATE TABLE IF NOT EXISTS `bids` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `player_id` varchar(255) DEFAULT NULL,
+  `team_id` int(11) DEFAULT NULL,
+  `base_price` int(11) DEFAULT NULL,
+  `bid_price` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `player_id` (`player_id`),
+  KEY `team_id` (`team_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+
+--
+-- Truncate table before insert `bids`
+--
+
+TRUNCATE TABLE `bids`;
 -- --------------------------------------------------------
 
 --
@@ -57,6 +85,11 @@ CREATE TABLE IF NOT EXISTS `bowling_style` (
   PRIMARY KEY (`bs_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncate table before insert `bowling_style`
+--
+
+TRUNCATE TABLE `bowling_style`;
 --
 -- Dumping data for table `bowling_style`
 --
@@ -97,6 +130,11 @@ CREATE TABLE IF NOT EXISTS `player` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Truncate table before insert `player`
+--
+
+TRUNCATE TABLE `player`;
+--
 -- Dumping data for table `player`
 --
 
@@ -121,7 +159,7 @@ INSERT INTO `player` (`id`, `player_name`, `team_id`, `pro_id`, `bs_id`, `bth_id
 ('IM218', 'Sahil Makwana', NULL, NULL, NULL, 1, 2, '2.73', '0.00', NULL, NULL),
 ('IM219', 'Vansh Vp', NULL, 1, 4, 1, 4, '2.14', '0.00', NULL, NULL),
 ('IM220', 'Brij Prajapati', NULL, 5, 4, 1, 4, '2.49', '0.00', NULL, NULL),
-('IM221', 'Ronit prasad', NULL, 1, 6, 1, 2, '12.00', '1.00', 3, 300),
+('IM221', 'Ronit prasad', 1, 1, 6, 1, 2, '12.00', '1.00', 3, 300),
 ('IM222', 'Harshil panchal', NULL, NULL, 7, 1, 2, '24.00', '1.00', 3, 300),
 ('IM223', 'Ritesh Vishwakarma', NULL, 6, 4, 1, 3, '3.00', '1.00', 7, 300),
 ('IM224', 'Mohit', NULL, 4, 7, 1, 2, '0.00', '1.00', 3, 300),
@@ -182,6 +220,11 @@ CREATE TABLE IF NOT EXISTS `player_role` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
 --
+-- Truncate table before insert `player_role`
+--
+
+TRUNCATE TABLE `player_role`;
+--
 -- Dumping data for table `player_role`
 --
 
@@ -206,6 +249,11 @@ CREATE TABLE IF NOT EXISTS `team` (
   PRIMARY KEY (`team_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
+--
+-- Truncate table before insert `team`
+--
+
+TRUNCATE TABLE `team`;
 --
 -- Dumping data for table `team`
 --
@@ -244,6 +292,11 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Truncate table before insert `users`
+--
+
+TRUNCATE TABLE `users`;
+--
 -- Dumping data for table `users`
 --
 
@@ -254,6 +307,13 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `contact`, `
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `bids`
+--
+ALTER TABLE `bids`
+  ADD CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`),
+  ADD CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_Id`);
 
 --
 -- Constraints for table `player`

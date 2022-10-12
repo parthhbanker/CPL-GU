@@ -34,7 +34,7 @@
 							</thead>
 							<tbody>
 								<?php
-								$players = $conn->query("SELECT * FROM player ");
+								$players = $conn->query("SELECT p.*, t.team_name FROM player p join team t on p.team_id = t.team_id ");
 								while ($row = $players->fetch_assoc()) :
 								?>
 
@@ -46,7 +46,7 @@
 											</div>
 										</td>
 										<td>
-											<p> <b><?php echo $row['team_id'] ?></b></p>
+											<p> <b><?php echo $row['team_name'] ?></b></p>
 										</td>
 										<td class="">
 											<p>Name: <b><?php echo ucwords($row['player_name']) ?></b></p>
