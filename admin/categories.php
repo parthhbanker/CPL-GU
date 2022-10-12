@@ -58,9 +58,10 @@
 									<td class="">
 										<p><b><?php echo $row['team_name'] ?></b></p>
 									</td>
-									<!-- <td class="text-center">
-										<button class="btn btn-sm btn-primary edit_category" type="button" data-id="<?php echo $row['team_id'] ?>"  data-name="<?php echo $row['team_name'] ?>" ><a href="index.php?page=products&cid=<?php echo $row['id'] ?>" >View</a></button>
-									</td> -->
+									<td class="text-center">
+										<button class="btn btn-sm btn-outline-primary edit_product" type="button">Edit</button>
+										<button class="btn btn-sm btn-outline-danger delete_product" type="button">Delete</button>
+									</td>
 								</tr>
 								<?php endwhile; ?>
 							</tbody>
