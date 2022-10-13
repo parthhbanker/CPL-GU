@@ -1,5 +1,4 @@
 <?php include('db_connect.php'); ?>
-
 <div class="container-fluid">
 
 	<div class="col-lg-12">
@@ -15,8 +14,9 @@
 						<input type="hidden" name="id">
 
 						<div class="form-group">
-							<label class="control-label">Category</label>
+							<label class="control-label">Player Role</label>
 							<select onchange="change(this.id)" id="category">
+
 								<option selected disabled>Select</option>
 
 								<?php
@@ -24,7 +24,6 @@
 								$category = $conn->query("SELECT * FROM player_role order by pro_id	 asc");
 								while ($row = $category->fetch_assoc()) :
 								?>
-
 									<option value='<?php echo $row['pro_Id'] ?>'><?php echo $row['player_role'] ?></option>
 
 								<?php endwhile; ?>
@@ -54,7 +53,7 @@
 						<div class="form-group">
 							<label class="control-label">Team</label>
 							<select id="team">
-								<option>Select</option>
+								<option selected disabled>Select</option>
 								<?php
 								$i = 1;
 								$category = $conn->query("SELECT * FROM team order by team_id asc");
@@ -75,7 +74,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3" type="button" id="save" onclick="change(this.id)"> Save</button>
-								<button class="btn btn-sm btn-default col-sm-3"> Cancel</button>
+								<button class="btn btn-sm btn-default col-sm-3" onclick="cancel()"> Cancel</button>
 							</div>
 						</div>
 					</div>
@@ -105,7 +104,7 @@
 							<tbody>
 								<?php
 								$i = 1;
-								$category = $conn->query("SELECT b.*, p.player_name, t.team_name FROM bids b join player p on b.player_id = p.id join team t on b.team_id = t.team_id order by p.player_name asc");
+								$category = $conn->query("SELECT b.*, p.player_name, t.team_name FROM bids b join player p on b.player_id = p.id join team t on b.team_id = t.team_id order by p.player_name asc;");
 								while ($row = $category->fetch_assoc()) :
 								?>
 									<tr>
@@ -125,7 +124,7 @@
 											<p><b><?php echo $row['bid_price'] ?></b></p>
 										</td>
 										<td class="text-center">
-											<button class="btn btn-sm btn-outline-primary edit_product" type="button">Edit</button>
+											<button class="btn btn-sm btn-outline-primary edit_product" id="<?php echo $row['player_id'] ?>" onclick="edit(this.id)" type="button">Edit</button>
 											<button class="btn btn-sm btn-outline-danger delete_product" id="<?php echo $row['id'] ?>" onclick="delete_(this.id)" type="button">Delete</button>
 										</td>
 									</tr>
@@ -155,6 +154,78 @@
 	}
 </style>
 <script>
+	function edit(id) {
+
+		// alert(id);
+
+		jQuery.ajax({
+			url: 'get_players.php',
+			type: 'post',
+			data: '&player_id=' + id + '&data=edit',
+			success: function(result) {
+
+				array = result.split(";");
+
+				var category_id = document.getElementById("base_price").value = array[4];
+
+				var bid_price = document.getElementById("bid_price");
+				bid_price.value = array[5];
+				bid_price.disabled = false;
+
+				// alert(result);
+				var category_options_length = document.getElementById("category").options.length;
+				var category_option = document.getElementById("category");
+				for (var i = 0; i < category_options_length; i++) {
+
+					if (category_option.options[i].value == array[0]) {
+
+						category_option.options[i].selected = true;
+
+					}
+
+				}
+
+				var dropdown_player = document.getElementById("player_div").style.display = "block";
+
+				var x = document.getElementById("player");
+				var option = document.createElement("option");
+				option.value = array[2];
+				option.text = array[3];
+				option.selected = true;
+
+				x.add(option);
+
+				var team_options_length = document.getElementById("team").options.length;
+				var team_option = document.getElementById("team");
+				for (var i = 0; i < team_options_length; i++) {
+
+					if (team_option.options[i].value == array[6]) {
+
+						team_option.options[i].selected = true;
+
+					}
+
+				}
+
+			}
+
+		})
+
+	}
+
+	function cancel() {
+
+		var dropdown_player = document.getElementById("player_div").style.display = "none";
+		var category_id = document.getElementById("category").value = "select";
+		var category_id = document.getElementById("base_price").value = "";
+		var category_id = document.getElementById("bid_price").value = "";
+		var category_id = document.getElementById("team").value = "select";
+		<?php $query_i_u = "update" ?>
+
+
+
+	}
+
 	function change(id) {
 
 		if (id == "save") {
@@ -168,21 +239,13 @@
 				type: 'post',
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
-					var dropdown_player = document.getElementById("player_div").style.display = "none";
-					var category_id = document.getElementById("category").value = "select";
-					var category_id = document.getElementById("base_price").value = "";
-					var category_id = document.getElementById("bid_price").value = "";
-					var category_id = document.getElementById("team").value = "select";
 
+					// cancel();
 					window.location.replace("index.php?page=bids");
 
 				}
 
 			})
-
-		} else if (id == "delete") {
-
-
 
 		} else if (id == "category") {
 
