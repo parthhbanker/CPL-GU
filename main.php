@@ -1,7 +1,7 @@
 <?php
 require('admin/db_connect.php');
 
-$rows = mysqli_query($conn, "SELECT p.* FROM data_mapping dm join player p on dm.player_id = p.id ");
+$rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.team_id = p.team_id) as team_name FROM data_mapping dm join player p on dm.player_id = p.id ");
 ?>
 
 <meta charset="utf-8">
@@ -118,8 +118,18 @@ $rows = mysqli_query($conn, "SELECT p.* FROM data_mapping dm join player p on dm
                                 Base Price : <?php echo $row['base_price'] ?> Points
                             </div>
                             <div class="d-flex justify-content-around aling-items-center text-white mt-3 p-md-0 py-4" style="font-size:19px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-                                <span class="d-block" style="font-size:40px;">TEAM</span>
-                                <span class="d-block" - style="font-size:40px;">BID PRICE : <?php echo $row['id'] ?> Points</span>
+                                <span class="d-block" style="font-size:40px;">TEAM-<?php echo $row['team_name'] ?></span>
+                                <span class="d-block" - style="font-size:40px;">BID PRICE : <?php
+                                $player_id = $row['id'];
+                                $bid = mysqli_query($conn, "SELECT * FROM bids where player_id = '$player_id'");
+                                if (mysqli_num_rows($bid) > 0) {
+                                    while ($bid_row = mysqli_fetch_array($bid)) {
+                                        echo $bid_row['bid_price']." Points";
+                                    }
+                                } else {
+                                    echo '';
+                                }
+                                ?></span>
                             </div>
                         </div>
                     </div>

@@ -7,6 +7,7 @@ require('functions.php');
 if ($_POST['data'] == "delete") {
 
     $bid_id = get_safe_value($conn, $_POST['bid_id']);
+    $res = mysqli_query($conn,"UPDATE player set team_id = NULL where id = (SELECT player_id from bids where id = $bid_id)");
     $result = mysqli_query($conn, "delete from bids where id = $bid_id");
 
 }
@@ -57,11 +58,11 @@ if ($_POST['data'] == "player") {
             echo ($value);
         }
     }
+
+   updateMainScreen($conn, $player_id);
 }
 
-if ($_POST['data'] == "mainScreen") {
-    $player_id = get_safe_value($conn, $_POST['player_id']);
+// make a function and pass 2 objects as parameters
+function updateMainScreen($conn, $player_id) {
     $result = mysqli_query($conn, "UPDATE data_mapping SET player_id ='$player_id' WHERE id=1");
-
-    echo "done";
 }

@@ -19,7 +19,7 @@
 
     setInterval(function(){
         table();
-    },1000);
+    },100);
 </script>
 <div id="main">
         

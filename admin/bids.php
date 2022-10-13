@@ -1,5 +1,7 @@
 <?php include('db_connect.php'); ?>
-
+<link href="./library/bootstrap-5/bootstrap.min.css" rel="stylesheet" />
+<script src="./library/bootstrap-5/bootstrap.bundle.min.js"></script>
+<script src="./library/dselect.js"></script>
 <div class="container-fluid">
 
 	<div class="col-lg-12">
@@ -35,7 +37,7 @@
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
 							<select id="player" onchange="change(this.id)">
-								<option selected disabled>Select</option>
+								<option >Select</option>
 
 							</select>
 						</div>
@@ -155,6 +157,8 @@
 	}
 </style>
 <script>
+	
+
 	function change(id) {
 
 		if (id == "save") {
@@ -169,15 +173,18 @@
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
 					var dropdown_player = document.getElementById("player_div").style.display = "none";
-					var category_id = document.getElementById("category").value = "select";
+					//var category_id = document.getElementById("category").value = "select";
 					var category_id = document.getElementById("base_price").value = "";
 					var category_id = document.getElementById("bid_price").value = "";
 					var category_id = document.getElementById("team").value = "select";
+					var category_id = document.getElementById("player").value = "select";
 
 					window.location.replace("index.php?page=bids");
 
-				}
 
+
+				}
+``````````
 			})
 
 		} else if (id == "delete") {
@@ -200,6 +207,7 @@
 				data: '&pro_id=' + player_role_value + '&data=category',
 				success: function(result) {
 					array = result.split(";");
+
 					var x = document.getElementById("player");
 
 					$("#player").empty();
@@ -213,6 +221,7 @@
 					for (var i = 0; i < array.length; i++) {
 
 						if (i % 2 == 0 && array[i + 1] != undefined) {
+							console.log(array[i]);
 
 							var option = document.createElement("option");
 							option.value = array[i];
@@ -307,4 +316,10 @@
 			}
 		})
 	}
+
+	var select_box_element = document.querySelector('#player');
+
+	dselect(select_box_element, {
+		search: true
+	});
 </script>

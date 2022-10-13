@@ -47,11 +47,6 @@
     }
 </style>
 
-<link href="./library/bootstrap-5/bootstrap.min.css" rel="stylesheet" />
-<script src="./library/bootstrap-5/bootstrap.bundle.min.js"></script>
-<script src="./library/dselect.js"></script>
-
-
 <div class="containe-fluid">
     <div class="row mt-3 ml-3 mr-3">
         <div class="col-lg-12">
@@ -59,28 +54,6 @@
                 <div class="card-body">
                     <?php echo "Welcome back " . $_SESSION['login_name'] . "!"  ?>
                     <hr>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-3">&nbsp;</div>
-                            <div class="col-md-12">
-                                <select name="select_box" class="form-select" id="select_box" onchange="change()">
-                                    <option selected disabled>Select Player</option>
-                                    <?php
-                                    $query = "SELECT player_name, id FROM player";
-                                    $result = mysqli_query($conn, $query);
-                                    while ($row = mysqli_fetch_array($result)) {
-                                        ?>
-                                        <option value="<?php echo $row["id"] ?>"><?php echo $row["player_name"] ?></option>
-                                        <?php
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="col-md-3">&nbsp;</div>
-                        </div>
-                        <br />
-                        <br />
-                    </div>
                     </body>
                 </div>
             </div>
@@ -88,11 +61,7 @@
     </div>
 </div>
 <script>
-    var select_box_element = document.querySelector('#select_box');
-
-    dselect(select_box_element, {
-        search: true
-    });
+    
 
     $('#manage-records').submit(function(e) {
         e.preventDefault()
