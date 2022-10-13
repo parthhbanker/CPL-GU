@@ -18,8 +18,8 @@
 <!-- 160x198 -->
 
 <body>
-    <div class="container-fluid d-flex justify-content-center w-md-0 w-sm-50 align-item-center m-0 p-0 border mt-2">
-        <div class="card" style=" width:100rem; height:43.95rem; background:#333333">
+    <div class="container-fluid d-flex justify-content-center w-md-0 w-sm-50 align-item-center m-0 p-0 ">
+        <div class="card" style=" width:100rem; height:50rem; background:#333333">
             <div class="card-body m-0">
                 <div class="row g-0">
                     <div class="col-md-4 border-0 border-primary flex-column d-flex justify-content-center align-items-center px-2 gap-3">

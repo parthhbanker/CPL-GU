@@ -50,3 +50,10 @@ if ($_POST['data'] == "player") {
         }
     }
 }
+
+if ($_POST['data'] == "mainScreen") {
+    $player_id = get_safe_value($conn, $_POST['player_id']);
+    $result = mysqli_query($conn, "UPDATE data_mapping SET player_id ='$player_id' WHERE id=1");
+
+    echo "done";
+}
