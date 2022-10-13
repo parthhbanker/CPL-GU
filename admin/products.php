@@ -34,7 +34,7 @@
 							</thead>
 							<tbody>
 								<?php
-								$players = $conn->query("SELECT p.*, t.team_name FROM player p join team t on p.team_id = t.team_id ");
+								$players = $conn->query("SELECT p.*, (SELECT team_name from team t where t.team_id = p.team_id) as team_name FROM player p");
 								while ($row = $players->fetch_assoc()) :
 								?>
 

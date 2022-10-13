@@ -89,7 +89,17 @@ if ($_POST['data'] == "player") {
    updateMainScreen($conn, $player_id);
 }
 
-// make a function and pass 2 objects as parameters
 function updateMainScreen($conn, $player_id) {
-    $result = mysqli_query($conn, "UPDATE data_mapping SET player_id ='$player_id' WHERE id=1");
+    
+
+    $r = mysqli_query($conn, "SELECT player_id FROM data_mapping WHERE id=1");
+
+    $res = mysqli_num_rows($r);
+
+    if ($res > 0) {
+        $result = mysqli_query($conn, "UPDATE data_mapping SET player_id ='$player_id' WHERE id=1");
+        
+    }else{
+        $res = mysqli_query($conn, "insert into data_mapping values (1, '$player_id')");
+    }
 }
