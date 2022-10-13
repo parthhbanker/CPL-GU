@@ -173,18 +173,15 @@
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
 					var dropdown_player = document.getElementById("player_div").style.display = "none";
-					//var category_id = document.getElementById("category").value = "select";
+					var category_id = document.getElementById("category").value = "select";
 					var category_id = document.getElementById("base_price").value = "";
 					var category_id = document.getElementById("bid_price").value = "";
 					var category_id = document.getElementById("team").value = "select";
-					var category_id = document.getElementById("player").value = "select";
 
 					window.location.replace("index.php?page=bids");
 
-
-
 				}
-``````````
+
 			})
 
 		} else if (id == "delete") {
