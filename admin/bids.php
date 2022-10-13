@@ -37,7 +37,8 @@
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
 							<select id="player" onchange="change(this.id)">
-								<option >Select</option>
+							
+								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
 							</select>
 						</div>
@@ -159,75 +160,75 @@
 <script>
 	function edit(id) {
 
-// alert(id);
+		// alert(id);
 
-jQuery.ajax({
-	url: 'get_players.php',
-	type: 'post',
-	data: '&player_id=' + id + '&data=edit',
-	success: function(result) {
+		jQuery.ajax({
+			url: 'get_players.php',
+			type: 'post',
+			data: '&player_id=' + id + '&data=edit',
+			success: function(result) {
 
-		array = result.split(";");
+				alert(result);
+				array = result.split(";");
 
-		var category_id = document.getElementById("base_price").value = array[4];
+				var category_id = document.getElementById("base_price").value = array[4];
 
-		var bid_price = document.getElementById("bid_price");
-		bid_price.value = array[5];
-		bid_price.disabled = false;
+				var bid_price = document.getElementById("bid_price");
+				bid_price.value = array[5];
+				bid_price.disabled = false;
 
-		// alert(result);
-		var category_options_length = document.getElementById("category").options.length;
-		var category_option = document.getElementById("category");
-		for (var i = 0; i < category_options_length; i++) {
+				// alert(result);
+				var category_options_length = document.getElementById("category").options.length;
+				var category_option = document.getElementById("category");
+				for (var i = 0; i < category_options_length; i++) {
 
-			if (category_option.options[i].value == array[0]) {
+					if (category_option.options[i].value == array[0]) {
 
-				category_option.options[i].selected = true;
+						category_option.options[i].selected = true;
+
+					}
+
+				}
+
+				var dropdown_player = document.getElementById("player_div").style.display = "block";
+				var x = document.getElementById("player");
+				var option = document.createElement("option");
+				option.value = array[2];
+				option.text = array[3];
+				option.selected = true;
+
+				x.add(option);
+
+				var team_options_length = document.getElementById("team").options.length;
+				var team_option = document.getElementById("team");
+				for (var i = 0; i < team_options_length; i++) {
+
+					if (team_option.options[i].value == array[6]) {
+
+						team_option.options[i].selected = true;
+
+					}
+
+				}
 
 			}
 
-		}
-
-		var dropdown_player = document.getElementById("player_div").style.display = "block";
-
-		var x = document.getElementById("player");
-		var option = document.createElement("option");
-		option.value = array[2];
-		option.text = array[3];
-		option.selected = true;
-
-		x.add(option);
-
-		var team_options_length = document.getElementById("team").options.length;
-		var team_option = document.getElementById("team");
-		for (var i = 0; i < team_options_length; i++) {
-
-			if (team_option.options[i].value == array[6]) {
-
-				team_option.options[i].selected = true;
-
-			}
-
-		}
+		})
 
 	}
 
-})
+	function cancel() {
 
-}
-
-function cancel() {
-
-var dropdown_player = document.getElementById("player_div").style.display = "none";
-var category_id = document.getElementById("category").value = "select";
-var category_id = document.getElementById("base_price").value = "";
-var category_id = document.getElementById("bid_price").value = "";
-var category_id = document.getElementById("team").value = "select";
-<?php $query_i_u = "update" ?>
+		var dropdown_player = document.getElementById("player_div").style.display = "none";
+		var category_id = document.getElementById("category").value = "select";
+		var category_id = document.getElementById("base_price").value = "";
+		var category_id = document.getElementById("bid_price").value = "";
+		var category_id = document.getElementById("team").value = "select";
+		<?php $query_i_u = "update" ?>
 
 
 
-}
+	}
 
 	function change(id) {
 
@@ -333,6 +334,14 @@ var category_id = document.getElementById("team").value = "select";
 			}
 
 		})
+
+	}
+
+	function on_select(){
+
+		alert("hidden");
+		var select_option = document.getElementById("select");
+		select_option.style.visibility = "hidden"
 
 	}
 

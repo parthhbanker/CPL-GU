@@ -6,7 +6,10 @@ require('functions.php');
 if ($_POST['data'] == "edit") {
 
     $player_id = get_safe_value($conn, $_POST['player_id']);
-    $result = mysqli_query($conn, "Select pro.pro_Id , pro.player_role , p.id , p.player_name , p.base_price , b.bid_price , t.team_id from player_role pro join player p on p.pro_id = pro.pro_Id , bids b join team t on b.team_id = t.team_Id where p.id = '$player_id' ;");
+    $result = mysqli_query($conn, "SELECT p.pro_id, (SELECT player_role from player_role pr where pr.pro_id = p.pro_id) as player_role, p.id, p.player_name, p.base_price, (SELECT bid_price from bids b where b.player_id = p.id) as bid_price, p.team_id from player p where p.id = '$player_id'");
+
+
+    // $result = mysqli_query($conn, "Select  p.id , p.player_name , p.base_price , b.bid_price , t.team_id from player_role pro join player p on p.pro_id = pro.pro_Id , bids b join team t on b.team_id = t.team_Id where p.id = '$player_id' ;");
 
     while ($row = $result->fetch_assoc()) {
 
