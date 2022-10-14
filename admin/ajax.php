@@ -14,6 +14,12 @@ if($action == 'logout'){
 		echo $logout;
 }
 
+if($action == 'delete_team_user'){
+	$save = $crud->delete_team_user();
+	if($save)
+		echo $save;
+}
+
 if($action == 'save_user'){
 	$save = $crud->save_user();
 	if($save)
@@ -29,6 +35,7 @@ if($action == 'update_account'){
 	if($save)
 		echo $save;
 }
+
 if($action == "save_category"){
 	$save = $crud->save_category();
 	if($save)
@@ -50,62 +57,6 @@ if($action == "delete_product"){
 	if($save)
 		echo $save;
 }
-if($action == "get_latest_bid"){
-	$save = $crud->get_latest_bid();
-	if($save)
-		echo $save;
-}
-if($action == "save_bid"){
-	$save = $crud->save_bid();
-	if($save)
-		echo $save;
-}
-// if($action == "delete_book"){
-// 	$save = $crud->delete_book();
-// 	if($save)
-// 		echo $save;
 
-// }
-
-// if($action == "get_booked_details"){
-// 	$save = $crud->get_booked_details();
-// 	if($save)
-// 		echo $save;
-// }
-// if($action == "save_movement"){
-// 	$save = $crud->save_movement();
-// 	if($save)
-// 		echo $save;
-// }
-// if($action == "delete_movement"){
-// 	$save = $crud->delete_movement();
-// 	if($save)
-// 		echo $save;
-// }	
-// if($action == "participate"){
-// 	$save = $crud->participate();
-// 	if($save)
-// 		echo $save;
-// }
-// if($action == "get_venue_report"){
-// 	$get = $crud->get_venue_report();
-// 	if($get)
-// 		echo $get;
-// }
-// if($action == "save_art_fs"){
-// 	$save = $crud->save_art_fs();
-// 	if($save)
-// 		echo $save;
-// }
-// if($action == "delete_art_fs"){
-// 	$save = $crud->delete_art_fs();
-// 	if($save)
-// 		echo $save;
-// }
-// if($action == "get_pdetails"){
-// 	$get = $crud->get_pdetails();
-// 	if($get)
-// 		echo $get;
-// }
 ob_end_flush();
 ?>

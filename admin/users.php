@@ -19,14 +19,13 @@
 					<th class="text-center">#</th>
 					<th class="text-center">Name</th>
 					<th class="text-center">Username</th>
-					<th class="text-center">Type</th>
 					<th class="text-center">Action</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php
  					include 'db_connect.php';
- 					$type = array("","Admin","Staff","Alumnus/Alumna");
+ 					$type = array("","Admin","Team Mentor");
  					$users = $conn->query("SELECT * FROM users order by name asc");
  					$i = 1;
  					while($row= $users->fetch_assoc()):
@@ -41,9 +40,6 @@
 				 	
 				 	<td>
 				 		<?php echo $row['username'] ?>
-				 	</td>
-				 	<td>
-				 		<?php echo $type[$row['type']] ?>
 				 	</td>
 				 	<td>
 				 		<center>

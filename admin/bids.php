@@ -15,7 +15,7 @@
 
 						<div class="form-group">
 							<label class="control-label">Player Role</label>
-							<select onchange="change(this.id)" id="category">
+							<select onchange="change(this.id)" id="category" class="select2">
 
 								<option selected disabled>Select</option>
 
@@ -33,7 +33,7 @@
 
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)">
+							<select id="player" onchange="change(this.id)" class="select2">
 
 								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
@@ -53,7 +53,7 @@
 
 						<div class="form-group">
 							<label class="control-label">Team</label>
-							<select id="team">
+							<select id="team" class="select2">
 								<option selected disabled>Select</option>
 								<?php
 								$i = 1;

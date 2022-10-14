@@ -89,6 +89,29 @@ if ($_POST['data'] == "player") {
 
    updateMainScreen($conn, $player_id);
 }
+if ($_POST['data'] == "add_team_user") {
+    // fetch team_name, username, password
+    $team_name = get_safe_value($conn, $_POST['team_name']);
+    $username = get_safe_value($conn, $_POST['username']);
+    $password = get_safe_value($conn, $_POST['password']);
+
+    // find team_id from team_name
+    $result = mysqli_query($conn, "select team_Id from team where team_name = '$team_name' ");
+    $row = $result->fetch_assoc();
+    $team_id = $row['team_Id'];
+
+    // check if username already exists
+    $result = mysqli_query($conn, "select * from team_login where team_id =  ".$team_id." ");
+
+    $pass = md5($password);
+    if (mysqli_num_rows($result) > 0) {
+        echo 2;
+    } else {
+        // insert into user table
+        $result = mysqli_query($conn, "INSERT INTO team_login ( username, password, team_id) VALUES ( '$username', '$pass', '$team_id')");
+        echo 1;
+    }
+}
 
 function updateMainScreen($conn, $player_id) {
     

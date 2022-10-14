@@ -28,13 +28,6 @@ class Action
 				if ($key != 'passwors' && !is_numeric($key))
 					$_SESSION['login_' . $key] = $value;
 			}
-			if ($_SESSION['login_type'] != 1) {
-				foreach ($_SESSION as $key => $value) {
-					unset($_SESSION[$key]);
-				}
-				return 2;
-				exit;
-			}
 			return 1;
 		} else {
 			return 3;
@@ -82,16 +75,19 @@ class Action
 	function save_user()
 	{
 		extract($_POST);
-		$data = " name = '$name' ";
+		// name	
+		$data = "name = '$name'";
+
+
 		$data .= ", username = '$username' ";
 		if (!empty($password))
 			$data .= ", password = '" . md5($password) . "' ";
-		$data .= ", type = '$type' ";
 		if ($type == 1)
 			$establishment_id = 0;
 		$chk = $this->db->query("Select * from users where username = '$username' and id !='$id' ")->num_rows;
 		if ($chk > 0) {
-			return 2;
+			echo 2;
+			return;
 			exit;
 		}
 		if (empty($id)) {
@@ -100,7 +96,8 @@ class Action
 			$save = $this->db->query("UPDATE users set " . $data . " where id = " . $id);
 		}
 		if ($save) {
-			return 1;
+			echo 1;
+			return;
 		}
 	}
 	function delete_user()
@@ -109,27 +106,6 @@ class Action
 		$delete = $this->db->query("DELETE FROM users where id = " . $id);
 		if ($delete)
 			return 1;
-	}
-	function signup()
-	{
-		extract($_POST);
-		$data = " name = '$name' ";
-		$data .= ", username = '$username' ";
-		$data .= ", email = '$email' ";
-		$data .= ", contact = '$contact' ";
-		$data .= ", address = '$address' ";
-		$data .= ", password = '" . md5($password) . "' ";
-		$chk = $this->db->query("SELECT * FROM users where username = '$username' ")->num_rows;
-		if ($chk > 0) {
-			return 2;
-			exit;
-		}
-		$save = $this->db->query("INSERT INTO users set " . $data);
-		if ($save) {
-			$login = $this->login2();
-			if ($login)
-				return $login;
-		}
 	}
 	function update_account()
 	{
@@ -171,38 +147,6 @@ class Action
 		}
 	}
 
-	function save_settings()
-	{
-		extract($_POST);
-		$data = " name = '" . str_replace("'", "&#x2019;", $name) . "' ";
-		$data .= ", email = '$email' ";
-		$data .= ", contact = '$contact' ";
-		$data .= ", about_content = '" . htmlentities(str_replace("'", "&#x2019;", $about)) . "' ";
-		if ($_FILES['img']['tmp_name'] != '') {
-			$fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['img']['name'];
-			$move = move_uploaded_file($_FILES['img']['tmp_name'], 'assets/uploads/' . $fname);
-			$data .= ", cover_img = '$fname' ";
-		}
-
-		// echo "INSERT INTO system_settings set ".$data;
-		$chk = $this->db->query("SELECT * FROM system_settings");
-		if ($chk->num_rows > 0) {
-			$save = $this->db->query("UPDATE system_settings set " . $data);
-		} else {
-			$save = $this->db->query("INSERT INTO system_settings set " . $data);
-		}
-		if ($save) {
-			$query = $this->db->query("SELECT * FROM system_settings limit 1")->fetch_array();
-			foreach ($query as $key => $value) {
-				if (!is_numeric($key))
-					$_SESSION['system'][$key] = $value;
-			}
-
-			return 1;
-		}
-	}
-
-
 	function save_category()
 	{
 		extract($_POST);
@@ -218,19 +162,17 @@ class Action
 
 				if ($move == 1) {
 					return 1;
-					
-				} else {	
-					return 3;			
+				} else {
+					return 3;
 				}
 			}
 		} else {
 			$save = $this->db->query("UPDATE team set team_name = '$team' where id = $id");
-			if ($save){
+			if ($save) {
 				return 2;
-			}else{
+			} else {
 				return 4;
 			}
-			
 		}
 	}
 	function delete_category()
@@ -284,126 +226,11 @@ class Action
 			return 1;
 		}
 	}
-	function get_latest_bid()
+	function delete_team_user()
 	{
 		extract($_POST);
-		$get = $this->db->query("SELECT * FROM bids where product_id = $product_id order by bid_amount desc limit 1 ");
-		$bid = $get->num_rows > 0 ? $get->fetch_array()['bid_amount'] : 0;
-		return $bid;
-	}
-	function save_bid()
-	{
-		extract($_POST);
-		$data = "";
-		$chk = $this->db->query("SELECT * FROM bids where product_id = $product_id order by bid_amount desc limit 1 ");
-		$uid = $chk->num_rows > 0 ? $chk->fetch_array()['user_id'] : 0;
-		foreach ($_POST as $k => $v) {
-			if (!in_array($k, array('id')) && !is_numeric($k)) {
-				if (empty($data)) {
-					$data .= " $k='$v' ";
-				} else {
-					$data .= ", $k='$v' ";
-				}
-			}
-		}
-		$data .= ", user_id='{$_SESSION['login_id']}' ";
-
-		if ($uid == $_SESSION['login_id']) {
-			return 2;
-			exit;
-		}
-		if (empty($id)) {
-			$save = $this->db->query("INSERT INTO bids set " . $data);
-		} else {
-			$save = $this->db->query("UPDATE bids set " . $data . " where id=" . $id);
-		}
-		if ($save)
-			return 1;
-	}
-	function delete_book()
-	{
-		extract($_POST);
-		$delete = $this->db->query("DELETE FROM books where id = " . $id);
-		if ($delete) {
-			return 1;
-		}
-	}
-	function get_booked_details()
-	{
-		extract($_POST);
-		$qry = $this->db->query("SELECT b.*,c.brand, c.model FROM books b inner join cars c on c.id = b.car_id where b.id = $id ")->fetch_array();
-		$data = array();
-		foreach ($qry as $k => $v) {
-			if (!is_numeric($k))
-				$data[$k] = $v;
-		}
-		return json_encode($data);
-	}
-	function save_movement()
-	{
-		extract($_POST);
-		$data = " booked_id = '$book_id' ";
-		$data .= ", car_id = '$car_id' ";
-
-		if (empty($id)) {
-			$save = $this->db->query("INSERT INTO borrowed_cars set " . $data);
-			if ($save) {
-				$data = " car_registration_no = '$car_registration_no' ";
-				$data .= ", car_plate_no = '$car_plate_no' ";
-				$this->db->query("UPDATE books set $data where id = $book_id");
-			}
-		} else {
-			$data .= ", status = '$status' ";
-			$save = $this->db->query("UPDATE borrowed_cars set " . $data . " where id=" . $id);
-		}
-		if ($save)
-			return 1;
-	}
-	function delete_movement()
-	{
-		extract($_POST);
-		$delete = $this->db->query("DELETE FROM borrowed_cars where id = " . $id);
-		if ($delete) {
-			return 1;
-		}
-	}
-	function save_event()
-	{
-		extract($_POST);
-		$data = " title = '$title' ";
-		$data .= ", schedule = '$schedule' ";
-		$data .= ", content = '" . htmlentities(str_replace("'", "&#x2019;", $content)) . "' ";
-		if ($_FILES['banner']['tmp_name'] != '') {
-			$_FILES['banner']['name'] = str_replace(array("(", ")", " "), '', $_FILES['banner']['name']);
-			$fname = strtotime(date('y-m-d H:i')) . '_' . $_FILES['banner']['name'];
-			$move = move_uploaded_file($_FILES['banner']['tmp_name'], 'assets/uploads/' . $fname);
-			$data .= ", banner = '$fname' ";
-		}
-		if (empty($id)) {
-
-			$save = $this->db->query("INSERT INTO events set " . $data);
-		} else {
-			$save = $this->db->query("UPDATE events set " . $data . " where id=" . $id);
-		}
-		if ($save)
-			return 1;
-	}
-	function delete_event()
-	{
-		extract($_POST);
-		$delete = $this->db->query("DELETE FROM events where id = " . $id);
-		if ($delete) {
-			return 1;
-		}
-	}
-
-	function participate()
-	{
-		extract($_POST);
-		$data = " event_id = '$event_id' ";
-		$data .= ", user_id = '{$_SESSION['login_id']}' ";
-		$commit = $this->db->query("INSERT INTO event_commits set $data ");
-		if ($commit)
+		$delete = $this->db->query("DELETE FROM team_login where id = " . $id);
+		if ($delete)
 			return 1;
 	}
 }
