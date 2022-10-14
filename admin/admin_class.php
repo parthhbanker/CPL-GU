@@ -109,10 +109,6 @@ class Action
 		if ($delete)
 			return 1;
 	}
-<<<<<<< HEAD
-	
-	function update_account(){
-=======
 	function signup()
 	{
 		extract($_POST);
@@ -136,7 +132,6 @@ class Action
 	}
 	function update_account()
 	{
->>>>>>> 84d9ade94702eccfb676e4261eef46c709020932
 		extract($_POST);
 		$data = " name = '" . $firstname . ' ' . $lastname . "' ";
 		$data .= ", username = '$email' ";
