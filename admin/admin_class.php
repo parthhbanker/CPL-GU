@@ -74,14 +74,13 @@ Class Action {
 
 	function save_user(){
 		extract($_POST);
-		$data = " name = '$name' ";
 		$data .= ", username = '$username' ";
 		if(!empty($password))
 		$data .= ", password = '".md5($password)."' ";
 		$data .= ", type = '$type' ";
 		if($type == 1)
 			$establishment_id = 0;
-		$chk = $this->db->query("Select * from users where username = '$username' and id !='$id' ")->num_rows;
+		$chk = mysqli_num_rows(mysqli_query($this->db,"SELECT * FROM users where username = '$username'"));
 		if($chk > 0){
 			return 2;
 			exit;
@@ -101,26 +100,7 @@ Class Action {
 		if($delete)
 			return 1;
 	}
-	function signup(){
-		extract($_POST);
-		$data = " name = '$name' ";
-		$data .= ", username = '$username' ";
-		$data .= ", email = '$email' ";
-		$data .= ", contact = '$contact' ";
-		$data .= ", address = '$address' ";
-		$data .= ", password = '".md5($password)."' ";
-		$chk = $this->db->query("SELECT * FROM users where username = '$username' ")->num_rows;
-		if($chk > 0){
-			return 2;
-			exit;
-		}
-			$save = $this->db->query("INSERT INTO users set ".$data);
-		if($save){
-			$login = $this->login2();
-				if($login)
-				return $login;
-		}
-	}
+	
 	function update_account(){
 		extract($_POST);
 		$data = " name = '".$firstname.' '.$lastname."' ";

@@ -26,7 +26,7 @@
 			<tbody>
 				<?php
  					include 'db_connect.php';
- 					$type = array("","Admin","Staff","Alumnus/Alumna");
+ 					$type = array("","Admin","Team Mentor");
  					$users = $conn->query("SELECT * FROM users order by name asc");
  					$i = 1;
  					while($row= $users->fetch_assoc()):
