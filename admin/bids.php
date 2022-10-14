@@ -1,7 +1,4 @@
 <?php include('db_connect.php'); ?>
-<link href="./library/bootstrap-5/bootstrap.min.css" rel="stylesheet" />
-<script src="./library/bootstrap-5/bootstrap.bundle.min.js"></script>
-<script src="./library/dselect.js"></script>
 <div class="container-fluid">
 
 	<div class="col-lg-12">
@@ -384,9 +381,4 @@
 		})
 	}
 
-	var select_box_element = document.querySelector('#player');
-
-	dselect(select_box_element, {
-		search: true
-	});
 </script>

@@ -195,18 +195,26 @@ Class Action {
 	
 	function save_category(){
 		extract($_POST);
-		$data = " name = '$name' ";
 			if(empty($id)){
-				$save = $this->db->query("INSERT INTO categories set $data");
+				$save = $this->db->query("INSERT INTO team(team_name) values ('$name')");
+				// add image to logo folder
+				if($save){
+					$team_id = $this->db->insert_id;
+					$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
+					$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
+					$save = $this->db->query("UPDATE team set logo = '$fname' where id = $team_id");
+					if($save)
+						return 1;
+				}
 			}else{
-				$save = $this->db->query("UPDATE categories set $data where id = $id");
+				$save = $this->db->query("UPDATE team set team_name = '$team' where id = $id");
 			}
 		if($save)
 			return 1;
 	}
 	function delete_category(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM categories where id = ".$id);
+		$delete = $this->db->query("DELETE FROM team where team_id = ".$id);
 		if($delete){
 			return 1;
 		}
@@ -237,9 +245,9 @@ Class Action {
 			$ftype= explode('.',$_FILES['img']['name']);
 			$ftype= end($ftype);
 			$fname =$id.'.'.$ftype;
-			if(is_file('assets/uploads/'. $fname))
-				unlink('assets/uploads/'. $fname);
-			$move = move_uploaded_file($_FILES['img']['tmp_name'],'assets/uploads/'. $fname);
+			if(is_file('../assets/logo/'. $fname))
+				unlink('../assets/logo/'. $fname);
+			$move = move_uploaded_file($_FILES['img']['tmp_name'],'../assets/logo/'. $fname);
 			$save = $this->db->query("UPDATE products set img_fname='$fname' where id = $id");
 			}
 			return 1;
@@ -247,7 +255,7 @@ Class Action {
 	}
 	function delete_product(){
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM products where id = ".$id);
+		$delete = $this->db->query("DELETE FROM player where id = '".$id."'");
 		if($delete){
 			return 1;
 		}
