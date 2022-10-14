@@ -14,12 +14,16 @@
 							<input type="hidden" name="id">
 							<div class="form-group">
 								<label class="control-label">Name</label>
-								<input type="text" class="form-control" name="name">
+								<input type="text" class="form-control" name="name" id="team_name">
 							</div>
 
 							<div class="form-group">
 								<label class="control-label">Logo</label>
-								<input type="file" class="" name="img" accept="image/*">
+								<input type="file" class="" name="img" accept="image/png"  id="inp">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Logo Preview</label>&nbsp;
+								<img src="../assets/logos/Blasters.png" alt="" height="75" id="lp">
 							</div>
 						</div>
 
@@ -35,6 +39,19 @@
 				</form>
 			</div>
 			<!-- FORM Panel -->
+
+			<script>
+				function ch() {
+					document.getElementById("lp").src = document.getElementById("inp").val();
+				}
+
+				$(function() {
+					$('#inp').on('change', function() {
+						var filePath = $(this).val();
+						console.log(filePath);
+					});
+				});
+			</script>
 
 			<!-- Table Panel -->
 			<div class="col-md-8">
@@ -65,7 +82,7 @@
 											<p><b><?php echo $row['team_name'] ?></b></p>
 										</td>
 										<td class="text-center">
-											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id='<?php echo $row['team_Id'] ?>'  data-name='<?php echo $row['team_name'] ?>'>Edit</button>
+											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id='<?php echo $row['team_Id'] ?>' data-name='<?php echo $row['team_name'] ?>'>Edit</button>
 											<button class="btn btn-sm btn-danger delete_category" type="button" data-id='<?php echo $row['team_Id'] ?>'>Delete</button>
 										</td>
 									</tr>
@@ -105,6 +122,18 @@
 
 				} else if (resp == 2) {
 					alert_toast("Data successfully updated", 'success')
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
+
+				} else if (resp == 3) {
+					alert_toast("Unable to add data", 'warning')
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
+
+				} else if (resp == 3) {
+					alert_toast("Unable to updated data", 'warning')
 					setTimeout(function() {
 						location.reload()
 					}, 1500)

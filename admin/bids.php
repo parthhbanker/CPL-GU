@@ -34,7 +34,7 @@
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
 							<select id="player" onchange="change(this.id)">
-							
+
 								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
 							</select>
@@ -165,7 +165,6 @@
 			data: '&player_id=' + id + '&data=edit',
 			success: function(result) {
 
-				alert(result);
 				array = result.split(";");
 
 				var category_id = document.getElementById("base_price").value = array[4];
@@ -173,6 +172,7 @@
 				var bid_price = document.getElementById("bid_price");
 				bid_price.value = array[5];
 				bid_price.disabled = false;
+				bid_price.min = array[4] ;
 
 				// alert(result);
 				var category_options_length = document.getElementById("category").options.length;
@@ -310,7 +310,6 @@
 					y.disabled = false;
 					y.min = result;
 
-
 				}
 			})
 
@@ -334,7 +333,7 @@
 
 	}
 
-	function on_select(){
+	function on_select() {
 
 		alert("hidden");
 		var select_option = document.getElementById("select");
