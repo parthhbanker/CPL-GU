@@ -150,7 +150,7 @@ if (isset($_GET['id'])) {
 			<div class="card-body">
 				<form action="" id="manage-product">
 					<input type="hidden" name="id" value="<?php echo isset($id) ? $id : '' ?>">
-					<h4><b><?php echo !isset($id) ? "New Product" : "Manage Product" ?></b></h4>
+					<h4><b><?php echo !isset($id) ? "New Player" : "Manage Product" ?></b></h4>
 					<hr>
 					<div class="form-group row">
 						<div class="col-md-4">
@@ -159,17 +159,35 @@ if (isset($_GET['id'])) {
 						</div>
 
 					</div>
-					<div class="form-group row">
+					<!-- <div class="form-group row">
 						<div class="col-md-4">
 							<label for="" class="control-label">Category</label>
 							<select class="custom-select select2" name="category_id">
 								<option value=""></option>
 								<?php
-								$qry = $conn->query("SELECT * FROM player_role order by name asc");
-								while ($row = $qry->fetch_assoc()) :
+								// $qry = $conn->query("SELECT * FROM player_role order by name asc");
+								// while ($row = $qry->fetch_assoc()) :
 								?>
-									<option value="<?php echo $row['pro_id'] ?>" <?php echo isset($category_id) && $category_id == $row['pro_id'] ? 'selected' : '' ?>><?php echo $row['role_name'] ?></option>
+									<option value="<?php //echo $row['pro_id'] ?>" <?php //echo isset($category_id) && $category_id == $row['pro_id'] ? 'selected' : '' ?>><?php echo $row['role_name'] ?></option>
+								<?php //endwhile; ?>
+							</select>
+						</div> -->
+
+						<div class="form-group">
+							<label class="control-label">Player Role</label>
+							<select onchange="change(this.id)" id="category">
+
+								<option selected disabled>Select</option>
+
+								<?php
+								$i = 1;
+								$category = $conn->query("SELECT * FROM player_role order by pro_id	 asc");
+								while ($row = $category->fetch_assoc()) :
+								?>
+									<option value='<?php echo $row['pro_Id'] ?>'><?php echo $row['player_role'] ?></option>
+
 								<?php endwhile; ?>
+
 							</select>
 						</div>
 
