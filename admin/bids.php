@@ -1,7 +1,4 @@
 <?php include('db_connect.php'); ?>
-<link href="./library/bootstrap-5/bootstrap.min.css" rel="stylesheet" />
-<script src="./library/bootstrap-5/bootstrap.bundle.min.js"></script>
-<script src="./library/dselect.js"></script>
 <div class="container-fluid">
 
 	<div class="col-lg-12">
@@ -18,7 +15,7 @@
 
 						<div class="form-group">
 							<label class="control-label">Category</label>
-							<select onchange="change(this.id)" id="category">
+							<select onchange="change(this.id)" id="category" class="custom-select select2">
 								<option selected disabled>Select</option>
 
 								<?php
@@ -36,7 +33,7 @@
 
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)">
+							<select class="custom-select select2" id="player" onchange="change(this.id)">
 								<option >Select</option>
 
 							</select>
@@ -55,7 +52,7 @@
 
 						<div class="form-group">
 							<label class="control-label">Team</label>
-							<select id="team">
+							<select class="custom-select select2">
 								<option>Select</option>
 								<?php
 								$i = 1;
@@ -314,9 +311,4 @@
 		})
 	}
 
-	var select_box_element = document.querySelector('#player');
-
-	dselect(select_box_element, {
-		search: true
-	});
 </script>

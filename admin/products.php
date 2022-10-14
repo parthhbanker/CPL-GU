@@ -34,7 +34,7 @@
 							</thead>
 							<tbody>
 								<?php
-								$players = $conn->query("SELECT p.*, t.team_name FROM player p join team t on p.team_id = t.team_id ");
+								$players = $conn->query("SELECT p.*, (SELECT team_name from team t where t.team_id = p.team_id) as team_name FROM player p ");
 								while ($row = $players->fetch_assoc()) :
 								?>
 
@@ -42,7 +42,7 @@
 										<td class="text-center"><?php echo $row['id'] ?></td>
 										<td class="">
 											<div class="row justify-content-center">
-												<img src="<?php //echo 'assets/uploads/' . $row['img_fname'] ?>" alt="">
+												<img height="50" src="../assets/players/<?php echo /*$row['id']*/ 'IM001'; ?>.png" alt="">
 											</div>
 										</td>
 										<td>
@@ -50,17 +50,50 @@
 										</td>
 										<td class="">
 											<p>Name: <b><?php echo ucwords($row['player_name']) ?></b></p>
-											<p><small>Role: <b><?php echo $row['pro_id'] ?></b></small></p>
-											<p><small>Bowling Style: <b><?php echo $row['bs_id'] ?></b></small></p>
-											<p><small>Batting Hand: <b><?php echo $row['bth_id'] ?></b></small></p>
+											<p><small>Role: <b><?php 
+											
+											// select from table	
+											if($row['pro_id'] == ""){
+												echo "N/A";
+											}else{
+												$role_id = $row['pro_id'];
+												$roles = $conn->query("SELECT * FROM player_role where pro_id = '$role_id'");
+												$role = $roles->fetch_assoc();
+											echo $role['player_role'];
+											}
+											
+
+											?></b></small></p>
+											<?php if ($row['bs_id'] != NULL) {
+											?>
+												<p><small>Bowling Style: <b><?php
+																			$bs = $conn->query("SELECT * FROM bowling_style where bs_id = " . $row['bs_id']);
+																			$bs = $bs->fetch_assoc();
+																			echo $bs['BowlingStyle'] ?></b></small></p>
+											<?php
+											} ?>
+											<?php if ($row['bth_id'] != NULL) {
+											?>
+												<p><small>Batting Hand: <b>
+															<?php echo $row['bth_id'] == 1 ? 'Right Hand Batsman' : 'Left Hand Batsman' ?></b></small></p>
+											<?php
+											} ?>
+
 										</td>
 										<td>
-											<p><small>Base Price: <b><?php  echo number_format($row['base_price'], 2) ?></b></small></p>
-											<p><small>Highest Bid: <b class="highest_bid"><?php //echo number_format($bid, 2) ?></b></small></p>
+											<p><small>Base Price: <b><?php echo number_format($row['base_price'], 2) ?></b></small></p>
+											<p><small>Highest Bid: <b class="highest_bid"><?php 
+											// get bid from bid table
+											$bid = $conn->query("SELECT * FROM bids where player_id = '".$row['id']."'");
+											$bids= $bid->fetch_assoc();
+
+											echo mysqli_num_rows($bid) > 0 ? $bids['bid_price'] : 0;
+											?>
+											
 										</td>
 										<td class="text-center">
 											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id="<?php echo $row['id'] ?>">Edit</button>
-											<button class="btn btn-sm btn-outline-danger delete_product" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+											<button class="btn btn-sm btn-outline-danger delete_product" type="button" onclick="delete_products('<?php echo $row['id'] ?>')">Delete</button>
 										</td>
 									</tr>
 								<?php endwhile; ?>
@@ -106,18 +139,13 @@
 		location.href = "index.php?page=manage_product&id=" + $(this).attr('data-id')
 
 	})
-	$('.delete_product').click(function() {
-		_conf("Are you sure to delete this product?", "delete_product", [$(this).attr('data-id')])
-	})
 
-	function delete_product($id) {
+	function delete_products(id) {
 		start_load()
 		$.ajax({
-			url: 'ajax.php?action=delete_product',
+			url: './ajax.php?action=delete_product',
 			method: 'POST',
-			data: {
-				id: $id
-			},
+			data: '&team_id=' + id.toString(),
 			success: function(resp) {
 				if (resp == 1) {
 					alert_toast("Data successfully deleted", 'success')
