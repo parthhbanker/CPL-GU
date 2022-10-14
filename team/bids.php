@@ -8,76 +8,62 @@
 				<!-- <form action="" id="manage-category"> -->
 				<div class="card">
 					<div class="card-header">
-						Bid Form
+						Team Bid Stats
 					</div>
 					<div class="card-body">
-						<input type="hidden" name="id">
+						<!-- show how many players are bideed -->
+						<?php
+						$team_id = $_SESSION['login_team_id'] ;
+						$players = $conn->query("SELECT * from bids where team_id = $team_id");
+						$player_count = $players->num_rows;
 
+						$bids = $conn->query("SELECT sum(bid_price) from bids where team_id = $team_id");
+						$bid_count = $bids->fetch_array()[0];
+
+						$bid_left = 50000 - $bid_count;
+
+						$player_left = 13 - $player_count;
+
+						$bid_avg = $player_count != 0 ?  $bid_count / $player_count : 0;
+
+						$bid_left_avg = $bid_left / $player_left;
+
+						$highest_bid = $conn->query("SELECT max(bid_price) from bids where team_id = $team_id");
+
+						$lowest_bid = $conn->query("SELECT min(bid_price) from bids where team_id = $team_id");
+						?>
 						<div class="form-group">
-							<label class="control-label">Player Role</label>
-							<select onchange="change(this.id)" id="category" class="select2">
-
-								<option selected disabled>Select</option>
-
-								<?php
-								$i = 1;
-								$category = $conn->query("SELECT * FROM player_role order by pro_id	 asc");
-								while ($row = $category->fetch_assoc()) :
-								?>
-									<option value='<?php echo $row['pro_Id'] ?>'><?php echo $row['player_role'] ?></option>
-
-								<?php endwhile; ?>
-
-							</select>
-						</div>
-
-						<div class="form-group" id="player_div" style="display:none">
-							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)" class="select2">
-
-								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
-
-							</select>
-						</div>
-
+							<label for="" class="control-label">Players Bidded</label>
+							<input type="text" class="form-control" name="player_count" value="<?php echo $player_count ?>" readonly>
+						</div>	
 						<div class="form-group">
-							<label class="control-label">Base Price</label>
-							<input type="text" class="form-control" name="base_price" id="base_price" disabled>
+							<label for="" class="control-label">Total Point Used</label>
+							<input type="text" class="form-control" name="bid_count" value="<?php echo $bid_count ?>" readonly>
 						</div>
-
-
 						<div class="form-group">
-							<label class="control-label">Bid Price</label>
-							<input type="number" class="form-control" name="bid_price" id="bid_price" required disabled>
-						</div>
-
+							<label for="" class="control-label">Points Left</label>
+							<input type="number" class="form-control" name="bid_left" value="<?php echo $bid_left ?>" readonly>
+						</div>	
 						<div class="form-group">
-							<label class="control-label">Team</label>
-							<select id="team" class="select2">
-								<option selected disabled>Select</option>
-								<?php
-								$i = 1;
-								$category = $conn->query("SELECT * FROM team order by team_id asc");
-								while ($row = $category->fetch_assoc()) :
-								?>
-
-									<option value='<?php echo $row['team_Id'] ?>'><?php echo $row['team_name'] ?></option>
-
-								<?php endwhile; ?>
-							</select>
+							<label for="" class="control-label">Players Left</label>
+							<input type="number" class="form-control" name="player_left" value="<?php echo $player_left ?>" readonly>
 						</div>
-
-
-					</div>
-
-
-					<div class="card-footer">
-						<div class="row">
-							<div class="col-md-12">
-								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3" type="button" id="save" onclick="change(this.id)"> Save</button>
-								<button class="btn btn-sm btn-default col-sm-3" onclick="cancel()"> Cancel</button>
-							</div>
+						<div class="form-group">
+							<label for="" class="control-label">Average Bid</label>
+							<input type="number" class="form-control" name="bid_avg" value="<?php echo $bid_avg ?>" readonly>
 						</div>
+						<div class="form-group">
+							<label for="" class="control-label">Average Bid Left</label>
+							<input type="number" class="form-control" name="bid_left_avg" value="<?php echo $bid_left_avg ?>" readonly>
+						</div>
+						<div class="form-group">
+							<label for="" class="control-label">Highest Bid</label>
+							<input type="number" class="form-control" name="highest_bid" value="<?php echo $highest_bid->fetch_array()[0] ?>" readonly>
+						</div>
+						<div class="form-group">
+							<label for="" class="control-label">Lowest Bid</label>
+							<input type="number" class="form-control" name="lowest_bid" value="<?php echo $lowest_bid->fetch_array()[0] ?>" readonly>
+						</div>	
 					</div>
 				</div>
 				<!-- </form> -->
@@ -96,16 +82,15 @@
 								<tr>
 									<th class="text-center">Player ID</th>
 									<th class="text-center">Player Name</th>
-									<th class="text-center">Team Name</th>
-									<th class="text-center">Base Price</th>
-									<th class="text-center">Bid Price</th>
-									<th class="text-center">Action</th>
+									<th class="text-center">Base Point</th>
+									<th class="text-center">Bid Point</th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
 								$i = 1;
-								$category = $conn->query("SELECT b.*, p.player_name, t.team_name FROM bids b join player p on b.player_id = p.id join team t on b.team_id = t.team_id order by p.player_name asc;");
+								$team_id = $_SESSION['login_team_id'];
+								$category = $conn->query("SELECT b.*, p.player_name, t.team_name FROM bids b join player p on b.player_id = p.id join team t on b.team_id = t.team_id where b.team_id = $team_id order by p.player_name asc;");
 								while ($row = $category->fetch_assoc()) :
 								?>
 									<tr>
@@ -116,17 +101,10 @@
 											<p><b><?php echo $row['player_name'] ?></b></p>
 										</td>
 										<td class="">
-											<p><b><?php echo $row['team_name'] ?></b></p>
-										</td>
-										<td class="">
 											<p><b><?php echo $row['base_price'] ?></b></p>
 										</td>
 										<td class="">
 											<p><b><?php echo $row['bid_price'] ?></b></p>
-										</td>
-										<td class="text-center">
-											<button class="btn btn-sm btn-outline-primary edit_product" id="<?php echo $row['player_id'] ?>" onclick="edit(this.id)" type="button">Edit</button>
-											<button class="btn btn-sm btn-outline-danger delete_product" id="<?php echo $row['id'] ?>" onclick="delete_(this.id)" type="button">Delete</button>
 										</td>
 									</tr>
 								<?php endwhile; ?>

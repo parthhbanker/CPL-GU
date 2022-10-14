@@ -30,7 +30,8 @@
 							</thead>
 							<tbody>
 								<?php
-								$players = $conn->query("SELECT p.*, (SELECT team_name from team t where t.team_id = p.team_id) as team_name FROM player p ");
+								$team_id = $_SESSION['login_team_id'] ;
+								$players = $conn->query("SELECT p.*, (SELECT team_name from team t where t.team_id = p.team_id) as team_name FROM player p where team_id = $team_id");
 								while ($row = $players->fetch_assoc()) :
 								?>
 

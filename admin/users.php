@@ -19,7 +19,6 @@
 					<th class="text-center">#</th>
 					<th class="text-center">Name</th>
 					<th class="text-center">Username</th>
-					<th class="text-center">Type</th>
 					<th class="text-center">Action</th>
 				</tr>
 			</thead>
@@ -41,9 +40,6 @@
 				 	
 				 	<td>
 				 		<?php echo $row['username'] ?>
-				 	</td>
-				 	<td>
-				 		<?php echo $type[$row['type']] ?>
 				 	</td>
 				 	<td>
 				 		<center>
