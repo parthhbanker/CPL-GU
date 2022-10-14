@@ -2,6 +2,7 @@
 require('admin/db_connect.php');
 
 $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.team_id = p.team_id) as team_name FROM data_mapping dm join player p on dm.player_id = p.id ");
+
 ?>
 
 <meta charset="utf-8">
