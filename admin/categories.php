@@ -14,7 +14,7 @@
 							<input type="hidden" name="id">
 							<div class="form-group">
 								<label class="control-label">Name</label>
-								<input type="text" class="form-control" name="name">
+								<input type="text" class="form-control" name="name" id="team_name">
 							</div>
 
 							<div class="form-group">
