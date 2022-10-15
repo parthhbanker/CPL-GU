@@ -151,57 +151,61 @@ class Action
 	function save_category()
 	{
 		extract($_POST);
-		if (empty($id)) {
 
-			if (mysqli_num_rows(mysqli_query($this->db, "select * from team where team_name = '$name'")) > 0) {
+		$tid = $this->db->query("select * from team where team_name = '$old_team_name'")->fetch_array()['team_Id'];
+		if (mysqli_num_rows(mysqli_query($this->db, "select * from team where team_Id = '$tid' ")) > 0) {
 
-				$save = $this->db->query("UPDATE team set team_name = '$name' ");
-				// add image to logo folder
-				if ($save) {
+			$save = $this->db->query("UPDATE team set team_name = '$name' where team_Id = '$tid' ");
+			// add image to logo folder
+			if ($save) {
+				// != "" && $fname != NULL
+
+				
+				if (!empty($_FILES['img']['tmp_name'])) {
 					$fname = $_FILES['img']['name'];
-
+					
 					$team_id = $this->db->insert_id;
 
 					if (file_exists('../assets/logos/' . $name . '.png')) {
 
 						unlink('../assets/logos/' . $name . '.png');
 					}
-
-
 					$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
-
-					// return $move ;
 
 					if ($move == 1) {
 						echo 2;
 					} else {
 						echo 4;
 					}
-				}
-			} else {
-
-				$save = $this->db->query("INSERT INTO team(team_name) values ('$name')");
-				// add image to logo folder
-				if ($save) {
-					$fname = $_FILES['img']['name'];
-
-					$team_id = $this->db->insert_id;
-
-					$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
-
-					if ($move == 1) {
-						echo 1;
-					} else {
-						echo 3;
+				}else{
+					$rn = rename('../assets/logos/' . $old_team_name . '.png', '../assets/logos/' . $name . '.png');
+					if($rn){
+						echo 2;
+					}else{
+						echo 4;
 					}
 				}
+
+				
+			} else {
+				echo 4;
 			}
 		} else {
-			$save = $this->db->query("UPDATE team set team_name = '$team' where id = $id");
+
+			$save = $this->db->query("INSERT INTO team(team_name) values ('$name')");
+			// add image to logo folder
 			if ($save) {
-				return 2;
-			} else {
-				return 4;
+				$fname = $_FILES['img']['name'];
+
+				$team_id = $this->db->insert_id;
+
+				$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+
+				if ($move == 1) {
+					echo 1;
+				} else {
+					echo 3;
+				}
 			}
 		}
 	}

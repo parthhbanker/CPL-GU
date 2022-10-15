@@ -15,11 +15,13 @@
 							<div class="form-group">
 								<label class="control-label">Name</label>
 								<input type="text" class="form-control" name="name" id="team_name">
+								<input type="hidden" name="team_id" id="team_id" value="" >
+								<input type="hidden" name="old_team_name" id="old_team_name" value="" >
 							</div>
 
 							<div class="form-group">
 								<label class="control-label">Logo</label>
-								<input type="file" class="" name="img" accept="image/png" id="inp">
+								<input type="file" class="" value="null" name="img" accept="image/png" id="inp">
 							</div>
 							<div class="form-group">
 								<label class="control-label">Logo Preview</label>&nbsp;
@@ -112,8 +114,12 @@
 
 				array = result.split(";");
 
+				document.getElementsByName("team_id").value = array[0];
+
 				x = document.getElementById("team_name");
 				x.value = array[1];
+
+				document.getElementById("old_team_name").value = array[1];
 
 				var img = document.getElementById("lp");
 				img.src = "../assets/logos/"+x.value+".png";
@@ -155,7 +161,7 @@
 		var img = document.getElementById("lp");
 		img.src = ""
 		$.ajax({
-			url: 'ajax.php?action=save_category',
+			url: 'ajax.php?action=save_category	',
 			data: new FormData($(this)[0]),
 			cache: false,
 			contentType: false,
@@ -189,6 +195,7 @@
 
 				}
 				clearstatcache()
+				window.location.reload();
 			}
 		})
 	})
