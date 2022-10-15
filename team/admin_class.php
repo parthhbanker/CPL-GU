@@ -21,7 +21,7 @@ Class Action {
 			if($qry->num_rows > 0){
 				foreach ($qry->fetch_array() as $key => $value) {
 					if($key != 'passworsd' && !is_numeric($key))
-						$_SESSION['login_'.$key] = $value;
+						$_SESSION['team_login_'.$key] = $value;
 				}
 					return 1;
 			}else{

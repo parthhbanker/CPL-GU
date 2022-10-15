@@ -21,7 +21,7 @@ ob_end_flush();
 
 <?php include('./header.php'); ?>
 <?php 
-if(isset($_SESSION['login_id']))
+if(isset($_SESSION['team_login_id']))
 header("location:index.php?page=home");
 
 ?>

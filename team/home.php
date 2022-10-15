@@ -52,7 +52,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                    <?php echo "Welcome back " . $_SESSION['login_username'] . "!"  ?>
+                    <?php echo "Welcome back " . $_SESSION['team_login_username'] . "!"  ?>
                     <hr>
                     </body>
                 </div>
