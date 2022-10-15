@@ -1,4 +1,5 @@
 <?php
+require('db_connect.php');
 session_start();
 ini_set('display_errors', 1);
 class Action
@@ -151,19 +152,48 @@ class Action
 	{
 		extract($_POST);
 		if (empty($id)) {
-			$save = $this->db->query("INSERT INTO team(team_name) values ('$name')");
-			// add image to logo folder
-			if ($save) {
-				$fname = $_FILES['img']['name'];
 
-				$team_id = $this->db->insert_id;
+			if (mysqli_num_rows(mysqli_query($this->db, "select * from team where team_name = '$name'")) > 0) {
 
-				$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+				$save = $this->db->query("UPDATE team set team_name = '$name' ");
+				// add image to logo folder
+				if ($save) {
+					$fname = $_FILES['img']['name'];
 
-				if ($move == 1) {
-					return 1;
-				} else {
-					return 3;
+					$team_id = $this->db->insert_id;
+
+					if (file_exists('../assets/logos/' . $name . '.png')) {
+
+						unlink('../assets/logos/' . $name . '.png');
+					}
+
+
+					$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+
+					// return $move ;
+
+					if ($move == 1) {
+						echo 2;
+					} else {
+						echo 4;
+					}
+				}
+			} else {
+
+				$save = $this->db->query("INSERT INTO team(team_name) values ('$name')");
+				// add image to logo folder
+				if ($save) {
+					$fname = $_FILES['img']['name'];
+
+					$team_id = $this->db->insert_id;
+
+					$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+
+					if ($move == 1) {
+						echo 1;
+					} else {
+						echo 3;
+					}
 				}
 			}
 		} else {
