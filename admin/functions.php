@@ -35,4 +35,7 @@ function get_products($con, $limit='', $plant_id=''){
 	}
 	return $data;
 }
+
+
+
 ?>

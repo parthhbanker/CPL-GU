@@ -19,11 +19,11 @@
 
 							<div class="form-group">
 								<label class="control-label">Logo</label>
-								<input type="file" class="" name="img" accept="image/png"  id="inp">
+								<input type="file" class="" name="img" accept="image/png" id="inp">
 							</div>
 							<div class="form-group">
 								<label class="control-label">Logo Preview</label>&nbsp;
-								<img src="../assets/logos/Blasters.png" alt="" height="75" id="lp">
+								<img src="" alt="" height="75" id="lp">
 							</div>
 						</div>
 
@@ -31,7 +31,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<button class="btn btn-sm btn-primary col-sm-3 offset-md-3"> Save</button>
-									<button class="btn btn-sm btn-default col-sm-3" type="button" onclick="$('#manage-category').get(0).reset()"> Cancel</button>
+									<button class="btn btn-sm btn-default col-sm-3" type="button" onclick="cancel()"> Cancel</button>
 								</div>
 							</div>
 						</div>
@@ -40,7 +40,7 @@
 			</div>
 			<!-- FORM Panel -->
 
-			<script>
+			<!-- <script>
 				function ch() {
 					document.getElementById("lp").src = document.getElementById("inp").val();
 				}
@@ -51,7 +51,7 @@
 						console.log(filePath);
 					});
 				});
-			</script>
+			</script> -->
 
 			<!-- Table Panel -->
 			<div class="col-md-8">
@@ -82,7 +82,7 @@
 											<p><b><?php echo $row['team_name'] ?></b></p>
 										</td>
 										<td class="text-center">
-											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id='<?php echo $row['team_Id'] ?>' data-name='<?php echo $row['team_name'] ?>'>Edit</button>
+											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id='<?php echo $row['team_Id'] ?>' data-name='<?php echo $row['team_name'] ?>' onclick="edit(<?php echo $row['team_Id'] ?>)">Edit</button>
 											<button class="btn btn-sm btn-danger delete_category" type="button" data-id='<?php echo $row['team_Id'] ?>'>Delete</button>
 										</td>
 									</tr>
@@ -102,9 +102,58 @@
 	}
 </style>
 <script>
+	function edit(id) {
+
+		jQuery.ajax({
+			url: 'get_players.php',
+			type: 'post',
+			data: '&team_id=' + id + '&data=edit_team',
+			success: function(result) {
+
+				array = result.split(";");
+
+				x = document.getElementById("team_name");
+				x.value = array[1];
+
+				var img = document.getElementById("lp");
+				img.src = "../assets/logos/"+x.value+".png";
+
+			}
+
+		})
+
+	}
+
+	function cancel() {
+
+		var img = document.getElementById("lp");
+		img.src = ""
+		$('#manage-category').get(0).reset();
+
+
+	}
+
+	$("input").change(function(e) {
+
+		for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+
+			var file = e.originalEvent.srcElement.files[i];
+
+			var img = document.getElementById("lp");
+			var reader = new FileReader();
+			reader.onloadend = function() {
+				img.src = reader.result;
+			}
+			reader.readAsDataURL(file);
+
+		}
+	});
+
 	$('#manage-category').submit(function(e) {
 		e.preventDefault()
 		start_load()
+		var img = document.getElementById("lp");
+		img.src = ""
 		$.ajax({
 			url: 'ajax.php?action=save_category',
 			data: new FormData($(this)[0]),
@@ -132,13 +181,14 @@
 						location.reload()
 					}, 1500)
 
-				} else if (resp == 3) {
-					alert_toast("Unable to updated data", 'warning')
+				} else if (resp == 4) {
+					alert_toast("Unable to update data", 'warning')
 					setTimeout(function() {
 						location.reload()
 					}, 1500)
 
 				}
+				clearstatcache()
 			}
 		})
 	})

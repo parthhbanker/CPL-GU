@@ -23,8 +23,22 @@ if ($_POST['data'] == "edit") {
 if ($_POST['data'] == "delete") {
 
     $bid_id = get_safe_value($conn, $_POST['bid_id']);
-    $res = mysqli_query($conn,"UPDATE player set team_id = NULL where id = (SELECT player_id from bids where id = $bid_id)");
+    $res = mysqli_query($conn, "UPDATE player set team_id = NULL where id = (SELECT player_id from bids where id = $bid_id)");
     $result = mysqli_query($conn, "delete from bids where id = $bid_id");
+}
+
+if ($_POST['data'] == "edit_team") {
+
+    $team_id = get_safe_value($conn, $_POST['team_id']);
+    $result = mysqli_query($conn, "select * from team where team_Id = $team_id");
+
+    while ($row = $result->fetch_assoc()) {
+
+        foreach ($row as $value) {
+
+            echo ($value . ";");
+        }
+    }
 }
 
 if ($_POST['data'] == "category") {
@@ -55,7 +69,6 @@ if ($_POST['data'] == "save") {
 
         $result = mysqli_query($conn, "UPDATE bids set team_id = '$tid', base_price = '$bprice', bid_price = '$bidp' where player_id = '$pid'");
         $res = mysqli_query($conn, "UPDATE player set team_id = '$tid' where id = '$pid'");
-
     } else {
 
         $result = mysqli_query($conn, "INSERT INTO bids ( player_id, team_id, base_price, bid_price) VALUES ( '$pid', '$tid', '$bprice', '$bidp')");
@@ -87,7 +100,7 @@ if ($_POST['data'] == "player") {
         }
     }
 
-   updateMainScreen($conn, $player_id);
+    updateMainScreen($conn, $player_id);
 }
 if ($_POST['data'] == "add_team_user") {
     // fetch team_name, username, password
@@ -101,7 +114,7 @@ if ($_POST['data'] == "add_team_user") {
     $team_id = $row['team_Id'];
 
     // check if username already exists
-    $result = mysqli_query($conn, "select * from team_login where team_id =  ".$team_id." ");
+    $result = mysqli_query($conn, "select * from team_login where team_id =  " . $team_id . " ");
 
     $pass = md5($password);
     if (mysqli_num_rows($result) > 0) {
@@ -113,8 +126,9 @@ if ($_POST['data'] == "add_team_user") {
     }
 }
 
-function updateMainScreen($conn, $player_id) {
-    
+function updateMainScreen($conn, $player_id)
+{
+
 
     $r = mysqli_query($conn, "SELECT player_id FROM data_mapping WHERE id=1");
 
@@ -122,8 +136,7 @@ function updateMainScreen($conn, $player_id) {
 
     if ($res > 0) {
         $result = mysqli_query($conn, "UPDATE data_mapping SET player_id ='$player_id' WHERE id=1");
-        
-    }else{
+    } else {
         $res = mysqli_query($conn, "insert into data_mapping values (1, '$player_id')");
     }
 }
