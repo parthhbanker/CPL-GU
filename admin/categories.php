@@ -1,5 +1,9 @@
 <?php include('db_connect.php'); ?>
 
+<meta http-equiv='cache-control' content='no-cache'>
+<meta http-equiv='expires' content='0'>
+<meta http-equiv='pragma' content='no-cache'>
+
 <div class="container-fluid">
 	<div class="col-lg-12">
 		<div class="row">
@@ -85,7 +89,7 @@
 										</td>
 										<td class="text-center">
 											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id='<?php echo $row['team_Id'] ?>' data-name='<?php echo $row['team_name'] ?>' onclick="edit(<?php echo $row['team_Id'] ?>)">Edit</button>
-											<button class="btn btn-sm btn-danger delete_category" type="button" data-id='<?php echo $row['team_Id'] ?>'>Delete</button>
+											<button class="btn btn-sm btn-danger delete_category" type="button" data-id='<?php echo $row['team_Id'] ?>'  >Delete</button>
 										</td>
 									</tr>
 								<?php endwhile; ?>
@@ -114,7 +118,9 @@
 
 				array = result.split(";");
 
-				document.getElementsByName("team_id").value = array[0];
+				document.getElementById("team_id").value = array[0];
+
+				// alert(document.getElementById("team_id").value);
 
 				x = document.getElementById("team_name");
 				x.value = array[1];
@@ -194,7 +200,6 @@
 					}, 1500)
 
 				}
-				clearstatcache()
 				window.location.reload();
 			}
 		})
@@ -221,6 +226,8 @@
 				id: $id
 			},
 			success: function(resp) {
+				alert(resp);
+
 				if (resp == 1) {
 					alert_toast("Data successfully deleted", 'success')
 					setTimeout(function() {
@@ -228,6 +235,15 @@
 					}, 1500)
 
 				}
+
+				if (resp == 2) {
+					alert_toast("Unable to delete data", 'warning')
+					setTimeout(function() {
+						location.reload()
+					}, 1500)
+
+				}
+				
 			}
 		})
 	}
