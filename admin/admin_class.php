@@ -151,46 +151,9 @@ class Action
 	function save_category()
 	{
 		extract($_POST);
+		// $tid = $this->db->query("select * from team where team_name = '$old_team_name'")->fetch_array()['team_Id'];
 
-		$tid = $this->db->query("select * from team where team_name = '$old_team_name'")->fetch_array()['team_Id'];
-		if (mysqli_num_rows(mysqli_query($this->db, "select * from team where team_Id = '$tid' ")) > 0) {
-
-			$save = $this->db->query("UPDATE team set team_name = '$name' where team_Id = '$tid' ");
-			// add image to logo folder
-			if ($save) {
-				// != "" && $fname != NULL
-
-				
-				if (!empty($_FILES['img']['tmp_name'])) {
-					$fname = $_FILES['img']['name'];
-					
-					$team_id = $this->db->insert_id;
-
-					if (file_exists('../assets/logos/' . $name . '.png')) {
-
-						unlink('../assets/logos/' . $name . '.png');
-					}
-					$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
-
-					if ($move == 1) {
-						echo 2;
-					} else {
-						echo 4;
-					}
-				}else{
-					$rn = rename('../assets/logos/' . $old_team_name . '.png', '../assets/logos/' . $name . '.png');
-					if($rn){
-						echo 2;
-					}else{
-						echo 4;
-					}
-				}
-
-				
-			} else {
-				echo 4;
-			}
-		} else {
+		if (empty($team_id)) {
 
 			$save = $this->db->query("INSERT INTO team(team_name) values ('$name')");
 			// add image to logo folder
@@ -199,12 +162,72 @@ class Action
 
 				$team_id = $this->db->insert_id;
 
-				$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+				if (empty($_FILES['img']['tmp_name'])) {
 
-				if ($move == 1) {
-					echo 1;
-				} else {
+					$this->db->query("DELETE From team where team_name = '$name'");
 					echo 3;
+				} else {
+
+					$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+
+					if ($move == 1) {
+						echo 1;
+					} else {
+						echo 3;
+					}
+				}
+			} else {
+
+				echo 3;
+			}
+		} else {
+
+			if (mysqli_num_rows(mysqli_query($this->db, "select * from team where team_Id = '$team_id' ")) > 0) {
+
+				if ($name != $old_team_name) {
+
+					$save = $this->db->query("UPDATE team set team_name = '$name' where team_Id = '$team_id' ");
+
+					if ($save) {
+
+						if (empty($_FILES['img']['tmp_name'])) {
+
+							$rn = rename('../assets/logos/' . $old_team_name . '.png', '../assets/logos/' . $name . '.png');
+							if ($rn) {
+								echo 2;
+							} else {
+								$this->db->query("UPDATE team set team_name = '$old_team_name' where team_Id = '$team_id' ");
+								echo 4;
+							}
+						} else {
+
+							$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+
+							if ($move == 1) {
+								unlink('../assets/logos/' . $old_team_name . '.png');
+								echo 2;
+							} else {
+								$this->db->query("UPDATE team set team_name = '$old_team_name' where team_Id = '$team_id' ");
+								echo 4;
+							}
+						}
+					}
+				} else {
+
+					if (!empty($_FILES['img']['tmp_name'])) {
+
+						unlink('../assets/logos/' . $name . '.png');
+						$move = move_uploaded_file($_FILES['img']['tmp_name'], '../assets/logos/' . $name . '.png');
+
+						if ($move == 1) {
+							echo 2;
+						} else {
+							echo 4;
+						}
+					} else {
+
+						echo 2;
+					}
 				}
 			}
 		}
@@ -212,9 +235,24 @@ class Action
 	function delete_category()
 	{
 		extract($_POST);
-		$delete = $this->db->query("DELETE FROM team where team_id = " . $id);
+
+		$team_name = $this->db->query("SELECT team_name from team where team_Id = " . $id)->fetch_array()['team_name'];
+		$delete = unlink('../assets/logos/' . $team_name . '.png');
+
 		if ($delete) {
-			return 1;
+
+			$delete = $this->db->query("DELETE FROM team where team_id = " . $id);
+
+			if ($delete) {
+
+				return 1;
+			} else {
+
+				return 2;
+			}
+		} else {
+
+			return 2;
 		}
 	}
 	function save_product()
