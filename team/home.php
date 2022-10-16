@@ -30,12 +30,18 @@ $lowest_bid = $lowest_bid == null ? 0 : $lowest_bid;
 // highest bid on which player
 $highest_bid_player = $conn->query("SELECT player_name from player where team_id = $team_id and id = (
     SELECT player_id from bids where team_id = $team_id and bid_price = $highest_bid limit 1
-)")->fetch_array()[0];
+)");
+
+$highest_bid_player = $highest_bid_player->num_rows > 0 ? $highest_bid_player->fetch_array()[0] : '0';
 
 $lowest_bid_player = $conn->query("SELECT player_name from player where team_id = $team_id and id = (
     SELECT player_id from bids where team_id = $team_id and bid_price = $lowest_bid limit 1
-)")->fetch_array()[0];
+)");
+
+$lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetch_array()[0] : '0';
 ?>
+
+
 
 <style>
     span.float-right.summary_icon {
