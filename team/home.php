@@ -32,13 +32,13 @@ $highest_bid_player = $conn->query("SELECT player_name from player where team_id
     SELECT player_id from bids where team_id = $team_id and bid_price = $highest_bid limit 1
 )");
 
-$highest_bid_player = $highest_bid_player->num_rows > 0 ? $highest_bid_player->fetch_array()[0] : '0';
+$highest_bid_player = $highest_bid_player->num_rows > 0 ? $highest_bid_player->fetch_array()[0] : 0;
 
 $lowest_bid_player = $conn->query("SELECT player_name from player where team_id = $team_id and id = (
     SELECT player_id from bids where team_id = $team_id and bid_price = $lowest_bid limit 1
 )");
 
-$lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetch_array()[0] : '0';
+$lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetch_array()[0] : 0;
 ?>
 
 
@@ -221,7 +221,7 @@ $lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetc
                                             <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
                                                 Highest Bid</div>
                                             <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $highest_bid ?> Points on <?php echo $highest_bid_player ?>
+                                                <?php echo $highest_bid > 0 ? $highest_bid . " Points on " . $highest_bid_player : "No Bids Yet" ?>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +238,11 @@ $lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetc
                                             <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
                                                 Lowest Bid</div>
                                             <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $lowest_bid ?> Points on <?php echo $lowest_bid_player ?>
+                                                <?php 
+                                                echo $lowest_bid > 0 ? $lowest_bid . " Points on " . $lowest_bid_player :
+                                                    "No Bids Yet";
+
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
