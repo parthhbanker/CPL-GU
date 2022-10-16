@@ -20,7 +20,7 @@
   		</div>
       <div class="col-md-4 float-left text-white">
         <large><b><?php 
-          $team_id = $_SESSION['team_login_id'];
+          $team_id = $_SESSION['team_login_team_id'];
 
           $team = mysqli_query($conn, "SELECT * FROM team WHERE team_Id = '$team_id'");
           while($row=$team->fetch_assoc()):

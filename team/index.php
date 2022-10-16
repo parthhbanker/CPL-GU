@@ -10,7 +10,7 @@
  	
 
 <?php
-  if(!isset($_SESSION['team_login_id']))
+  if(!isset($_SESSION['team_login_team_id']))
     header('location:login.php');
  include('./header.php'); 
  // include('./auth.php'); 

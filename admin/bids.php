@@ -37,7 +37,7 @@
 						</div>
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)" class="select2">
+							<select id="player" onchange="change(this.id)" class="select">
 
 								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
@@ -157,6 +157,25 @@
 		max-width: 100px;
 		max-height: 150px;
 	}
+
+	/* style select tag  */
+	.select {
+		/* make it use full width */
+		width: 100%;
+		/* remove default arrow */
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+
+		/* increse height and give rounded border and disable it */
+		height: 40px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+		background: #fff;
+
+		/* add padding */
+		padding: 0 10px;
+	}
 </style>
 <script>
 	// make an array of all the players
@@ -166,15 +185,22 @@
 		// get a random player from the array
 		var randomPlayer = players[Math.floor(Math.random() * players.length)];
 
-		// print the array to the console
-		console.log(players);
-		// print selected player to the console
-		console.log(randomPlayer);
+		if (document.getElementById("player").value == randomPlayer) {
+			getRandomPlayer();
+		} else {
+			// print the array to the console
+			console.log(players);
+			// print selected player to the console
+			console.log(randomPlayer);
 
-		// set the value of the select input to the random player
-		$('#player').val(randomPlayer);
+			// set the value of the select input to the random player
+			$('#player').val(randomPlayer);
 
-		change("player");
+			change("player");
+		}
+
+
+
 
 	}
 
@@ -328,9 +354,6 @@
 
 			var player_id = document.getElementById("player");
 			var player_id_value = player_id.value;
-
-			alert(player_id_value);
-
 			var array;
 
 			jQuery.ajax({

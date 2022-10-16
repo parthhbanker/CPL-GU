@@ -13,7 +13,7 @@
 					<div class="card-body">
 						<!-- show how many players are bideed -->
 						<?php
-						$team_id = $_SESSION['login_team_id'] ;
+						$team_id = $_SESSION['team_login_team_id'] ;
 						$players = $conn->query("SELECT * from bids where team_id = $team_id");
 						$player_count = $players->num_rows;
 
@@ -89,7 +89,7 @@
 							<tbody>
 								<?php
 								$i = 1;
-								$team_id = $_SESSION['login_team_id'];
+								$team_id = $_SESSION['team_login_team_id'];
 								$category = $conn->query("SELECT b.*, p.player_name, t.team_name FROM bids b join player p on b.player_id = p.id join team t on b.team_id = t.team_id where b.team_id = $team_id order by p.player_name asc;");
 								while ($row = $category->fetch_assoc()) :
 								?>
