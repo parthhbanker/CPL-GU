@@ -1,4 +1,4 @@
-<?php include('db_connect.php'); ?>
+
 <div class="container-fluid">
 
 	<div class="col-lg-12">
@@ -11,27 +11,7 @@
 						Team Bid Stats
 					</div>
 					<div class="card-body">
-						<!-- show how many players are bideed -->
-						<?php
-						$team_id = $_SESSION['team_login_team_id'] ;
-						$players = $conn->query("SELECT * from bids where team_id = $team_id");
-						$player_count = $players->num_rows;
-
-						$bids = $conn->query("SELECT sum(bid_price) from bids where team_id = $team_id");
-						$bid_count = $bids->fetch_array()[0];
-
-						$bid_left = 50000 - $bid_count;
-
-						$player_left = 13 - $player_count;
-
-						$bid_avg = $player_count != 0 ?  $bid_count / $player_count : 0;
-
-						$bid_left_avg = $bid_left / $player_left;
-
-						$highest_bid = $conn->query("SELECT max(bid_price) from bids where team_id = $team_id");
-
-						$lowest_bid = $conn->query("SELECT min(bid_price) from bids where team_id = $team_id");
-						?>
+						<!-- show how many players are bidded -->
 						<div class="form-group">
 							<label for="" class="control-label">Players Bidded</label>
 							<input type="text" class="form-control" name="player_count" value="<?php echo $player_count ?>" readonly>
@@ -58,11 +38,11 @@
 						</div>
 						<div class="form-group">
 							<label for="" class="control-label">Highest Bid</label>
-							<input type="number" class="form-control" name="highest_bid" value="<?php echo $highest_bid->fetch_array()[0] ?>" readonly>
+							<input type="number" class="form-control" name="highest_bid" value="<?php echo $highest_bid ?>" readonly>
 						</div>
 						<div class="form-group">
 							<label for="" class="control-label">Lowest Bid</label>
-							<input type="number" class="form-control" name="lowest_bid" value="<?php echo $lowest_bid->fetch_array()[0] ?>" readonly>
+							<input type="number" class="form-control" name="lowest_bid" value="<?php echo $lowest_bid?>" readonly>
 						</div>	
 					</div>
 				</div>

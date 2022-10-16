@@ -1,48 +1,3 @@
-<?php include 'db_connect.php' ?>
-
-<?php
-$team_id = $_SESSION['team_login_team_id'];
-$players = $conn->query("SELECT * from bids where team_id = $team_id");
-$player_count = $players->num_rows;
-
-$bids = $conn->query("SELECT sum(bid_price) from bids where team_id = $team_id");
-$bid_count = $bids->fetch_array()[0];
-
-$bid_left = 50000 - $bid_count;
-
-$player_left = 13 - $player_count;
-
-$bid_avg = $player_count != 0 ?  $bid_count / $player_count : 0;
-
-$bid_left_avg = $bid_left / $player_left;
-
-// show only 2 decimal
-$bid_avg = number_format((float)$bid_avg, 2, '.', '');
-$bid_left_avg = number_format((float)$bid_left_avg, 2, '.', '');
-
-$highest_bid = $conn->query("SELECT max(bid_price) from bids where team_id = $team_id")->fetch_array()[0];
-$lowest_bid = $conn->query("SELECT min(bid_price) from bids where team_id = $team_id")->fetch_array()[0];
-
-// if no bid, set to 0
-$highest_bid = $highest_bid == null ? 0 : $highest_bid;
-$lowest_bid = $lowest_bid == null ? 0 : $lowest_bid;
-
-// highest bid on which player
-$highest_bid_player = $conn->query("SELECT player_name from player where team_id = $team_id and id = (
-    SELECT player_id from bids where team_id = $team_id and bid_price = $highest_bid limit 1
-)");
-
-$highest_bid_player = $highest_bid_player->num_rows > 0 ? $highest_bid_player->fetch_array()[0] : '0';
-
-$lowest_bid_player = $conn->query("SELECT player_name from player where team_id = $team_id and id = (
-    SELECT player_id from bids where team_id = $team_id and bid_price = $lowest_bid limit 1
-)");
-
-$lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetch_array()[0] : '0';
-?>
-
-
-
 <style>
     span.float-right.summary_icon {
         font-size: 3rem;
@@ -221,7 +176,7 @@ $lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetc
                                             <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
                                                 Highest Bid</div>
                                             <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $highest_bid ?> Points on <?php echo $highest_bid_player ?>
+                                                <?php echo $highest_bid > 0 ? $highest_bid . " Points on " . $highest_bid_player : "No Bids Yet" ?>
                                             </div>
                                         </div>
                                     </div>
@@ -238,7 +193,11 @@ $lowest_bid_player = $lowest_bid_player->num_rows > 0 ? $lowest_bid_player->fetc
                                             <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
                                                 Lowest Bid</div>
                                             <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                <?php echo $lowest_bid ?> Points on <?php echo $lowest_bid_player ?>
+                                                <?php 
+                                                echo $lowest_bid > 0 ? $lowest_bid . " Points on " . $lowest_bid_player :
+                                                    "No Bids Yet";
+
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
