@@ -20,7 +20,7 @@ Class Action {
 			$qry = $this->db->query("SELECT * FROM team_login where username = '".$username."' and password = '".md5($password)."' ");
 			if($qry->num_rows > 0){
 				foreach ($qry->fetch_array() as $key => $value) {
-					if($key != 'passworsd' && !is_numeric($key))
+					if($key != 'password' && !is_numeric($key))
 						$_SESSION['team_login_'.$key] = $value;
 				}
 					return 1;

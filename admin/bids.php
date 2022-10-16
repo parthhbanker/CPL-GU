@@ -393,16 +393,17 @@
 
 	function lol(team_id) {
 
-		jQuery.ajax({
-			url: '../team/server.php',
-			type: 'post',
-			data: '&action=refresh&team_id='+team_id,
-			success: function(result) {
 
-				alert(result);
+		// jQuery.ajax({
+		// 	url: '../team/server.php',
+		// 	type: 'post',
+		// 	data: '&action=refresh&tid='+team_id,
+		// 	success: function(result) {
+
+		// 		alert(result);
 				
-			},
-		})
+		// 	},
+		// })
 
 	}
 
@@ -434,25 +435,6 @@
 		_conf("Are you sure to delete this book?", "delete_book", [$(this).attr('data-id')])
 	})
 
-	function delete_book($id) {
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=delete_book',
-			method: 'POST',
-			data: {
-				id: $id
-			},
-			success: function(resp) {
-				if (resp == 1) {
-					alert_toast("Data successfully deleted", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
-				}
-
-			}
-		})
-	}
 
 	// functio
 	$(document).ready(function() {
