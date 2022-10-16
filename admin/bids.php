@@ -37,7 +37,7 @@
 						</div>
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)" class="select">
+							<select id="player" onchange="change(this.id)" class="select" disabled>
 
 								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
@@ -78,7 +78,7 @@
 					<div class="card-footer">
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3" type="button" id="save" onclick="change(this.id)"> Save</button>
+								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3" type="button" id="save" onclick="change(this.id)" disabled> Save</button>
 								<button class="btn btn-sm btn-default col-sm-3" onclick="cancel()"> Cancel</button>
 							</div>
 						</div>
@@ -437,4 +437,43 @@
 			}
 		})
 	}
+
+	// functio
+	$(document).ready(function() {
+
+		$('#bid_price').on('input', function() {
+			if (document.getElementById("bid_price").value >= document.getElementById("base_price").value) {
+				// onchange of team select box check if the team is already selected
+
+				if (document.getElementById("team").value != "Select") {
+					document.getElementById("save").disabled = false;
+				}else{
+					document.getElementById("save").disabled = true;
+				}
+			} else {
+				document.getElementById("save").disabled = true;
+			}
+		});
+	});
+	$(document).ready(function() {
+
+		$('#team').on('change', function() {
+			if (document.getElementById("team").value != "Select") {
+				document.getElementById("save").disabled = false;
+
+				if (document.getElementById("bid_price").value >= document.getElementById("base_price").value) {
+					// onchange of team select box check if the team is already selected
+
+					document.getElementById("save").disabled = false;
+
+				}else{
+					document.getElementById("save").disabled = true;
+				}
+			} else {
+				document.getElementById("save").disabled = true;
+			}
+		});
+	});
+
+	// 
 </script>
