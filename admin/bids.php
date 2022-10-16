@@ -31,6 +31,10 @@
 							</select>
 						</div>
 
+						<div class="form-group" id="random_player" style="display:none">
+							<label class="control-label">Random Player</label>
+							<button type="button" class="btn btn-primary btn-sm btn-block" id="random_player" onclick="getRandomPlayer()">Random Player</button>
+						</div>
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
 							<select id="player" onchange="change(this.id)" class="select2">
@@ -155,6 +159,26 @@
 	}
 </style>
 <script>
+	// make an array of all the players
+	var players = [];
+	// make a function to get a random player and set the value to the input
+	function getRandomPlayer() {
+		// get a random player from the array
+		var randomPlayer = players[Math.floor(Math.random() * players.length)];
+
+		// print the array to the console
+		console.log(players);
+		// print selected player to the console
+		console.log(randomPlayer);
+
+		// set the value of the select input to the random player
+		$('#player').val(randomPlayer);
+
+		change("player");
+
+	}
+
+
 	function edit(id) {
 
 		// alert(id);
@@ -172,7 +196,7 @@
 				var bid_price = document.getElementById("bid_price");
 				bid_price.value = array[5];
 				bid_price.disabled = false;
-				bid_price.min = array[4] ;
+				bid_price.min = array[4];
 
 				// alert(result);
 				var category_options_length = document.getElementById("category").options.length;
@@ -240,7 +264,10 @@
 				type: 'post',
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
-
+					// remove player from the array
+					// players = players.filter(function(item) {
+					// 	return item !== player_id
+					// })
 					// cancel();
 					window.location.replace("index.php?page=bids");
 
@@ -252,6 +279,8 @@
 
 			var dropdown_player = document.getElementById("player_div");
 			dropdown_player.style.display = "block";
+
+			document.getElementById("random_player").style.display = "block";
 
 			var category_id = document.getElementById("category");
 			var player_role_value = category_id.value;
@@ -280,6 +309,9 @@
 						if (i % 2 == 0 && array[i + 1] != undefined) {
 							console.log(array[i]);
 
+							// save all player in array
+							players.push(array[i]);
+
 							var option = document.createElement("option");
 							option.value = array[i];
 							option.text = array[i + 1];
@@ -296,6 +328,8 @@
 
 			var player_id = document.getElementById("player");
 			var player_id_value = player_id.value;
+
+			alert(player_id_value);
 
 			var array;
 
@@ -380,5 +414,4 @@
 			}
 		})
 	}
-
 </script>
