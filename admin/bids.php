@@ -130,7 +130,7 @@
 										</td>
 										<td class="text-center">
 											<button class="btn btn-sm btn-outline-primary edit_product" id="<?php echo $row['player_id'] ?>" onclick="edit(this.id)" type="button">Edit</button>
-											<button class="btn btn-sm btn-outline-danger delete_product" id="<?php echo $row['id'] ?>" onclick="delete_(this.id)" type="button">Delete</button>
+											<button class="btn btn-sm btn-outline-danger delete_product" id="<?php echo $row['id'] ?>" onclick="delete_(this.id,<?php echo $row['team_id'] ?>)" type="button">Delete</button>
 										</td>
 									</tr>
 								<?php endwhile; ?>
@@ -295,6 +295,7 @@
 					// 	return item !== player_id
 					// })
 					// cancel();
+					lol(team_id);
 					window.location.replace("index.php?page=bids");
 
 				}
@@ -374,18 +375,33 @@
 
 	}
 
-	function delete_(id) {
+	function delete_(id,tid) {
 
 		jQuery.ajax({
 			url: 'get_players.php',
 			type: 'post',
 			data: '&bid_id=' + id + '&data=delete',
 			success: function(result) {
-
+				lol(tid);
 				window.location.replace("index.php?page=bids");
 
 			}
 
+		})
+
+	}
+
+	function lol(team_id) {
+
+		jQuery.ajax({
+			url: '../team/server.php',
+			type: 'post',
+			data: '&action=refresh&team_id='+team_id,
+			success: function(result) {
+
+				alert(result);
+				
+			},
 		})
 
 	}
@@ -432,8 +448,8 @@
 					setTimeout(function() {
 						location.reload()
 					}, 1500)
-
 				}
+
 			}
 		})
 	}
