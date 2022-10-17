@@ -5,6 +5,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 
 while ($row = mysqli_fetch_array($rows)){
     $team_name = $row['team_name'];
+    $player_id = $row['id'];
 }
 
 $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.team_id = p.team_id) as team_name FROM data_mapping dm join player p on dm.player_id = p.id ");
@@ -15,19 +16,15 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <title> main Auction card</title>
 <style>
-    /* #player-image {
-        background: url('./virat.png') center center/cover no-repeat;
-        height: 23rem;
-        width: 20rem;
-        border-radius: 12px
-    } */
     #player-image {
-        background: url('./test.jpg') center center/cover no-repeat;
-
+        background: url('./assets/players/<?php echo $player_id ?>.png') center center/cover no-repeat;
+        height: 24rem;
+        width: 21rem;
         border-top-left-radius: 12px;
         border-top-right-radius: 12px;
+        margin-left: 3rem;
+        border-radius: 12px
     }
-
     #role_box {
         margin-top: 30px;
         padding-left: 500px;
@@ -38,7 +35,8 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 
     body {
         /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), center center/cover no-repeat; */
-        background: radial-gradient(rgb(199, 21, 21), rgba(30, 0, 0, 0.379));
+        /* background: radial-gradient(rgb(199, 21, 21), rgba(30, 0, 0, 0.379)); */
+        background-image:url('stadium.jpg');
         height: 100vh;
     }
 
@@ -58,7 +56,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
         /* transform: translate(-50%, -50%); */
     }
 </style>
-<body style="background-image:url(s4.jpg);">
+<body>
     <div class="container-fluid d-flex justify-content-center w-md-0 w-sm-50 align-item-center m-0 p-0" style="height:100vh;width:100%">
         <div class="container-fluid m-0 p-3">
             <?php while ($row = mysqli_fetch_array($rows)) { ?>
@@ -112,8 +110,8 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                             </div>
                             <div id="image_id" class="container d-flex flex-column justify-content-center h-100 m-0  border-warning" style="border-radius:12px;background:#534c4c">
 
+                                <span class="fs-1 px-2 " style="color: white;"><?php echo $row['id'] ?></span>
                                 <div class="h-100" id="player-image">
-                                    <span class="fs-1 px-2"><?php echo $row['id'] ?></span>
                                 </div>
                                 <br>
                                 <hr class="border border-3 w-100 m-0">
