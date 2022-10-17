@@ -3,7 +3,7 @@ require('admin/db_connect.php');
 
 $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.team_id = p.team_id) as team_name FROM data_mapping dm join player p on dm.player_id = p.id ");
 
-while ($row = mysqli_fetch_array($rows)){
+while ($row = mysqli_fetch_array($rows)) {
     $team_name = $row['team_name'];
     $player_id = $row['id'];
 }
@@ -16,8 +16,16 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <title> main Auction card</title>
 <style>
-    #player-image {
-        background: url('./assets/players/<?php echo file_exists('../assets/players/'.$player_id.'.png') ?  $player_id.'.png' :'common.jpeg';?>') center center/cover no-repeat;
+    <?php
+        // check if file is available on name of id
+        if (file_exists('./assets/players/' . $player_id  . '.png')) {
+            $img_url = './assets/players/' . $player_id  . '.png';
+        } else {
+            $img_url =  './assets/players/common.jpeg';
+        }
+        ?>
+        #player-image {
+        background: url('<?php echo $img_url ?>') center center/cover no-repeat;
         height: 24rem;
         width: 21rem;
         border-top-left-radius: 12px;
@@ -25,6 +33,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
         margin-left: 3rem;
         border-radius: 12px
     }
+
     #role_box {
         margin-top: 30px;
         padding-left: 500px;
@@ -36,7 +45,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
     body {
         /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), center center/cover no-repeat; */
         /* background: radial-gradient(rgb(199, 21, 21), rgba(30, 0, 0, 0.379)); */
-        background-image:url('stadium.jpg');
+        background-image: url('s4.jpg');
         height: 100vh;
     }
 
@@ -56,6 +65,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
         /* transform: translate(-50%, -50%); */
     }
 </style>
+
 <body>
     <div class="container-fluid d-flex justify-content-center w-md-0 w-sm-50 align-item-center m-0 p-0" style="height:100vh;width:100%">
         <div class="container-fluid m-0 p-3">
@@ -66,21 +76,21 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                         <div class="col-md-4 border-0 border-primary justify-content-center align-items-center flex-column d-flex px-2 gap-3">
                             <div class="container m-0  text-white -3 text-center p-2" style="background-color:rgb(87, 17, 17);border-radius:12px">
                                 <!-- <span style="font-size:30px" class="d-block fw-bold"> -->
-                                <span style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:30px" class="d-block fw-bold"><?php 
-                                // find the role of the player
-                                $role_id = $row['pro_id'];
-                                $role = mysqli_query($conn, "SELECT * FROM player_role where pro_id = '$role_id'");
-                                while ($role_row = mysqli_fetch_array($role)) {
-                                    echo $role_row['player_role'];
-                                }
-                            ?></span>
-                            <?php
-                            // 
-                            // 
-                            // need to be changed
-                            // 
-                            // 
-                            if ($row['pro_id'] == 1) {
+                                <span style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:30px" class="d-block fw-bold"><?php
+                                                                                                                                                                // find the role of the player
+                                                                                                                                                                $role_id = $row['pro_id'];
+                                                                                                                                                                $role = mysqli_query($conn, "SELECT * FROM player_role where pro_id = '$role_id'");
+                                                                                                                                                                while ($role_row = mysqli_fetch_array($role)) {
+                                                                                                                                                                    echo $role_row['player_role'];
+                                                                                                                                                                }
+                                                                                                                                                                ?></span>
+                                <?php
+                                // 
+                                // 
+                                // need to be changed
+                                // 
+                                // 
+                                if ($row['pro_id'] == 1) {
                                 ?>
                                     <span style="font-size:20px" class="d-block">
                                         <!-- if bth_id == 1 then right hand batsmen else left hand-->
@@ -130,19 +140,18 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 
                         <div class="col-md-8 border-0 border-success d-flex flex-column justify-content-start gap-3 px-2 my-md-0 my-3 ">
                             <div class="d-flex flex-md-row flex-column justify-content-center container-fluid m-0 gap-2">
-                                <div class="m-0  text-white border-3 flex-fill text-center p-2"
-                                    style="background-color:rgb(87, 17, 17);border-radius:12px">
+                                <div class="m-0  text-white border-3 flex-fill text-center p-2" style="background-color:rgb(87, 17, 17);border-radius:12px">
                                     <span style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:3.9rem;font-weight: bolder;" class="d-block">BID Points : <?php
-                                        $player_id = $row['id'];
-                                        $bid = mysqli_query($conn, "SELECT * FROM bids where player_id = '$player_id'");
-                                        if (mysqli_num_rows($bid) > 0) {
-                                            while ($bid_row = mysqli_fetch_array($bid)) {
-                                                echo $bid_row['bid_price']." Points";
-                                            }
-                                        } else {
-                                            echo '';
-                                        }
-                                        ?></span>
+                                                                                                                                                                                                $player_id = $row['id'];
+                                                                                                                                                                                                $bid = mysqli_query($conn, "SELECT * FROM bids where player_id = '$player_id'");
+                                                                                                                                                                                                if (mysqli_num_rows($bid) > 0) {
+                                                                                                                                                                                                    while ($bid_row = mysqli_fetch_array($bid)) {
+                                                                                                                                                                                                        echo $bid_row['bid_price'] . " Points";
+                                                                                                                                                                                                    }
+                                                                                                                                                                                                } else {
+                                                                                                                                                                                                    echo '';
+                                                                                                                                                                                                }
+                                                                                                                                                                                                ?></span>
                                 </div>
                                 <div class="m-0 text-white text-center p-2" style="margin-top:800px; border-radius:12px;font-size:2rem;background-color: #5c0505;">
                                     <!-- <span class="d-block my-auto">STATUS</span> -->
@@ -161,7 +170,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                 </div>
                             </div>
 
-                            
+
                             <div class="flex-fill" style="border-radius:12px;">
                                 <div class="border-bottom ps-3 py-1 text-white border-warning border-3" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:40px">
                                     Base Points : <?php echo $row['base_price'] ?> Points
@@ -181,11 +190,11 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                         <span class="d-block"><?php echo $row['team_name'] ?></span>
                                         <div class="image"></div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="d-flex justify-content-around aling-items-center text-white mt-3 p-md-0 py-4" style="padding-right:100px;font-size:30px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-                                    
-                                    
+
+
                                 </div>
                             </div>
                         </div>
