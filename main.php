@@ -62,7 +62,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                     <div class="row g-0 w-100">
 
                         <div class="col-md-4 border-0 border-primary justify-content-center align-items-center flex-column d-flex px-2 gap-3">
-                            <div class="container m-0 border text-white border-3 text-center p-2" style="background-color:darkred;border-radius:12px">
+                            <div class="container m-0  text-white text-center p-2" style="background-color:#5c0505 ;border-radius:12px">
                                 <!-- <span style="font-size:30px" class="d-block fw-bold"> -->
                                 <span style="font-size:30px" class="d-block fw-bold"><?php
                                                                                         // find the role of the player
@@ -106,7 +106,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 
                                 ?>
                             </div>
-                            <div id="image_id" class="container d-flex flex-column justify-content-center h-100 m-0 border border-4 border-warning" style="border-radius:12px;background:#B0A88F">
+                            <div id="image_id" class="container d-flex flex-column justify-content-center h-100 m-0  border-warning" style="border-radius:12px;background:#534c4c">
 
                                 <div class="h-100" id="player-image">
                                     <span class="fs-1 px-2"><?php echo $row['id'] ?></span>
@@ -128,9 +128,9 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 
                         <div class="col-md-8 border-0 border-success d-flex flex-column justify-content-start gap-3 px-2 my-md-0 my-3 ">
                             <div class="d-flex flex-md-row flex-column justify-content-center container-fluid m-0 gap-2">
-                                <div class="m-0 border text-white border-3 flex-fill text-center p-2" style="background-color:darkred;border-radius:12px">
+                                <div class="m-0  text-white border-3 flex-fill text-center p-2" style="background-color:#5c0505;border-radius:12px;height:125px;">
                                     <div style="font-size:1.2rem;">
-                                        <span style="font-size:1.6rem;padding-right:200px;font-weight: bolder;">TOTAL INNING - 2</span>
+                                        <span style="font-size:1.6rem;padding-right:300px;font-weight: bolder;">TOTAL INNING - 2</span>
                                         <span style="font-size:1.6rem;font-weight: bolder;">AVERAGE-24%</span>
                                     </div>
                                     <div style="font-size:1.2rem;">
@@ -138,7 +138,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                         <span style="font-size:1.6rem;">4/6-0/0</span>
                                     </div>
                                 </div>
-                                <div class="m-0 border text-white border-3 bg-secondary text-center p-2" style="border-radius:12px;font-size:2rem">
+                                <div class="m-0 text-white text-center p-2" style="border-radius:12px;font-size:2rem;background-color: #5c0505;">
                                     <!-- <span class="d-block my-auto">STATUS</span> -->
                                     <!-- check if player_is present in bid table or not -->
                                     <?php
@@ -155,8 +155,8 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                     <!-- <span class="d-block" style="font-size:25px">STATUS</span> -->
                                 </div>
                             </div>
-                            <div class="bg-secondary border border-4 flex-fill" style="border-radius:12px">
-                                <div class="border-bottom ps-3 py-1 text-white border-warning border-3" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:30px">
+                            <div class="flex-fill" style="border-radius:12px;background-color:#534c4c;">
+                                <div class="border-bottom ps-3 py-1 text-white border-warning border-3" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:70px">
                                     Base Points : <?php echo $row['base_price'] ?> Points
                                 </div>
                                 <div class="d-flex justify-content-around aling-items-center text-white mt-3 p-md-0 py-4" style="font-size:30px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
