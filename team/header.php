@@ -39,5 +39,4 @@
 <script type="text/javascript" src="../admin/assets/js/select2.min.js"></script>
 <script type="text/javascript" src="../admin/assets/js/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="../admin/assets/font-awesome/js/all.min.js"></script>
-<<<<<<< HEAD
 <script type="text/javascript" src="../admin/assets/js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
