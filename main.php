@@ -36,7 +36,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
     body {
         /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), center center/cover no-repeat; */
         /* background: radial-gradient(rgb(199, 21, 21), rgba(30, 0, 0, 0.379)); */
-        background-image:url('stadium.jpg');
+        background-image:url('s4.jpg');
         height: 100vh;
     }
 
