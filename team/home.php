@@ -221,7 +221,7 @@
                                     Bidding Summary
                                 </div>
                                 <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
-                                <!-- <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
+                                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
                         </div>
 
@@ -411,7 +411,7 @@
         data: "&team_id=<?php echo $_SESSION['team_login_team_id'] ?>&action=get_bids_pie_chart",
         success: function(data) {
 
-            // alert(data);
+            alert(data);
 
             array = data.split(";");
 
