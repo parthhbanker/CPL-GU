@@ -18,15 +18,17 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
     } */
     #player-image{
             background:url('./test.jpg') center center/cover no-repeat;
-            /* height:25rem;width:13rem; */
+            
             border-top-left-radius:12px;
             border-top-right-radius:12px;
         }
     
     #role_box{
-        margin-left: 90px;
+        margin-top: 30px;
         padding-left: 500px;
-        font-size: 80px;
+        font-size: 90px;
+        width: 580px;
+        height: 150px;
     }
 </style>
 <body style="background:#333333">
@@ -36,52 +38,49 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                 <div class="m-0 h-100 d-flex justify-content-center">
                     <div class="row g-0 w-100">
                     
-                        <div id="role_box" class="col-md-4 border-0 border-primary justify-content-center align-items-center flex-column d-flex px-2 gap-3">
+                        <div class="col-md-4 border-0 border-primary justify-content-center align-items-center flex-column d-flex px-2 gap-3">
                             <div class="container m-0 border text-white border-3 text-center p-2" style="background-color:darkred;border-radius:12px">
                                 <!-- <span style="font-size:30px" class="d-block fw-bold"> -->
-                                <span style="font-size:21px" class="d-block fs-3 fw-bold">BATSMAN</span>
-                                <span style="font-size:11px" class="d-block">LEFT HAND BATSMAN</span>
-                                <?php 
-                                    // find the role of the player
-                                    $role_id = $row['pro_id'];
-                                    $role = mysqli_query($conn, "SELECT * FROM player_role where pro_id = '$role_id'");
-                                    while ($role_row = mysqli_fetch_array($role)) {
-                                        echo $role_row['player_role'];
-                                    }
-                                ?>
-                                </div>
-                                <?php
-                                // 
-                                // 
-                                // need to be changed
-                                // 
-                                // 
-                                if ($row['pro_id'] == 1) {
-                                    ?>
-                                    <span style="font-size:20px" class="d-block">
-                                        <!-- if bth_id == 1 then right hand batsmen else left hand-->
-                                        <?php echo $row['bth_id'] == 1 ? 'Right Hand Batsmen' : 'Left Hand Batsmen' ?>
-                                    </span>
-                                    <span style="font-size:20px" class="d-block">
-                                        <!-- if bth_id == 1 then right hand batsmen else left hand-->
-                                        <?php // echo $row['bth_id'] == 1 ? 'Right Hand Batsmen' : 'Left Hand Batsmen' ?>
-                                        Bowler
-                                    </span>
-                                <?php
-                                } else if ($row['pro_id'] == 3 || $row['pro_id'] == 5 || $row['pro_id'] == 6) {
-                                ?>
-                                    <span style="font-size:20px" class="d-block">
-                                        <!-- if bth_id == 1 then right hand batsmen else left hand-->
-                                        <?php echo $row['bth_id'] == 1 ? 'Right Hand Batsmen' : 'Left Hand Batsmen' ?>
-                                    </span>
-                                <?php
-                                } else if ($row['pro_id'] == 2) {
-                                    echo '<span style="font-size:20px" class="d-block">Wicket</span>';
-                                } else if ($row['pro_id'] == 4) {
-                                    echo '<span style="font-size:20px" class="d-block">Bowling</span>';
+                                <span style="font-size:30px" class="d-block fw-bold"><?php 
+                                // find the role of the player
+                                $role_id = $row['pro_id'];
+                                $role = mysqli_query($conn, "SELECT * FROM player_role where pro_id = '$role_id'");
+                                while ($role_row = mysqli_fetch_array($role)) {
+                                    echo $role_row['player_role'];
                                 }
-
+                            ?></span>
+                            <?php
+                            // 
+                            // 
+                            // need to be changed
+                            // 
+                            // 
+                            if ($row['pro_id'] == 1) {
                                 ?>
+                                <span style="font-size:20px" class="d-block">
+                                    <!-- if bth_id == 1 then right hand batsmen else left hand-->
+                                    <?php echo $row['bth_id'] == 1 ? 'Right Hand Batsmen' : 'Left Hand Batsmen' ?>
+                                </span>
+                                <span style="font-size:20px" class="d-block">
+                                    <!-- if bth_id == 1 then right hand batsmen else left hand-->
+                                    <?php // echo $row['bth_id'] == 1 ? 'Right Hand Batsmen' : 'Left Hand Batsmen' ?>
+                                    Bowler
+                                </span>
+                            <?php
+                            } else if ($row['pro_id'] == 3 || $row['pro_id'] == 5 || $row['pro_id'] == 6) {
+                            ?>
+                                <span style="font-size:20px" class="d-block">
+                                    <!-- if bth_id == 1 then right hand batsmen else left hand-->
+                                    <?php echo $row['bth_id'] == 1 ? 'Right Hand Batsmen' : 'Left Hand Batsmen' ?>
+                                </span>
+                            <?php
+                            } else if ($row['pro_id'] == 2) {
+                                echo '<span style="font-size:20px" class="d-block">Wicket</span>';
+                            } else if ($row['pro_id'] == 4) {
+                                echo '<span style="font-size:20px" class="d-block">Bowling</span>';
+                            }
+
+                            ?>
                             </div>
                             <div id="image_id" class="container d-flex flex-column justify-content-center h-100 m-0 border border-4 border-warning" style="border-radius:12px;background:#B0A88F">
 
@@ -107,16 +106,16 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                             <div class="d-flex flex-md-row flex-column justify-content-center container-fluid m-0 gap-2">
                                 <div class="m-0 border text-white border-3 flex-fill text-center p-2" style="background-color:darkred;border-radius:12px">
                                     <div style="font-size:1.2rem;">
-                                        <span>TOTAL INNING - 2</span>
-                                        <span>AVERAGE-24%</span>
+                                        <span style="font-size:1.6rem;padding-right:200px;font-weight: bolder;">TOTAL INNING - 2</span>
+                                        <span style="font-size:1.6rem;font-weight: bolder;">AVERAGE-24%</span>
                                     </div>
                                     <div style="font-size:1.2rem;">
-                                        <span>STRIKE RATE-100%</span>
-                                        <span>4/6-0/0</span>
+                                        <span style="font-size:1.6rem;padding-right: 210px;font-weight: bolder;">STRIKE RATE-100%</span>
+                                        <span style="font-size:1.6rem;">4/6-0/0</span>
                                     </div>
                                 </div>
                                 <div class="m-0 border text-white border-3 bg-secondary text-center p-2" style="border-radius:12px;font-size:2rem">
-                                    <span class="d-block my-auto">STATUS</span>
+                                    <!-- <span class="d-block my-auto">STATUS</span> -->
                                     <!-- check if player_is present in bid table or not -->
                                     <?php
                                     $player_id = $row['id'];
@@ -133,10 +132,10 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                 </div>
                             </div>
                             <div class="bg-secondary border border-4 flex-fill" style="border-radius:12px">
-                                <div class="border-bottom ps-3 py-1 text-white border-warning border-3" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:19px">
+                                <div class="border-bottom ps-3 py-1 text-white border-warning border-3" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:30px">
                                     Base Points : <?php echo $row['base_price'] ?> Points
                                 </div>
-                                <div class="d-flex justify-content-around aling-items-center text-white mt-3 p-md-0 py-4" style="font-size:19px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                                <div class="d-flex justify-content-around aling-items-center text-white mt-3 p-md-0 py-4" style="font-size:30px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
                                     <span class="d-block">TEAM-<?php echo $row['team_name'] ?></span>
                                     <span class="d-block">BID Points : <?php
                                     $player_id = $row['id'];
