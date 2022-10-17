@@ -17,7 +17,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 <title> main Auction card</title>
 <style>
     #player-image {
-        background: url('./assets/players/<?php echo $player_id ?>.png') center center/cover no-repeat;
+        background: url('./assets/players/<?php echo file_exists('../assets/players/'.$player_id.'.png') ?  $player_id.'.png' :'common.jpeg';?>') center center/cover no-repeat;
         height: 24rem;
         width: 21rem;
         border-top-left-radius: 12px;
