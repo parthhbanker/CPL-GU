@@ -427,6 +427,8 @@
             data: "&team_id=<?php echo $_SESSION['team_login_team_id'] ?>&action=get_bids_pie_chart",
             success: function(data) {
 
+                alert(data);
+
                 array = data.split(";");
 
                 // Pie Chart Example
@@ -438,9 +440,9 @@
                 var myPieChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                        labels: [array[0], array[2], array[4], array[6], array[8], array[10], array[12], array[14], array[16], array[18], array[20], array[22], array[24], "Points Left"],
+                        labels: [array[1], array[3], array[5], array[7], array[9], array[11], array[13], array[15], array[17], array[19], array[21], array[23], array[25], "Points Left"],
                         datasets: [{
-                            data: [array[1], array[3], array[5], array[7], array[9], array[11], array[13], array[15], array[17], array[19], array[21], array[23], array[25], 50000],
+                            data: [array[2], array[4], array[6], array[8], array[10], array[12], array[14], array[16], array[18], array[20], array[22], array[24], array[26], 50000-array[0]],
                             backgroundColor: ['Blue', '#33cccc', '#28a745', '#99ff33', '#ffff00', '#ffcc00', '#ffa500', '#ff0000', '#800000', '#cc0066', '#800080', '#9900ff', '#cc33ff', '#000066'],
                         }],
                     },
@@ -452,8 +454,6 @@
         })
 
     }
-
-    chart_data();
 
     // make a function to continously call data.php
     function get_data() {
@@ -475,6 +475,8 @@
                 $("#player_count").html(datas.player_count);
                 $("#bid_count").html(datas.bid_count);
                 $("#bid_avg").html(datas.bid_avg);
+
+                $bid_left = datas.bid_left ;
 
                 pg = (100 / 13) * datas.player_count
 
@@ -508,4 +510,7 @@
             }
         });
     }
+
+    chart_data();
+
 </script>
