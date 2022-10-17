@@ -13,18 +13,35 @@ class Action
 		$this->db = $conn;
 	}
 
+	function bids_left()
+	{
+		extract($_POST);
+
+		$bid_point_left = $this->db->query("SELECT sum(bid_price) from bids where team_id = $team_id")->fetch_array()[0];
+
+		echo $bid_point_left;
+	}
+
 	function get_bids_pie_chart()
 	{
 		extract($_POST);
 		$result = $this->db->query("SELECT p.player_name, b.bid_price from bids b , player p where p.id = b.player_id and b.team_id = $team_id");
+		$bid_point_left = $this->db->query("SELECT sum(bid_price) from bids where team_id = $team_id")->fetch_array()[0];
+
+		$str = "" ;
+
+		$str = $str . $bid_point_left . ";" ;
 
 		while ($row = $result->fetch_assoc()) {
 
 			foreach ($row as $value) {
 
-				echo ($value . ";");
+				$str = $str . $value . ";";
 			}
 		}
+
+		echo $str ;
+
 	}
 
 	function __destruct()
