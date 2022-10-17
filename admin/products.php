@@ -42,7 +42,14 @@
 										<td class="text-center"><?php echo $row['id'] ?></td>
 										<td class="">
 											<div class="row justify-content-center">
-												<img height="50" src="../assets/players/<?php echo /*$row['id']*/ 'IM001'; ?>.png" alt="">
+												<img height="50" src="../assets/players/<?php 
+													// check if file is available on name of id
+													if(file_exists('../assets/players/'.$row['id'].'.png')){
+														echo $row['id'].'.png';
+													}else{
+														echo 'common.jpeg';
+													}
+												?>" alt="">
 											</div>
 										</td>
 										<td>

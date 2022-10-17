@@ -411,7 +411,6 @@
         data: "&team_id=<?php echo $_SESSION['team_login_team_id'] ?>&action=get_bids_pie_chart",
         success: function(data) {
 
-            alert(data);
 
             array = data.split(";");
 

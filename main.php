@@ -3,8 +3,11 @@ require('admin/db_connect.php');
 
 $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.team_id = p.team_id) as team_name FROM data_mapping dm join player p on dm.player_id = p.id ");
 
+while ($row = mysqli_fetch_array($rows)){
+    $team_name = $row['team_name'];
+}
 
-
+$rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.team_id = p.team_id) as team_name FROM data_mapping dm join player p on dm.player_id = p.id ");
 ?>
 
 <meta charset="utf-8">
@@ -41,14 +44,16 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
 
     /* add image to image class */
     .image {
+        background: url('./assets/logos/<?php echo $team_name ?>.png');
         background-size: cover;
         background-repeat: no-repeat;
         height: 40%;
         width: 25%;
         /* position */
         position: absolute;
-        top: 35%;
-        left: 35%;
+        bottom: 17%;
+        right: 2%;
+
         /* position the element at the center of the page */
         /* transform: translate(-50%, -50%); */
     }
@@ -155,19 +160,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                         echo '<span class="d-block" style="font-size:40px">UNSOLD</span>';
                                     }
                                     ?>
-                                    <!-- <span class="d-block" style="font-size:25px">STATUS</span> -->
                                 </div>
-                                    
-                                    <!-- <div style="font-size:1.2rem;">
-                                        <span style="font-size:1.6rem;padding-right:300px;font-weight: bolder;">TOTAL INNING - 2</span>
-                                        <span style="font-size:1.6rem;font-weight: bolder;">AVERAGE-24%</span>
-                                    </div>
-                                    <div style="font-size:1.2rem;">
-                                        <span style="font-size:1.6rem;padding-right: 210px;font-weight: bolder;">STRIKE RATE-100%</span>
-                                        <span style="font-size:1.6rem;">4/6-0/0</span>
-                                    </div> -->
-                                
-                                
                             </div>
 
                             
@@ -187,8 +180,8 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                         <span>Wicket- 4/6</span>
                                     </div>
                                     <div style="font-size:2.0rem;padding-top:1.0rem;">
-                                        <span class="d-block">TEAM-<?php echo $row['team_name'] ?></span>
-                                        <div class="image" style="background: url('./assets/logos/<?php echo $row['team_name'] ?>.png');"></div>
+                                        <span class="d-block"><?php echo $row['team_name'] ?></span>
+                                        <div class="image"></div>
                                     </div>
                                     
                                 </div>
