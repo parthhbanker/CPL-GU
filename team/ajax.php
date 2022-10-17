@@ -8,10 +8,13 @@ if($action == 'login2'){
 	if($login)
 		echo $login;
 }
+
+
 if($action == 'logout2'){
 	$logout = $crud->logout2();
 	if($logout)
 		echo $logout;
 }
+
 ob_end_flush();
 ?>
