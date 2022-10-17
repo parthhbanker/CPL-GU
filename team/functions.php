@@ -5,4 +5,5 @@ function get_safe_value($con,$str){
 		return mysqli_real_escape_string($con,$str);
 	}
 }
+
 ?>
