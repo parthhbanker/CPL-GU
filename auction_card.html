@@ -14,11 +14,33 @@
             border-top-left-radius:12px;
             border-top-right-radius:12px;
         }
+
+        /* add a dark gradient to backround body */
+        body {
+            /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), center center/cover no-repeat; */
+            background: radial-gradient(rgb(199, 21, 21), rgba(30, 0, 0, 0.379));
+            height: 100vh;
+        }   
+
+        /* add image to image class */
+        .image {
+            background: url('./assets/players/IM001.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 40%;
+            width: 25%;
+            /* position */
+            position: absolute;
+            top: 35%;
+            left: 35%;
+            /* position the element at the center of the page */
+            /* transform: translate(-50%, -50%); */
+        }
     </style>
 </head>
 <!-- 160x198 -->
 
-<body style="background:#333333">
+<body >
     <div class="container-fluid d-flex justify-content-center w-md-0 w-sm-50 align-item-center m-0 p-0" style="height:100vh;width:100%">
         <div class="container-fluid m-0 p-3">
             <!-- Card code -->
@@ -26,7 +48,7 @@
                 <div class="row g-0 w-100">
                     <div class="col-md-4 border-0 border-primary justify-content-center align-items-center flex-column d-flex px-2 gap-3">
                         <div class="container m-0 border text-white border-3 text-center p-2"
-                            style="background-color:darkred;border-radius:12px">
+                            style="background-color:rgb(60, 12, 12);border-radius:12px">
                             <span style="font-size:21px" class="d-block fs-3 fw-bold">BATSMAN</span>
                             <span style="font-size:14px" class="d-block">LEFT HAND BATSMAN</span>
                         </div>
@@ -44,8 +66,8 @@
                     <div class="col-md-8 border-0 border-success d-flex flex-column justify-content-start gap-3 px-2 my-md-0 my-3 ">
                         <div class="d-flex flex-md-row flex-column justify-content-center container-fluid m-0 gap-2">
                             <div class="m-0 border text-white border-3 flex-fill text-center p-2"
-                                style="background-color:darkred;border-radius:12px">
-                                <div style="font-size:1.2rem">
+                                style="background-color:rgb(60, 12, 12);border-radius:12px">
+                                <div style="font-size:1.2rem" class="">
                                     <span>TOTAL INNING - 2</span>
                                     <span>AVERAGE-24%</span>
                                 </div>
@@ -54,8 +76,8 @@
                                     <span>4/6-0/0</span>
                                 </div>
                             </div>
-                            <div class="m-0 border text-white border-3 bg-secondary text-center p-2"
-                                style="border-radius:12px;font-size:2rem">
+                            <div class="m-0 border text-white border-3 bg- text-center p-2"
+                                style="border-radius:12px;font-size:2rem ">
                                 <span class="d-block my-auto">STATUS</span>
                                 <!-- <span class="d-block" style="font-size:25px">STATUS</span> -->
                             </div>
@@ -65,8 +87,11 @@
                                 Base Points:$***
                             </div>
                             <div class="d-flex justify-content-around aling-items-center text-white mt-3 p-md-0 py-4" style="font-size:21px;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                                <div>
+                                    <span class="d-block">TEAM</span>
+                                    <div class="image"></div>
+                                </div>
                                 <span class="d-block">BID Points:$***</span>
-                                <span class="d-block">TEAM</span>
                             </div>
                         </div>
                     </div>

@@ -37,7 +37,7 @@
 						</div>
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)" class="select">
+							<select id="player" onchange="change(this.id)" class="select" disabled>
 
 								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
@@ -78,7 +78,7 @@
 					<div class="card-footer">
 						<div class="row">
 							<div class="col-md-12">
-								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3" type="button" id="save" onclick="change(this.id)"> Save</button>
+								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3" type="button" id="save" onclick="change(this.id)" disabled> Save</button>
 								<button class="btn btn-sm btn-default col-sm-3" onclick="cancel()"> Cancel</button>
 							</div>
 						</div>
@@ -130,7 +130,7 @@
 										</td>
 										<td class="text-center">
 											<button class="btn btn-sm btn-outline-primary edit_product" id="<?php echo $row['player_id'] ?>" onclick="edit(this.id)" type="button">Edit</button>
-											<button class="btn btn-sm btn-outline-danger delete_product" id="<?php echo $row['id'] ?>" onclick="delete_(this.id)" type="button">Delete</button>
+											<button class="btn btn-sm btn-outline-danger delete_product" id="<?php echo $row['id'] ?>" onclick="delete_(this.id,<?php echo $row['team_id'] ?>)" type="button">Delete</button>
 										</td>
 									</tr>
 								<?php endwhile; ?>
@@ -295,6 +295,7 @@
 					// 	return item !== player_id
 					// })
 					// cancel();
+					lol(team_id);
 					window.location.replace("index.php?page=bids");
 
 				}
@@ -374,19 +375,35 @@
 
 	}
 
-	function delete_(id) {
+	function delete_(id,tid) {
 
 		jQuery.ajax({
 			url: 'get_players.php',
 			type: 'post',
 			data: '&bid_id=' + id + '&data=delete',
 			success: function(result) {
-
+				lol(tid);
 				window.location.replace("index.php?page=bids");
 
 			}
 
 		})
+
+	}
+
+	function lol(team_id) {
+
+
+		// jQuery.ajax({
+		// 	url: '../team/server.php',
+		// 	type: 'post',
+		// 	data: '&action=refresh&tid='+team_id,
+		// 	success: function(result) {
+
+		// 		alert(result);
+				
+		// 	},
+		// })
 
 	}
 
@@ -418,23 +435,43 @@
 		_conf("Are you sure to delete this book?", "delete_book", [$(this).attr('data-id')])
 	})
 
-	function delete_book($id) {
-		start_load()
-		$.ajax({
-			url: 'ajax.php?action=delete_book',
-			method: 'POST',
-			data: {
-				id: $id
-			},
-			success: function(resp) {
-				if (resp == 1) {
-					alert_toast("Data successfully deleted", 'success')
-					setTimeout(function() {
-						location.reload()
-					}, 1500)
 
+	// functio
+	$(document).ready(function() {
+
+		$('#bid_price').on('input', function() {
+			if (document.getElementById("bid_price").value >= document.getElementById("base_price").value) {
+				// onchange of team select box check if the team is already selected
+
+				if (document.getElementById("team").value != "Select") {
+					document.getElementById("save").disabled = false;
+				}else{
+					document.getElementById("save").disabled = true;
 				}
+			} else {
+				document.getElementById("save").disabled = true;
 			}
-		})
-	}
+		});
+	});
+	$(document).ready(function() {
+
+		$('#team').on('change', function() {
+			if (document.getElementById("team").value != "Select") {
+				document.getElementById("save").disabled = false;
+
+				if (document.getElementById("bid_price").value >= document.getElementById("base_price").value) {
+					// onchange of team select box check if the team is already selected
+
+					document.getElementById("save").disabled = false;
+
+				}else{
+					document.getElementById("save").disabled = true;
+				}
+			} else {
+				document.getElementById("save").disabled = true;
+			}
+		});
+	});
+
+	// 
 </script>
