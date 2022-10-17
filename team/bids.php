@@ -109,7 +109,7 @@
 
 	setInterval(function() {
 		get_data();
-	}, 1000);
+	}, 100);
 
 	// make a function to continously call data.php
 	function get_data() {
