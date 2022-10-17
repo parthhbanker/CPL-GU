@@ -40,23 +40,3 @@
 <script type="text/javascript" src="../admin/assets/js/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="../admin/assets/font-awesome/js/all.min.js"></script>
 <script type="text/javascript" src="../admin/assets/js/jquery-te-1.4.0.min.js" charset="utf-8"></script>
-
-<script>
-  if (typeof(EventSource) !== "undefined") {
-    var source = new EventSource("server.php");
-    source.onmessage = function(event) {
-
-      // alert(event.data + "team");
-
-      // if($_SESSION['team_login_team_id'] == $_SESSION['team_id']){
-
-      location.reload();
-
-      // }
-
-      // document.getElementById("result").innerHTML += event.data + "<br>";
-    };
-  } else {
-    document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
-  }
-</script>
