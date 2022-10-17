@@ -58,7 +58,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
         /* transform: translate(-50%, -50%); */
     }
 </style>
-<body style="background-image:url(stadium.jpg);">
+<body style="background-image:url(s4.jpg);">
     <div class="container-fluid d-flex justify-content-center w-md-0 w-sm-50 align-item-center m-0 p-0" style="height:100vh;width:100%">
         <div class="container-fluid m-0 p-3">
             <?php while ($row = mysqli_fetch_array($rows)) { ?>
@@ -146,7 +146,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                                         }
                                         ?></span>
                                 </div>
-                                <div class="m-0 border text-white border-3 text-center p-2" style="border-radius:12px;font-size:2rem;background-color: #5c0505;">
+                                <div class="m-0 text-white text-center p-2" style="margin-top:800px; border-radius:12px;font-size:2rem;background-color: #5c0505;">
                                     <!-- <span class="d-block my-auto">STATUS</span> -->
                                     <!-- check if player_is present in bid table or not -->
                                     <?php
@@ -164,7 +164,7 @@ $rows = mysqli_query($conn, "SELECT p.*, (select team_name from team t where t.t
                             </div>
 
                             
-                            <div class="flex-fill" style="border-radius:12px;background-color:#534c4c;">
+                            <div class="flex-fill" style="border-radius:12px;">
                                 <div class="border-bottom ps-3 py-1 text-white border-warning border-3" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;font-size:40px">
                                     Base Points : <?php echo $row['base_price'] ?> Points
                                 </div>

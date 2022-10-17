@@ -295,7 +295,8 @@
 					// 	return item !== player_id
 					// })
 					// cancel();
-		
+					lol();
+
 					window.location.replace("index.php?page=bids");
 
 				}
@@ -375,17 +376,34 @@
 
 	}
 
-	function delete_(id,tid) {
+	function delete_(id, tid) {
 
 		jQuery.ajax({
 			url: 'get_players.php',
 			type: 'post',
 			data: '&bid_id=' + id + '&data=delete',
 			success: function(result) {
+				lol();
 				window.location.replace("index.php?page=bids");
 
 			}
 
+		})
+
+	}
+
+	function lol() {
+
+
+		jQuery.ajax({
+			url: '../team/server.php',
+			type: 'post',
+			data: '&action=refresh',
+			success: function(result) {
+
+				// alert(result);
+
+			},
 		})
 
 	}

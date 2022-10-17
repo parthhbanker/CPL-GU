@@ -220,7 +220,7 @@
                                     <i class="fas fa-chart-pie me-1"></i>
                                     Bidding Summary
                                 </div>
-                                <div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
+                                <div class="card-body" id="lol"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
                                 <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
                             </div>
                         </div>
@@ -242,39 +242,39 @@
                             </div>
 
                             <!-- <div class="row"> -->
-                                <!-- <div class="col-xl-4 col-md-6 mb-4"> -->
-                                    <div class="card border-left-primary shadow h-40 py-2 mt-4">
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
-                                                        Bid Point Left</div>
-                                                    <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                        <span id="bid_left"></span> Points
-                                                    </div>
-                                                </div>
+                            <!-- <div class="col-xl-4 col-md-6 mb-4"> -->
+                            <div class="card border-left-primary shadow h-40 py-2 mt-4">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
+                                                Bid Point Left</div>
+                                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                <span id="bid_left"></span> Points
                                             </div>
                                         </div>
                                     </div>
-                                <!-- </div> -->
+                                </div>
+                            </div>
+                            <!-- </div> -->
                             <!-- </div> -->
 
                             <!-- <div class="row"> -->
-                                <!-- <div class="col-xl-4 col-md-6 mb-4"> -->
-                                    <div class="card border-left-primary shadow h-40 py-2 mt-4">
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
-                                                        Average Bid Point Left</div>
-                                                    <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                        <span id="bid_left_avg"></span> Points
-                                                    </div>
-                                                </div>
+                            <!-- <div class="col-xl-4 col-md-6 mb-4"> -->
+                            <div class="card border-left-primary shadow h-40 py-2 mt-4">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
+                                                Average Bid Point Left</div>
+                                            <div class="h6 mb-0 font-weight-bold text-gray-800">
+                                                <span id="bid_left_avg"></span> Points
                                             </div>
                                         </div>
                                     </div>
-                                <!-- </div> -->
+                                </div>
+                            </div>
+                            <!-- </div> -->
                             <!-- </div> -->
 
                         </div>
@@ -368,6 +368,20 @@
 </div>
 
 <script>
+    if (typeof(EventSource) !== "undefined") {
+        var source = new EventSource("server.php");
+        source.onmessage = function(event) {
+
+            // alert(event.data);
+            chart_data();
+            // document.getElementById("result").innerHTML += event.data + "<br>";
+        };
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+    }
+</script>
+
+<script>
     // Set new default font family and font color to mimic Bootstrap's default styling
     // Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
     // Chart.defaults.global.defaultFontColor = '#292b2c';
@@ -404,33 +418,42 @@
     }, 100);
 
 
-    $.ajax({
+    function chart_data() {
 
-        url: "ajax1.php",
-        type: "POST",
-        data: "&team_id=<?php echo $_SESSION['team_login_team_id'] ?>&action=get_bids_pie_chart",
-        success: function(data) {
+        $.ajax({
+
+            url: "ajax1.php",
+            type: "POST",
+            data: "&team_id=<?php echo $_SESSION['team_login_team_id'] ?>&action=get_bids_pie_chart",
+            success: function(data) {
+
+                alert(data);
+
+                array = data.split(";");
+
+                // Pie Chart Example
+                $("#myPieChart").remove();
+                var txt1 = "<canvas id=\"myPieChart\" width=\"100%\" height=\"50\">";
+                $("#lol").append(txt1);
+
+                var ctx = document.getElementById("myPieChart");
+                var myPieChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: [array[1], array[3], array[5], array[7], array[9], array[11], array[13], array[15], array[17], array[19], array[21], array[23], array[25], "Points Left"],
+                        datasets: [{
+                            data: [array[2], array[4], array[6], array[8], array[10], array[12], array[14], array[16], array[18], array[20], array[22], array[24], array[26], 50000-array[0]],
+                            backgroundColor: ['Blue', '#33cccc', '#28a745', '#99ff33', '#ffff00', '#ffcc00', '#ffa500', '#ff0000', '#800000', '#cc0066', '#800080', '#9900ff', '#cc33ff', '#000066'],
+                        }],
+                    },
+                });
+
+            }
 
 
-            array = data.split(";");
+        })
 
-            // Pie Chart Example
-            var ctx = document.getElementById("myPieChart");
-            var myPieChart = new Chart(ctx, {
-                type: 'pie',
-                data: {
-                    labels: [array[0], array[2], array[4], array[6], array[8], array[10], array[12], array[14], array[16], array[18], array[20], array[22], array[24], "Points Left"],
-                    datasets: [{
-                        data: [array[1], array[3], array[5], array[7], array[9], array[11], array[13], array[15], array[17], array[19], array[21], array[23], array[25], 50000],
-                        backgroundColor: ['Blue', '#33cccc', '#28a745', '#99ff33', '#ffff00', '#ffcc00', '#ffa500', '#ff0000', '#800000', '#cc0066', '#800080', '#9900ff', '#cc33ff', '#000066'],
-                    }],
-                },
-            });
-
-        }
-
-
-    })
+    }
 
     // make a function to continously call data.php
     function get_data() {
@@ -452,6 +475,8 @@
                 $("#player_count").html(datas.player_count);
                 $("#bid_count").html(datas.bid_count);
                 $("#bid_avg").html(datas.bid_avg);
+
+                $bid_left = datas.bid_left ;
 
                 pg = (100 / 13) * datas.player_count
 
@@ -485,6 +510,7 @@
             }
         });
     }
-</script>
 
-<!-- <script src="../assets/js/chart-pie-demo.js"></script> -->
+    chart_data();
+
+</script>
