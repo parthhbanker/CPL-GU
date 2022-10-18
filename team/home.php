@@ -200,7 +200,7 @@
                                             <div class=" font-weight-bold text-primary text-uppercase mb-2" style="font-size: 14px;">
                                                 Average Bid Point Left</div>
                                             <div class="h6 mb-0 font-weight-bold text-gray-800">
-                                                <span id="bid_left_avg"></span>
+                                                <span id="bid_left_avg"></span> Points
                                             </div>
                                         </div>
                                     </div>
@@ -242,15 +242,6 @@
 </script>
 
 <script>
-    // Set new default font family and font color to mimic Bootstrap's default styling
-    // Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-    // Chart.defaults.global.defaultFontColor = '#292b2c';
-
-
-
-    // use get_data on load
-
-    // map the data to a dictionary
     datas = {}
 
     $("#bc").hover(function() {
@@ -364,7 +355,7 @@
                 // if the bid is not yet started
                 if (datas.bid_avg == null) {
                     $("#bid_avg").html("0");
-                } else {
+                } else { 
                     $("#bid_avg").html(datas.bid_avg);
                 }
 
