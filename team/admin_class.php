@@ -30,6 +30,7 @@ class Action
 
 		$str = "" ;
 
+		$str = $str . $team_id . ";" ;
 		$str = $str . $bid_point_left . ";" ;
 
 		while ($row = $result->fetch_assoc()) {
