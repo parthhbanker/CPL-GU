@@ -1,45 +1,8 @@
 <?php require_once 'db_connect.php'; ?>
 
 
-<?php
-
-
-// if page = bids from get
-if ($_GET['page'] == "bids") {
-
-?>
     <?php
-    // fetch team id from get
-    $team_id = $_GET['team_id'];
-    $i = 1;
-    // $team_id = $_SESSION['team_login_team_id'];
-    $category = $conn->query("SELECT b.*, p.player_name, t.team_name FROM bids b join player p on b.player_id = p.id join team t on b.team_id = t.team_id where b.team_id = $team_id order by p.player_name asc;");
-    while ($row = $category->fetch_assoc()) :
-    ?>
-        <tr>
-            <td class="">
-                <p><b><?php echo $row['player_id'] ?></b></p>
-            </td>
-            <td class="">
-                <p><b><?php echo $row['player_name'] ?></b></p>
-            </td>
-            <td class="">
-                <p><b><?php echo $row['base_price'] ?></b></p>
-            </td>
-            <td class="">
-                <p><b><?php echo $row['bid_price'] ?></b></p>
-            </td>
-        </tr>
-    <?php endwhile; ?>
-
-<?php
-} 
-
-if ($_GET['page'] == "player") {
-?>
-    <?php
-    $team_id = $_GET['team_id'];
-    $players = $conn->query("SELECT p.*, (SELECT team_name from team t where t.team_id = p.team_id) as team_name FROM player p where team_id = $team_id");
+    $players = $conn->query("SELECT p.*, (SELECT team_name from team t where t.team_id = p.team_id) as team_name FROM player p join bids b on b.player_id = p.id order by p.id asc");
     while ($row = $players->fetch_assoc()) :
     ?>
 
@@ -104,8 +67,3 @@ if ($_GET['page'] == "player") {
             </td>
         </tr>
     <?php endwhile; ?>
-
-<?php
-}
-
-?>

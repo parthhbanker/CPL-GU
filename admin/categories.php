@@ -88,8 +88,8 @@
 											<p><b><?php echo $row['team_name'] ?></b></p>
 										</td>
 										<td class="text-center">
-											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id='<?php echo $row['team_Id'] ?>' data-name='<?php echo $row['team_name'] ?>' onclick="edit(<?php echo $row['team_Id'] ?>)">Edit</button>
-											<button class="btn btn-sm btn-danger delete_category" type="button" data-id='<?php echo $row['team_Id'] ?>'  >Delete</button>
+											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id='<?php echo $row['team_id'] ?>' data-name='<?php echo $row['team_name'] ?>' onclick="edit(<?php echo $row['team_id'] ?>)">Edit</button>
+											<button class="btn btn-sm btn-danger delete_category" type="button" data-id='<?php echo $row['team_id'] ?>'  >Delete</button>
 										</td>
 									</tr>
 								<?php endwhile; ?>

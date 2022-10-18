@@ -19,7 +19,7 @@ if (isset($_GET['id'])) {
 			<select name="team_name" id="tid" class="custom-select select2" onchange="getDetails()">
 				<option value="" disabled selected>Select</option>
 				<?php
-				$team = $conn->query("SELECT * FROM team where team_Id not in (select team_id from team_login)");
+				$team = $conn->query("SELECT * FROM team where team_id not in (select team_id from team_login)");
 				while ($row = $team->fetch_assoc()) :
 				?>
 					<option value="<?php echo $row['team_name'] ?>"><?php echo $row['team_name'] ?></option>

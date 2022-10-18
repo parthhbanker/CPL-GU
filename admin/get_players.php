@@ -9,7 +9,7 @@ if ($_POST['data'] == "edit") {
     $result = mysqli_query($conn, "SELECT p.pro_id, (SELECT player_role from player_role pr where pr.pro_id = p.pro_id) as player_role, p.id, p.player_name, p.base_price, (SELECT bid_price from bids b where b.player_id = p.id) as bid_price, p.team_id from player p where p.id = '$player_id'");
 
 
-    // $result = mysqli_query($conn, "Select  p.id , p.player_name , p.base_price , b.bid_price , t.team_id from player_role pro join player p on p.pro_id = pro.pro_Id , bids b join team t on b.team_id = t.team_Id where p.id = '$player_id' ;");
+    // $result = mysqli_query($conn, "Select  p.id , p.player_name , p.base_price , b.bid_price , t.team_id from player_role pro join player p on p.pro_id = pro.pro_Id , bids b join team t on b.team_id = t.team_id where p.id = '$player_id' ;");
 
     while ($row = $result->fetch_assoc()) {
 
@@ -30,7 +30,7 @@ if ($_POST['data'] == "delete") {
 if ($_POST['data'] == "edit_team") {
 
     $team_id = get_safe_value($conn, $_POST['team_id']);
-    $result = mysqli_query($conn, "select * from team where team_Id = $team_id");
+    $result = mysqli_query($conn, "select * from team where team_id = $team_id");
 
     while ($row = $result->fetch_assoc()) {
 
@@ -109,9 +109,9 @@ if ($_POST['data'] == "add_team_user") {
     $password = get_safe_value($conn, $_POST['password']);
 
     // find team_id from team_name
-    $result = mysqli_query($conn, "select team_Id from team where team_name = '$team_name' ");
+    $result = mysqli_query($conn, "select team_id from team where team_name = '$team_name' ");
     $row = $result->fetch_assoc();
-    $team_id = $row['team_Id'];
+    $team_id = $row['team_id'];
 
     // check if username already exists
     $result = mysqli_query($conn, "select * from team_login where team_id =  " . $team_id . " ");
@@ -130,7 +130,7 @@ function updateMainScreen($conn, $player_id)
 {
 
 
-    $r = mysqli_query($conn, "SELECT player_id FROM data_mapping WHERE id=1");
+    $r = mysqli_query($conn, "SELECT * FROM data_mapping WHERE id=1");
 
     $res = mysqli_num_rows($r);
 
