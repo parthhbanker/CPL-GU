@@ -178,30 +178,30 @@
 	}
 </style>
 <script>
-	// make an array of all the players
 	var players = [];
 	// make a function to get a random player and set the value to the input
 	function getRandomPlayer() {
 		// get a random player from the array
-		var randomPlayer = players[Math.floor(Math.random() * players.length)];
+		if (players.length > 0) {
+			var randomPlayer = players[Math.floor(Math.random() * players.length)];
 
-		if (document.getElementById("player").value == randomPlayer) {
-			getRandomPlayer();
+			if (document.getElementById("player").value == randomPlayer) {
+				getRandomPlayer();
+			} else {
+				// print the array to the console
+				console.log(players);
+				// print selected player to the console
+				console.log(randomPlayer);
+
+				// set the value of the select input to the random player
+				$('#player').val(randomPlayer);
+
+				change("player");
+			}
 		} else {
-			// print the array to the console
-			console.log(players);
-			// print selected player to the console
-			console.log(randomPlayer);
-
-			// set the value of the select input to the random player
-			$('#player').val(randomPlayer);
-
-			change("player");
+			// show no more players
+			alert("No more players");
 		}
-
-
-
-
 	}
 
 
@@ -290,11 +290,6 @@
 				type: 'post',
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
-					// remove player from the array
-					// players = players.filter(function(item) {
-					// 	return item !== player_id
-					// })
-					// cancel();
 					lol();
 
 					window.location.replace("index.php?page=bids");
@@ -335,19 +330,18 @@
 					for (var i = 0; i < array.length; i++) {
 
 						if (i % 2 == 0 && array[i + 1] != undefined) {
-							console.log(array[i]);
-
-							// save all player in array
 							players.push(array[i]);
 
 							var option = document.createElement("option");
 							option.value = array[i];
 							option.text = array[i + 1];
 							x.add(option);
-
 						}
 
 					}
+
+
+
 
 				}
 			})
@@ -437,7 +431,7 @@
 	})
 
 
-	// functio
+	// // function
 	// $(document).ready(function() {
 
 	// 	$('#bid_price').on('input', function() {
