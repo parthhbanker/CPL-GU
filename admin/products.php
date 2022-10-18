@@ -76,7 +76,7 @@
 												<p><small>Bowling Style: <b><?php
 																			$bs = $conn->query("SELECT * FROM bowling_style where bs_id = " . $row['bs_id']);
 																			$bs = $bs->fetch_assoc();
-																			echo $bs['BowlingStyle'] ?></b></small></p>
+																			echo $bs['bowling_style'] ?></b></small></p>
 											<?php
 											} ?>
 											<?php if ($row['bth_id'] != NULL) {

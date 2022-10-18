@@ -151,7 +151,7 @@ class Action
 	function save_category()
 	{
 		extract($_POST);
-		// $tid = $this->db->query("select * from team where team_name = '$old_team_name'")->fetch_array()['team_Id'];
+		// $tid = $this->db->query("select * from team where team_name = '$old_team_name'")->fetch_array()['team_id'];
 
 		if (empty($team_id)) {
 
@@ -182,11 +182,11 @@ class Action
 			}
 		} else {
 
-			if (mysqli_num_rows(mysqli_query($this->db, "select * from team where team_Id = '$team_id' ")) > 0) {
+			if (mysqli_num_rows(mysqli_query($this->db, "select * from team where team_id = '$team_id' ")) > 0) {
 
 				if ($name != $old_team_name) {
 
-					$save = $this->db->query("UPDATE team set team_name = '$name' where team_Id = '$team_id' ");
+					$save = $this->db->query("UPDATE team set team_name = '$name' where team_id = '$team_id' ");
 
 					if ($save) {
 
@@ -196,7 +196,7 @@ class Action
 							if ($rn) {
 								echo 2;
 							} else {
-								$this->db->query("UPDATE team set team_name = '$old_team_name' where team_Id = '$team_id' ");
+								$this->db->query("UPDATE team set team_name = '$old_team_name' where team_id = '$team_id' ");
 								echo 4;
 							}
 						} else {
@@ -207,7 +207,7 @@ class Action
 								unlink('../assets/logos/' . $old_team_name . '.png');
 								echo 2;
 							} else {
-								$this->db->query("UPDATE team set team_name = '$old_team_name' where team_Id = '$team_id' ");
+								$this->db->query("UPDATE team set team_name = '$old_team_name' where team_id = '$team_id' ");
 								echo 4;
 							}
 						}
@@ -236,7 +236,7 @@ class Action
 	{
 		extract($_POST);
 
-		$team_name = $this->db->query("SELECT team_name from team where team_Id = " . $id)->fetch_array()['team_name'];
+		$team_name = $this->db->query("SELECT team_name from team where team_id = " . $id)->fetch_array()['team_name'];
 		$delete = unlink('../assets/logos/' . $team_name . '.png');
 
 		if ($delete) {

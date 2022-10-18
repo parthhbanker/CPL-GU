@@ -36,7 +36,7 @@
 								</td>
 								<td>
 									<?php
-									$team = $conn->query("SELECT * FROM team where team_Id = '" . $row['team_id'] . "'");
+									$team = $conn->query("SELECT * FROM team where team_id = '" . $row['team_id'] . "'");
 									$teams = $team->fetch_array();
 									echo ucwords($teams['team_name'])
 									?>

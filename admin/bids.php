@@ -21,10 +21,10 @@
 
 								<?php
 								$i = 1;
-								$category = $conn->query("SELECT * FROM player_role order by pro_id	 asc");
+								$category = $conn->query("SELECT * FROM player_role order by pro_id asc");
 								while ($row = $category->fetch_assoc()) :
 								?>
-									<option value='<?php echo $row['pro_Id'] ?>'><?php echo $row['player_role'] ?></option>
+									<option value='<?php echo $row['pro_id'] ?>'><?php echo $row['player_role'] ?></option>
 
 								<?php endwhile; ?>
 
@@ -65,7 +65,7 @@
 								while ($row = $category->fetch_assoc()) :
 								?>
 
-									<option value='<?php echo $row['team_Id'] ?>'><?php echo $row['team_name'] ?></option>
+									<option value='<?php echo $row['team_id'] ?>'><?php echo $row['team_name'] ?></option>
 
 								<?php endwhile; ?>
 							</select>
@@ -290,6 +290,7 @@
 				type: 'post',
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
+					alert(result);
 					lol();
 
 					window.location.replace("index.php?page=bids");
@@ -300,6 +301,7 @@
 
 		} else if (id == "category") {
 
+			var category_id = document.getElementById("category").value;
 			var dropdown_player = document.getElementById("player_div");
 			dropdown_player.style.display = "block";
 

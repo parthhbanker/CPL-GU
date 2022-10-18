@@ -89,7 +89,7 @@ INSERT INTO `bids` (`id`, `player_id`, `team_id`, `base_price`, `bid_price`) VAL
 DROP TABLE IF EXISTS `bowling_style`;
 CREATE TABLE IF NOT EXISTS `bowling_style` (
   `bs_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `BowlingStyle` varchar(255) DEFAULT NULL,
+  `bowling_style` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`bs_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
@@ -102,7 +102,7 @@ TRUNCATE TABLE `bowling_style`;
 -- Dumping data for table `bowling_style`
 --
 
-INSERT INTO `bowling_style` (`bs_Id`, `BowlingStyle`) VALUES
+INSERT INTO `bowling_style` (`bs_Id`, `bowling_style`) VALUES
 (1, 'Right-arm fast'),
 (2, 'Right-arm medium'),
 (3, 'Slow left-arm orthodox'),
@@ -278,9 +278,9 @@ INSERT INTO `player_role` (`pro_Id`, `player_role`) VALUES
 
 DROP TABLE IF EXISTS `team`;
 CREATE TABLE IF NOT EXISTS `team` (
-  `team_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `team_id` int(11) NOT NULL AUTO_INCREMENT,
   `team_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`team_Id`)
+  PRIMARY KEY (`team_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
 
 --
@@ -292,7 +292,7 @@ TRUNCATE TABLE `team`;
 -- Dumping data for table `team`
 --
 
-INSERT INTO `team` (`team_Id`, `team_name`) VALUES
+INSERT INTO `team` (`team_id`, `team_name`) VALUES
 (1, 'Knights'),
 (2, 'Hurricanes'),
 (3, 'Empire'),
@@ -386,7 +386,7 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `contact`, `
 --
 ALTER TABLE `bids`
   ADD CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`),
-  ADD CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_Id`);
+  ADD CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`);
 
 --
 -- Constraints for table `data_mapping`
@@ -398,7 +398,7 @@ ALTER TABLE `data_mapping`
 -- Constraints for table `player`
 --
 ALTER TABLE `player`
-  ADD CONSTRAINT `player_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_Id`),
+  ADD CONSTRAINT `player_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`),
   ADD CONSTRAINT `player_ibfk_2` FOREIGN KEY (`pro_id`) REFERENCES `player_role` (`pro_Id`),
   ADD CONSTRAINT `player_ibfk_3` FOREIGN KEY (`bs_id`) REFERENCES `bowling_style` (`bs_Id`),
   ADD CONSTRAINT `player_ibfk_4` FOREIGN KEY (`bth_id`) REFERENCES `batting_hand` (`bth_Id`);
@@ -407,7 +407,7 @@ ALTER TABLE `player`
 -- Constraints for table `team_login`
 --
 ALTER TABLE `team_login`
-  ADD CONSTRAINT `team_login_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_Id`);
+  ADD CONSTRAINT `team_login_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
