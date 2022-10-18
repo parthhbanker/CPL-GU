@@ -101,14 +101,14 @@ while ($row = mysqli_fetch_array($rows)) { ?>
             if (mysqli_num_rows($bid) > 0) {
                 while ($bid_row = mysqli_fetch_array($bid)) {
             ?>
-                    <div id="w-node-_33ac5d46-db85-7f03-a71d-e28bc31aaaf3-5f2613bc" class="player-status">
+                    <div id="w-node-_33ac5d46-db85-7f03-a71d-e28bc31aaaf3-5f2613bc" class="player-status sold">
                         <h1 id="w-node-_6d09ebab-5451-2c65-96ce-5664b2477a5e-5f2613bc" class="status">SOLD</h1>
                     </div>
                 <?php
                 }
             } else {
                 ?>
-                <div id="w-node-_33ac5d46-db85-7f03-a71d-e28bc31aaaf3-5f2613bc" class="player-status">
+                <div id="w-node-_33ac5d46-db85-7f03-a71d-e28bc31aaaf3-5f2613bc" class="player-status unsold">
                     <h1 id="w-node-_6d09ebab-5451-2c65-96ce-5664b2477a5e-5f2613bc" class="status">UNSOLD</h1>
                 </div>
             <?php

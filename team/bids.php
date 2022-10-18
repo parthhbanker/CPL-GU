@@ -97,6 +97,9 @@
 
 
 <script>
+	$(document).ready(function() {
+		$('table').dataTable()
+	})
 	// use get_data on load
 
 	// map the data to a dictionary

@@ -42,14 +42,14 @@
 										<td class="text-center"><?php echo $row['id'] ?></td>
 										<td class="">
 											<div class="row justify-content-center">
-												<img height="50" src="../assets/players/<?php 
-													// check if file is available on name of id
-													if(file_exists('../assets/players/'.$row['id'].'.png')){
-														echo $row['id'].'.png';
-													}else{
-														echo 'common.jpeg';
-													}
-												?>" alt="">
+												<img height="50" src="../assets/players/<?php
+																						// check if file is available on name of id
+																						if (file_exists('../assets/players/' . $row['id'] . '.png')) {
+																							echo $row['id'] . '.png';
+																						} else {
+																							echo 'common.jpeg';
+																						}
+																						?>" alt="">
 											</div>
 										</td>
 										<td>
@@ -57,20 +57,20 @@
 										</td>
 										<td class="">
 											<p>Name: <b><?php echo ucwords($row['player_name']) ?></b></p>
-											<p><small>Role: <b><?php 
-											
-											// select from table	
-											if($row['pro_id'] == ""){
-												echo "N/A";
-											}else{
-												$role_id = $row['pro_id'];
-												$roles = $conn->query("SELECT * FROM player_role where pro_id = '$role_id'");
-												$role = $roles->fetch_assoc();
-											echo $role['player_role'];
-											}
-											
+											<p><small>Role: <b><?php
 
-											?></b></small></p>
+																// select from table	
+																if ($row['pro_id'] == "") {
+																	echo "N/A";
+																} else {
+																	$role_id = $row['pro_id'];
+																	$roles = $conn->query("SELECT * FROM player_role where pro_id = '$role_id'");
+																	$role = $roles->fetch_assoc();
+																	echo $role['player_role'];
+																}
+
+
+																?></b></small></p>
 											<?php if ($row['bs_id'] != NULL) {
 											?>
 												<p><small>Bowling Style: <b><?php
@@ -89,14 +89,14 @@
 										</td>
 										<td>
 											<p><small>Base Price: <b><?php echo number_format($row['base_price'], 2) ?></b></small></p>
-											<p><small>Highest Bid: <b class="highest_bid"><?php 
-											// get bid from bid table
-											$bid = $conn->query("SELECT * FROM bids where player_id = '".$row['id']."'");
-											$bids= $bid->fetch_assoc();
+											<p><small>Highest Bid: <b class="highest_bid"><?php
+																							// get bid from bid table
+																							$bid = $conn->query("SELECT * FROM bids where player_id = '" . $row['id'] . "'");
+																							$bids = $bid->fetch_assoc();
 
-											echo mysqli_num_rows($bid) > 0 ? $bids['bid_price'] : 0;
-											?>
-											
+																							echo mysqli_num_rows($bid) > 0 ? $bids['bid_price'] : 0;
+																							?>
+
 										</td>
 										<td class="text-center">
 											<button class="btn btn-sm btn-outline-primary edit_product" type="button" data-id="<?php echo $row['id'] ?>">Edit</button>

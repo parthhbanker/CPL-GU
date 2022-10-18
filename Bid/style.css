@@ -336,9 +336,16 @@
      -ms-flex-line-pack: center;
      align-content: center;
      border-radius: 15px;
-     background-color: #a70f11;
+     
+   }
+
+   .unsold{
+    background-color: #a70f11;
    }
    
+   .sold{
+    background-color: #115708;
+   }
    .grid-4 {
      margin-right: 30px;
      margin-left: 30px;

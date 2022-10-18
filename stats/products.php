@@ -9,7 +9,6 @@
 			</div>
 		</div>
 		<div class="row">
-			<!-- FORM Panel -->
 
 			<!-- Table Panel -->
 			<div class="col-md-12">
@@ -59,11 +58,8 @@
 		max-height: 150px;
 	}
 </style>
-
-
 <script>
-
-$(document).ready(function() {
+	$(document).ready(function() {
 		$('table').dataTable()
 	})
 
@@ -76,7 +72,7 @@ $(document).ready(function() {
 
 		// xhttp.open("GET","getBidData.php");
 		// send the team id to the getBidData.php
-		xhttp.open("GET", "getBidData.php?team_id=<?php echo $_SESSION['team_login_team_id'] ?>&page=player");
+		xhttp.open("GET", "getBidData.php?page=player");
 		xhttp.send();
 	}
 

@@ -130,7 +130,7 @@ function updateMainScreen($conn, $player_id)
 {
 
 
-    $r = mysqli_query($conn, "SELECT player_id FROM data_mapping WHERE id=1");
+    $r = mysqli_query($conn, "SELECT * FROM data_mapping WHERE id=1");
 
     $res = mysqli_num_rows($r);
 
