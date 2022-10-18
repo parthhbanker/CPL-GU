@@ -125,9 +125,9 @@ while ($row = mysqli_fetch_array($rows)) { ?>
             </div>
         </div>
         <div id="w-node-_524f0789-9744-6172-ca31-0d6edfcf7957-5f2613bc" class="other-info">
-            <h1 class="base-points">Base Points: <?php echo $row['base_price'] ?></h1>
             <div class="columns w-row">
-                <div class="w-col w-col-5">
+                <div class="w-col w-col-6">
+                    <h1 class="base-points">Base Points: <?php echo $row['base_price'] ?></h1>
                     <!-- if pro_id ==2 show all  -->
                     <?php
                     if ($row['pro_id'] == 2) {
@@ -149,7 +149,7 @@ while ($row = mysqli_fetch_array($rows)) { ?>
                     <?php } ?>
                 </div>
                 <?php if (!empty($team_name) & isset($team_name)) { ?>
-                    <div class="team-info w-col w-col-7">
+                    <div class="team-info w-col w-col-6">
                         <img src="<?php echo $logo_url; ?>" loading="lazy" width="698" sizes="(max-width: 479px) 100vw, (max-width: 767px) 62vw, (max-width: 991px) 37vw, 40vw" alt="" class="team-logo" />
                     </div>
                 <?php } ?>
@@ -158,7 +158,7 @@ while ($row = mysqli_fetch_array($rows)) { ?>
             <div>
                 <div class="w-layout-grid grid-5">
                     <div id="w-node-d7855c37-6a4f-0498-4f33-0d373c191001-5f2613bc" class="sponsors">
-                        <img src="cpl.png" loading="lazy" sizes="(max-width: 479px) 100vw, 22vw" alt="" class="cpl-logo" />
+                        <img src="cpl-white.png" loading="lazy" sizes="(max-width: 479px) 100vw, 22vw" alt="" class="cpl-logo" />
                         <img src="vibranium.png" loading="lazy" id="w-node-_3214d3b7-fabd-0ea2-276c-e7fe9dbc7621-5f2613bc" sizes="(max-width: 479px) 100vw, 259.140625px" alt="" class="vib-logo" />
                     </div>
                 </div>
