@@ -233,7 +233,6 @@
         var source = new EventSource("server.php");
         source.onmessage = function(event) {
 
-            // alert(event.data);
             chart_data();
             // document.getElementById("result").innerHTML += event.data + "<br>";
         };
@@ -292,6 +291,15 @@
 
                 array = data.split(";");
 
+
+                // var team_id = <?php echo $_SESSION['team_login_team_id']?> ;
+
+                // if (team_id == array[0]){
+
+                //     alert(team_id);
+
+                // }
+
                 // Pie Chart Example
                 $("#myPieChart").remove();
                 var txt1 = "<canvas id=\"myPieChart\" width=\"100%\" height=\"50\">";
@@ -301,9 +309,9 @@
                 var myPieChart = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                        labels: [array[1], array[3], array[5], array[7], array[9], array[11], array[13], array[15], array[17], array[19], array[21], array[23], array[25], "Points Left"],
+                        labels: [array[2], array[4], array[6], array[8], array[10], array[12], array[14], array[16], array[18], array[20], array[22], array[24], array[26], "Points Left"],
                         datasets: [{
-                            data: [array[2], array[4], array[6], array[8], array[10], array[12], array[14], array[16], array[18], array[20], array[22], array[24], array[26], 50000 - array[0]],
+                            data: [array[3], array[5], array[7], array[9], array[11], array[13], array[15], array[17], array[19], array[21], array[23], array[25], array[27], 50000 - array[1]],
                             backgroundColor: ['Blue', '#33cccc', '#28a745', '#99ff33', '#ffff00', '#ffcc00', '#ffa500', '#ff0000', '#800000', '#cc0066', '#800080', '#9900ff', '#cc33ff', '#000066'],
                         }],
                     },
