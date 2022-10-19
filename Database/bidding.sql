@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 15, 2022 at 07:22 AM
+-- Generation Time: Oct 19, 2022 at 07:39 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -31,10 +31,10 @@ USE `bidding`;
 
 DROP TABLE IF EXISTS `batting_hand`;
 CREATE TABLE IF NOT EXISTS `batting_hand` (
-  `bth_Id` int(11) NOT NULL AUTO_INCREMENT,
-  `hand` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`bth_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+  `bth_id` int(11) NOT NULL AUTO_INCREMENT,
+  `hand` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`bth_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Truncate table before insert `batting_hand`
@@ -45,9 +45,10 @@ TRUNCATE TABLE `batting_hand`;
 -- Dumping data for table `batting_hand`
 --
 
-INSERT INTO `batting_hand` (`bth_Id`, `hand`) VALUES
-(1, 'RHB'),
-(2, 'LHB');
+INSERT INTO `batting_hand` (`bth_id`, `hand`) VALUES
+(1, 'Right Hand Batsman'),
+(2, 'Left Hand Batsman'),
+(3, 'Wicket Keeper');
 
 -- --------------------------------------------------------
 
@@ -65,21 +66,13 @@ CREATE TABLE IF NOT EXISTS `bids` (
   PRIMARY KEY (`id`),
   KEY `player_id` (`player_id`),
   KEY `team_id` (`team_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Truncate table before insert `bids`
 --
 
 TRUNCATE TABLE `bids`;
---
--- Dumping data for table `bids`
---
-
-INSERT INTO `bids` (`id`, `player_id`, `team_id`, `base_price`, `bid_price`) VALUES
-(51, 'IM205', 1, 500, 600),
-(52, 'IM213', 1, 500, 900);
-
 -- --------------------------------------------------------
 
 --
@@ -88,10 +81,10 @@ INSERT INTO `bids` (`id`, `player_id`, `team_id`, `base_price`, `bid_price`) VAL
 
 DROP TABLE IF EXISTS `bowling_style`;
 CREATE TABLE IF NOT EXISTS `bowling_style` (
-  `bs_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `bs_id` int(11) NOT NULL AUTO_INCREMENT,
   `bowling_style` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`bs_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`bs_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Truncate table before insert `bowling_style`
@@ -102,14 +95,17 @@ TRUNCATE TABLE `bowling_style`;
 -- Dumping data for table `bowling_style`
 --
 
-INSERT INTO `bowling_style` (`bs_Id`, `bowling_style`) VALUES
-(1, 'Right-arm fast'),
-(2, 'Right-arm medium'),
-(3, 'Slow left-arm orthodox'),
-(4, 'Left-arm fast'),
-(5, 'Right-arm Off Break'),
-(6, 'Right-arm Leg Break'),
-(7, 'Left-arm medium');
+INSERT INTO `bowling_style` (`bs_id`, `bowling_style`) VALUES
+(1, 'Right Arm Fast'),
+(2, 'Right Arm Medium'),
+(3, 'Right Arm Leg Break'),
+(4, 'Right Arm'),
+(5, 'Left Arm'),
+(6, 'Right Arm Off Break'),
+(7, 'Left Arm Fast'),
+(8, 'Slow Left Arm Orthodox'),
+(9, 'Right Arm Leg Spinner'),
+(10, 'Left Arm Leg Spinner');
 
 -- --------------------------------------------------------
 
@@ -130,13 +126,6 @@ CREATE TABLE IF NOT EXISTS `data_mapping` (
 --
 
 TRUNCATE TABLE `data_mapping`;
---
--- Dumping data for table `data_mapping`
---
-
-INSERT INTO `data_mapping` (`id`, `player_id`) VALUES
-(1, 'IM213');
-
 -- --------------------------------------------------------
 
 --
@@ -147,14 +136,20 @@ DROP TABLE IF EXISTS `player`;
 CREATE TABLE IF NOT EXISTS `player` (
   `id` varchar(255) NOT NULL,
   `player_name` varchar(255) DEFAULT NULL,
+  `semester` int(11) DEFAULT NULL,
   `team_id` int(11) DEFAULT NULL,
   `pro_id` int(11) DEFAULT NULL,
   `bs_id` int(11) DEFAULT NULL,
   `bth_id` int(11) DEFAULT NULL,
-  `matches` int(11) DEFAULT NULL,
-  `batting` decimal(10,2) DEFAULT NULL,
-  `bowling` decimal(10,2) DEFAULT NULL,
-  `semester` int(11) DEFAULT NULL,
+  `economy` decimal(10,2) DEFAULT NULL,
+  `total_over` decimal(10,2) DEFAULT NULL,
+  `total_wicket` int(11) DEFAULT NULL,
+  `inning` int(11) DEFAULT NULL,
+  `total_runs` int(11) DEFAULT NULL,
+  `average` decimal(10,2) DEFAULT NULL,
+  `strike_rate` decimal(10,2) DEFAULT NULL,
+  `total_four` int(11) DEFAULT NULL,
+  `total_six` int(11) DEFAULT NULL,
   `base_price` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `team_id` (`team_id`),
@@ -172,73 +167,164 @@ TRUNCATE TABLE `player`;
 -- Dumping data for table `player`
 --
 
-INSERT INTO `player` (`id`, `player_name`, `team_id`, `pro_id`, `bs_id`, `bth_id`, `matches`, `batting`, `bowling`, `semester`, `base_price`) VALUES
-('IM201', 'Mahir Mansuri', NULL, NULL, 4, 1, 5, '85.00', '7.00', 7, 1000),
-('IM202', 'Malek Afzal', NULL, NULL, 7, 1, 5, '52.00', '4.00', 3, 1000),
-('IM203', 'Siddh shah', NULL, NULL, 7, 1, 4, '9.00', '5.00', 3, 1000),
-('IM204', 'Darshil patel', NULL, NULL, 7, NULL, 4, '33.00', '2.00', 3, 1000),
-('IM205', 'Abdulla Mansuri', 1, 1, 4, 1, 5, '4.00', '4.00', 3, 500),
-('IM206', 'Jainil Brahmkshatriya', NULL, 6, 4, 1, 2, '2.95', '0.00', NULL, NULL),
-('IM207', 'Devansh Upadhyay', NULL, 3, 7, NULL, 3, '0.00', '3.63', NULL, NULL),
-('IM208', 'Trushil Sutariya', NULL, NULL, 4, NULL, 2, '0.09', '4.20', NULL, NULL),
-('IM209', 'Jay Jani', NULL, NULL, 7, NULL, 2, '0.00', '4.22', NULL, NULL),
-('IM210', 'Piyush Chauhan', NULL, 4, 7, 1, 2, '2.00', '2.00', 3, 500),
-('IM211', 'Manav Patel', NULL, 3, 4, 1, 4, '1.49', '0.06', NULL, NULL),
-('IM212', 'Navid khanusiya', NULL, 1, 4, 1, 4, '6.00', '2.00', 5, 500),
-('IM213', 'Vraj Joshi', 1, 1, 7, 1, 2, '10.00', '2.00', 5, 500),
-('IM214', 'Harshil Chauhan', NULL, NULL, NULL, 1, 5, '2.73', '0.00', NULL, NULL),
-('IM215', 'Khushil', NULL, NULL, 4, NULL, 2, '2.44', '0.00', NULL, NULL),
-('IM216', 'Soham', NULL, NULL, 7, 1, 2, '1.00', '1.00', 3, 500),
-('IM217', 'Prashant Purani', NULL, 4, 4, 1, 2, '2.74', '0.00', NULL, NULL),
-('IM218', 'Sahil Makwana', NULL, NULL, NULL, 1, 2, '2.73', '0.00', NULL, NULL),
-('IM219', 'Vansh Vp', NULL, 1, 4, 1, 4, '2.14', '0.00', NULL, NULL),
-('IM220', 'Brij Prajapati', NULL, 5, 4, 1, 4, '2.49', '0.00', NULL, NULL),
-('IM221', 'Ronit prasad', NULL, 1, 6, 1, 2, '12.00', '1.00', 3, 300),
-('IM222', 'Harshil panchal', NULL, NULL, 7, 1, 2, '24.00', '1.00', 3, 300),
-('IM223', 'Ritesh Vishwakarma', NULL, 6, 4, 1, 3, '3.00', '1.00', 7, 300),
-('IM224', 'Mohit', NULL, 4, 7, 1, 2, '0.00', '1.00', 3, 300),
-('IM225', 'Karan Soni', NULL, NULL, NULL, 1, 2, '1.95', '0.00', NULL, NULL),
-('IM226', 'Kirtan soni', NULL, NULL, 7, 1, 2, '3.00', '1.00', 3, 300),
-('IM227', 'Aditya Amali', NULL, NULL, 7, 1, 2, '0.00', '1.44', NULL, NULL),
-('IM228', 'Abdurrehman Risaldar', NULL, 5, 4, 1, 1, '1.13', '0.00', NULL, NULL),
-('IM229', 'Rushan Khan', NULL, NULL, NULL, 1, 2, '1.82', '0.00', NULL, NULL),
-('IM230', 'Kathan Chauhan', NULL, NULL, 7, 1, 2, '16.00', '1.00', 5, 300),
-('IM231', 'Aarsh desai', NULL, NULL, NULL, 1, 1, '1.51', '0.00', NULL, NULL),
-('IM232', 'Smeet soni', NULL, 5, 4, 1, 2, '1.48', '0.00', NULL, NULL),
-('IM233', 'Ammar Malek', NULL, 5, 4, NULL, 2, '1.51', '0.00', NULL, NULL),
-('IM234', 'Mistry Harsh', NULL, 4, 4, 1, 1, '0.19', '0.00', NULL, NULL),
-('IM235', 'Rahul A Daiya', NULL, NULL, 7, NULL, 2, '0.00', '1.28', NULL, NULL),
-('IM236', 'Y Vataliya', NULL, NULL, NULL, 1, 2, '1.04', '0.00', NULL, NULL),
-('IM237', 'Justin Parmar', NULL, NULL, NULL, 1, 1, '1.21', '0.00', NULL, NULL),
-('IM238', 'Shubh Patel', NULL, NULL, NULL, 1, 2, '1.15', '0.00', NULL, NULL),
-('IM239', 'Pathan Hisban Khan', NULL, 3, 4, 1, 1, '1.11', '0.00', NULL, NULL),
-('IM240', 'Yashkumar Barot', NULL, NULL, NULL, 1, 2, '1.07', '0.00', NULL, NULL),
-('IM241', 'Dhruvang Upadhyay ', NULL, NULL, NULL, NULL, 1, '1.04', '0.00', NULL, NULL),
-('IM242', 'Shrimali Jay', NULL, NULL, NULL, 1, 1, '0.85', '0.00', NULL, NULL),
-('IM243', 'Harsh Parmar', NULL, 4, 4, NULL, 1, '0.85', '0.00', NULL, NULL),
-('IM244', 'Panchal Jaymin', NULL, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
-('IM245', 'Paramveer Singh', NULL, 1, 7, 1, 1, '0.74', '-0.05', NULL, NULL),
-('IM246', 'Aadil', NULL, NULL, NULL, 1, 2, '0.10', '0.00', NULL, NULL),
-('IM247', 'Jaydeep rathod', NULL, NULL, NULL, 1, 1, '0.39', '0.00', NULL, NULL),
-('IM248', 'Abhijeet', NULL, NULL, NULL, 1, 1, '0.48', '0.00', NULL, NULL),
-('IM249', 'Ayush Soni', NULL, NULL, 7, 1, 2, '0.10', '0.02', NULL, NULL),
-('IM250', 'Hit Khant', NULL, 1, 4, 1, 1, '0.43', '-0.05', NULL, NULL),
-('IM251', 'Yash Thakkar', NULL, 1, 6, 1, 1, '0.33', '0.00', NULL, NULL),
-('IM252', 'Faizan Shaikh', NULL, 6, 7, 1, 2, '0.00', '0.00', NULL, NULL),
-('IM253', 'Patel Kush', NULL, NULL, NULL, 1, 2, '0.29', '0.00', NULL, NULL),
-('IM254', 'Mann Shah', NULL, NULL, NULL, 1, 1, '0.29', '0.00', NULL, NULL),
-('IM255', 'Bhargav Jariwala', NULL, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
-('IM256', 'jeel jadav', NULL, NULL, NULL, 1, 2, '0.20', '0.00', NULL, NULL),
-('IM257', 'Dave Megh', NULL, NULL, NULL, 1, 1, '0.19', '0.00', NULL, NULL),
-('IM258', 'Sagar Bhilocha', NULL, NULL, NULL, NULL, 1, '0.00', '0.00', NULL, NULL),
-('IM259', 'Kuldeep S', NULL, 3, 4, NULL, 1, '0.10', '0.00', NULL, NULL),
-('IM260', 'Dhanraj Bagul', NULL, NULL, NULL, 1, 1, '0.10', '0.00', NULL, NULL),
-('IM261', 'Vaishal Shah', NULL, 4, 4, 1, 1, '0.09', '0.00', NULL, NULL),
-('IM262', 'Vatsal', NULL, 1, 7, 1, 2, '0.00', '-0.13', NULL, NULL),
-('IM263', 'Lay Joshi', NULL, 1, 7, 1, 1, '0.00', '-0.04', NULL, NULL),
-('IM264', 'Dhairya Dave', NULL, 4, 4, 1, 1, '0.00', '-0.04', NULL, NULL),
-('IM265', 'Krish patel', NULL, 1, 4, 1, 1, '0.00', '-0.05', NULL, NULL),
-('IM266', 'devang Modi', NULL, 4, 4, 1, 2, '0.00', '-0.11', NULL, NULL);
+INSERT INTO `player` (`id`, `player_name`, `semester`, `team_id`, `pro_id`, `bs_id`, `bth_id`, `economy`, `total_over`, `total_wicket`, `inning`, `total_runs`, `average`, `strike_rate`, `total_four`, `total_six`, `base_price`) VALUES
+('IM001', 'Prashant Purani', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 29, '14.50', '78.38', 2, NULL, 500),
+('IM002', 'Harshil Chauhan', 7, NULL, 1, NULL, 1, NULL, NULL, NULL, 5, 29, '14.50', '100.00', 3, NULL, 500),
+('IM003', 'Jainil Brahmkshatriya', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, 27, '27.00', '112.50', 2, NULL, 500),
+('IM004', 'Sahil Makwana', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 26, NULL, '83.87', 2, NULL, 500),
+('IM005', 'Khushil', 7, NULL, 1, NULL, 2, NULL, NULL, NULL, 2, 26, '13.00', '81.25', 2, NULL, 500),
+('IM006', 'Brij Prajapati', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 4, 24, '6.00', '61.54', 2, NULL, 500),
+('IM008', 'Karan Soni', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 21, '10.50', '91.30', 1, NULL, 500),
+('IM009', 'Rushan Khan', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 19, NULL, '63.33', 2, NULL, 500),
+('IM010', 'Smeet Soni', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 16, '8.00', '114.29', 3, NULL, 500),
+('IM011', 'Ammar Malek', 5, NULL, 1, NULL, 2, NULL, NULL, NULL, 2, 16, '8.00', '80.00', 1, NULL, 300),
+('IM014', 'Abdurrehman Risaldar', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, 12, '12.00', '92.31', NULL, NULL, 300),
+('IM015', 'Pathan Hisban Khan', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, 12, '12.00', '85.71', 2, NULL, 500),
+('IM016', 'Shubh Patel', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 12, '6.00', '60.00', 1, NULL, 300),
+('IM017', 'Dhruvang Upadhyay', 5, NULL, 1, NULL, 2, NULL, NULL, NULL, 2, 11, '5.50', '78.57', NULL, NULL, 300),
+('IM018', 'Y Vataliya', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 11, '5.50', '73.33', NULL, NULL, 300),
+('IM019', 'Yashkumar Barot', 7, NULL, 1, NULL, 1, NULL, NULL, NULL, 3, 11, '11.00', '45.83', NULL, NULL, 300),
+('IM020', 'Harsh Parmar', 3, NULL, 1, NULL, 2, NULL, NULL, NULL, 1, 9, '9.00', '90.00', NULL, NULL, 300),
+('IM021', 'Shrimali Jay', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 9, '9.00', '56.25', 1, NULL, 300),
+('IM022', 'Abhijeet', NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, 5, '5.00', '50.00', NULL, NULL, 300),
+('IM024', 'Jaydeep Rathod', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 4, '4.00', '22.22', NULL, NULL, 300),
+('IM025', 'Mann Shah', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, 3, NULL, '75.00', NULL, NULL, 300),
+('IM026', 'Yash Thakkar', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 3, '3.00', '75.00', NULL, NULL, 300),
+('IM027', 'Patel Kush', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 3, '3.00', '50.00', NULL, NULL, 300),
+('IM028', 'Mistry Harsh', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 2, '1.00', '40.00', NULL, NULL, 300),
+('IM029', 'Jeel Jadav', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 2, '1.00', '33.33', NULL, NULL, 300),
+('IM030', 'Dave Megh', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 2, NULL, '66.67', NULL, NULL, 300),
+('IM031', 'Kuldeep S', 3, NULL, 1, NULL, 2, NULL, NULL, NULL, 1, 1, '1.00', '33.33', NULL, NULL, 300),
+('IM032', 'Dhanraj Bagul', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, 1, NULL, '50.00', NULL, NULL, 300),
+('IM033', 'Vaishal Shah', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, 1, '1.00', '100.00', NULL, NULL, 300),
+('IM034', 'Aadil', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 2, 1, '1.00', '100.00', NULL, NULL, 300),
+('IM035', 'Samarth Shah', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 100),
+('IM036', 'Malhar Bhatt', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 100),
+('IM037', 'Janmesh Nashikkar', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 100),
+('IM038', 'Arun Budhani', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 100),
+('IM039', 'Shadab Akhunji', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, 100),
+('IM040', 'Yash', NULL, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM041', 'Panchal Jaymin', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM042', 'Faizan Shaikh', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM043', 'Jeel Patel', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM044', 'Sagar Bhilocha', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM045', 'Bhargav Jariwala', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM046', 'Arshad K', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM047', 'Mohit Dave', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM048', 'Parmar Harsh', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM049', 'Thakor Devang Karsanji ', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM050', 'Aayush Kshatriya ', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM051', 'Tanna Krishna ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM052', 'Ansari Mohammadusaid', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM053', 'Ayan luhar ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM054', 'Parth Singh ', 1, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM055', 'Patel Utsav', 1, NULL, 1, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM056', 'Nishant patel ', 1, NULL, 1, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM057', 'Daksh', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM058', 'Anand Patel', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM059', 'Rami harsh ', 1, NULL, 1, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM060', 'Ronak Taneja', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM061', 'Meet koshti ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM062', 'Krunal Bhatt ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM064', 'Rathod Aman', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM065', 'Shubham Bhavsar ', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM066', 'Aman Raj', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM067', 'Tanmay Ramdin', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM068', 'Jagdish', 3, NULL, 1, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM069', 'Ansh Dodiya ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM070', 'Tanuj Prajapati', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM071', 'Varun Majmudar ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM072', 'Panchal dixit ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM073', 'Ghanchi ubed raza', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM074', 'Kathit bhavsar ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM075', 'Chirag Parmar ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM076', 'Kakshil m panchal ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM077', 'Shah Vraj Viralkumar', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM079', 'nishansh jain', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM080', 'Ansari Mohammad Fajal', 5, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM081', 'Sagar makwana', 1, NULL, 1, NULL, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM082', 'KARAN SAKARIYA', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM083', 'Arth Dalwadi', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM084', 'Rajdeep Bhatiya ', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM085', 'HRISHIKESH MODI', 3, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM086', 'SURESH CHOUDHARY', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM087', 'Limbad aditya', 1, NULL, 1, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM091', 'Mahir Mansuri', 7, NULL, 2, 1, 1, '7.00', '7.00', 7, 5, 85, '21.25', '114.86', 10, NULL, 1000),
+('IM092', 'Malek Afzal', 3, NULL, 2, 2, 1, '3.16', NULL, 4, 5, 52, '13.00', '96.30', 5, NULL, 1000),
+('IM093', 'Harshil Panchal', 3, NULL, 2, 2, 1, '10.83', NULL, 0, 2, 24, '12.00', '77.42', 3, NULL, 500),
+('IM094', 'Mohit', 3, NULL, 2, 2, 1, '8.00', NULL, 0, 2, 17, '8.50', '100.00', NULL, NULL, 1000),
+('IM096', 'Ayush Soni', 3, NULL, 2, 2, 1, '10.50', NULL, 0, 1, 1, '1.00', '50.00', NULL, NULL, 500),
+('IM097', 'Paramveer Singh', 7, NULL, 2, 2, 1, '13.00', NULL, 0, 1, 8, '8.00', '88.89', NULL, NULL, 300),
+('IM099', 'Soham', 3, NULL, 2, 2, 1, '6.67', NULL, 2, 1, 1, NULL, '100.00', NULL, NULL, 500),
+('IM100', 'Kathan Chauhan', 5, NULL, 2, 2, 1, '8.00', NULL, 0, 2, 16, '8.00', '123.08', 1, NULL, 500),
+('IM101', 'Darshil Patel', 3, NULL, 2, 2, 2, '8.25', NULL, 2, 4, 33, '16.50', '75.00', 1, NULL, 500),
+('IM102', 'Manav Patel', 5, NULL, 2, 1, 1, '7.75', NULL, 0, 3, 16, '5.33', '84.21', 1, NULL, 300),
+('IM103', 'Ronit Prasad', 3, NULL, 2, 3, 1, '11.00', NULL, 1, 1, 12, NULL, '57.14', 1, NULL, 300),
+('IM104', 'Vraj Joshi', 5, NULL, 2, 2, 1, '4.80', NULL, 1, 1, 10, NULL, '100.00', NULL, NULL, 1000),
+('IM105', 'Siddh Shah', 3, NULL, 2, 2, 1, '9.00', NULL, 5, 1, 9, '9.00', '75.00', 2, NULL, 1000),
+('IM106', 'Navid Khanusiya', 5, NULL, 2, 1, 1, '4.67', NULL, 2, 2, 6, '6.00', '46.15', NULL, NULL, 500),
+('IM107', 'Amar purohit', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM108', 'Herrin shah', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM109', 'Priyank Lutya ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM110', 'Chavda Yash Jayeshbhai', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM111', 'Shaikh Mo. Anas', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM112', 'Jakasaniya Parthiv Bharatbhai ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM113', 'ANSARI AAVESH', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM114', 'Mohit Suryavanshi', 1, NULL, 2, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM115', 'Patel Hitarth ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM116', 'Chiron Rawal', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM117', 'Shah Jainam', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM118', 'Ridham Yadav ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM119', 'Supan Shah', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM120', 'Vyom Thakker', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM121', 'Parth kabira', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM122', 'Chandrachudsinh Vadhel', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM123', 'Harsh Gajjar', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM124', 'Manthan solanki ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM125', 'kaif mansuri', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM126', 'Jenil Patel', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM127', 'Akshat', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM128', 'Patel Sneh', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM129', 'Butani Rakshat Hiteshbhai ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM130', 'Patel Henil ', 1, NULL, 2, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM131', 'Gohil Vivek ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM132', 'Dev kayasth ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM133', 'Vraj Upadhyay ', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM134', 'Sujal Mansuri ', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM135', 'Tejas Kushwaha', 5, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM136', 'Rudra Naik', 1, NULL, 2, 5, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM137', 'Sunil Ahuja', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM138', 'Mahendi Ali', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM139', 'Ansh Pandey', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM140', 'Devansh Dave', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM141', 'Vinamra Kaitra', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM142', 'NITYA DESAI', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM143', 'Padhiyar Shreyansh', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM144', 'Bhavesh pandya', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM145', 'Bhavesh Patil', 5, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM146', 'Ayushya Pandey', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM147', 'Harsh Khamar', 7, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM148', 'Abdulla Mansuri', 3, NULL, 3, 1, NULL, '6.31', NULL, 4, 5, NULL, NULL, NULL, NULL, NULL, 1000),
+('IM149', 'Kirtan Soni', 3, NULL, 3, 2, NULL, '8.50', NULL, 1, 2, NULL, NULL, NULL, NULL, NULL, 300),
+('IM150', 'Ritesh Vishwakarma', 7, NULL, 3, 1, NULL, '9.75', NULL, 0, 3, NULL, NULL, NULL, NULL, NULL, 300),
+('IM152', 'Piyush Chauhan', 3, NULL, 3, 6, NULL, '7.67', NULL, 2, 2, NULL, NULL, NULL, NULL, NULL, 500),
+('IM153', 'Trushil Sutariya', 5, NULL, 3, 7, NULL, '4.17', NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, 1000),
+('IM154', 'Rahul A Daiya', 3, NULL, 3, 2, NULL, '9.00', NULL, 1, 1, NULL, NULL, NULL, NULL, NULL, 300),
+('IM155', 'Aditya Amali', 5, NULL, 3, 2, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, 300),
+('IM156', 'Devansh Upadhyay', 7, NULL, 3, 8, NULL, '9.00', NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, 500),
+('IM157', 'Jay Jani', 3, NULL, 3, 2, NULL, '9.17', NULL, 3, 2, NULL, NULL, NULL, NULL, NULL, 500),
+('IM158', 'Krish Patel', 3, NULL, 3, 1, NULL, '13.00', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 300),
+('IM160', 'Vatsal Dave', 3, NULL, 3, 2, NULL, '9.80', NULL, 0, 2, NULL, NULL, NULL, NULL, NULL, 300),
+('IM161', 'Devang Modi', 3, NULL, 3, 2, NULL, '15.00', NULL, 0, 1, NULL, NULL, NULL, NULL, NULL, 300),
+('IM163', 'Patel Tirth Chetankumar', 1, NULL, 3, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM164', 'Gogari Rutul kumar panishbhai', 1, NULL, 3, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM165', 'Ansh Sukhdevbhai Solanki ', 1, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM166', 'Vedant Gaikwad', 5, NULL, 3, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM167', 'hritik Prajapati', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM168', 'Mavar Rahil Vishalbhai', 3, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM169', 'Kshitij Jadav', 5, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM170', 'Hasnain Puthawala', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100),
+('IM171', 'Shailesh Makwana', 1, NULL, 2, 4, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 100);
 
 -- --------------------------------------------------------
 
@@ -248,10 +334,10 @@ INSERT INTO `player` (`id`, `player_name`, `team_id`, `pro_id`, `bs_id`, `bth_id
 
 DROP TABLE IF EXISTS `player_role`;
 CREATE TABLE IF NOT EXISTS `player_role` (
-  `pro_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `pro_id` int(11) NOT NULL AUTO_INCREMENT,
   `player_role` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`pro_Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+  PRIMARY KEY (`pro_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Truncate table before insert `player_role`
@@ -262,13 +348,10 @@ TRUNCATE TABLE `player_role`;
 -- Dumping data for table `player_role`
 --
 
-INSERT INTO `player_role` (`pro_Id`, `player_role`) VALUES
-(1, 'All-Rounder'),
-(2, 'Wicket-keeper batsman'),
-(3, 'Middle-order batsman'),
-(4, 'Bowler'),
-(5, 'Top-order batsman'),
-(6, 'Lower-order batsman');
+INSERT INTO `player_role` (`pro_id`, `player_role`) VALUES
+(1, 'Batsman'),
+(2, 'All Rounder'),
+(3, 'Bowlers');
 
 -- --------------------------------------------------------
 
@@ -281,7 +364,7 @@ CREATE TABLE IF NOT EXISTS `team` (
   `team_id` int(11) NOT NULL AUTO_INCREMENT,
   `team_name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`team_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4;
 
 --
 -- Truncate table before insert `team`
@@ -353,7 +436,7 @@ INSERT INTO `team_login` (`id`, `team_id`, `username`, `password`) VALUES
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(30) NOT NULL,
+  `id` int(30) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `username` varchar(200) NOT NULL,
   `password` text NOT NULL,
@@ -374,8 +457,7 @@ TRUNCATE TABLE `users`;
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `contact`, `address`, `type`, `date_created`) VALUES
-(1, 'Administrator', 'admin', '0192023a7bbd73250516f069df18b500', 'admin@admin.com', '+123456789', '', 1, '2020-10-27 09:19:59'),
-(0, 'Het Parekh', 'het', '81dc9bdb52d04dc20036dbd8313ed055', '', '', '', 1, '2022-10-14 17:16:48');
+(1, 'Administrator', 'admin', '0192023a7bbd73250516f069df18b500', 'admin@admin.com', '+123456789', '', 1, '2020-10-27 09:19:59');
 
 --
 -- Constraints for dumped tables
@@ -386,7 +468,7 @@ INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `contact`, `
 --
 ALTER TABLE `bids`
   ADD CONSTRAINT `bids_ibfk_1` FOREIGN KEY (`player_id`) REFERENCES `player` (`id`),
-  ADD CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`);
+  ADD CONSTRAINT `bids_ibfk_2` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_Id`);
 
 --
 -- Constraints for table `data_mapping`
@@ -398,16 +480,16 @@ ALTER TABLE `data_mapping`
 -- Constraints for table `player`
 --
 ALTER TABLE `player`
-  ADD CONSTRAINT `player_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`),
+  ADD CONSTRAINT `player_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_Id`),
   ADD CONSTRAINT `player_ibfk_2` FOREIGN KEY (`pro_id`) REFERENCES `player_role` (`pro_Id`),
-  ADD CONSTRAINT `player_ibfk_3` FOREIGN KEY (`bs_id`) REFERENCES `bowling_style` (`bs_Id`),
-  ADD CONSTRAINT `player_ibfk_4` FOREIGN KEY (`bth_id`) REFERENCES `batting_hand` (`bth_Id`);
+  ADD CONSTRAINT `player_ibfk_3` FOREIGN KEY (`bs_id`) REFERENCES `bowling_style` (`bs_id`),
+  ADD CONSTRAINT `player_ibfk_4` FOREIGN KEY (`bth_id`) REFERENCES `batting_hand` (`bth_id`);
 
 --
 -- Constraints for table `team_login`
 --
 ALTER TABLE `team_login`
-  ADD CONSTRAINT `team_login_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_id`);
+  ADD CONSTRAINT `team_login_ibfk_1` FOREIGN KEY (`team_id`) REFERENCES `team` (`team_Id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
