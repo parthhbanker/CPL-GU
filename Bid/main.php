@@ -8,13 +8,15 @@ while ($row = mysqli_fetch_array($rows)) {
     $player_id = $row['id'];
 }
 
-if (file_exists('../assets/players/' . $player_id  . '.png')) {
-    $img_url = '../assets/players/' . $player_id  . '.png';
-} else {
-    $img_url =  '../assets/players/common.jpeg';
+if(isset($player_id)){
+    if (file_exists('../assets/players/' . $player_id  . '.png')) {
+        $img_url = '../assets/players/' . $player_id  . '.png';
+    } else {
+        $img_url =  '../assets/players/common.jpeg';
+    }
+    
+    $logo_url = '../assets/logos/' . $team_name . '.png';
 }
-
-$logo_url = '../assets/logos/' . $team_name . '.png';
 ?>
 
 <head>

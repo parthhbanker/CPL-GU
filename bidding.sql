@@ -436,15 +436,10 @@ INSERT INTO `team_login` (`id`, `team_id`, `username`, `password`) VALUES
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(30) NOT NULL AUTO_INCREMENT,
+  `id` int(30) NOT NULL,
   `name` text NOT NULL,
   `username` varchar(200) NOT NULL,
-  `password` text NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `contact` varchar(100) NOT NULL,
-  `address` text NOT NULL,
-  `type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '1=Admin,2=Subscriber',
-  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+  `password` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -456,8 +451,8 @@ TRUNCATE TABLE `users`;
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `password`, `email`, `contact`, `address`, `type`, `date_created`) VALUES
-(1, 'Administrator', 'admin', '0192023a7bbd73250516f069df18b500', 'admin@admin.com', '+123456789', '', 1, '2020-10-27 09:19:59');
+INSERT INTO `users` (`id`, `name`, `username`, `password`) VALUES
+(1, 'Administrator', 'admin', '0192023a7bbd73250516f069df18b500');
 
 --
 -- Constraints for dumped tables
