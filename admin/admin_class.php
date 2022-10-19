@@ -2,6 +2,7 @@
 require('db_connect.php');
 session_start();
 ini_set('display_errors', 1);
+
 class Action
 {
 	private $db;

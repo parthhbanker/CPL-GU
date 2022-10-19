@@ -107,6 +107,7 @@
 		vertical-align: middle !important;
 	}
 </style>
+
 <script>
 	function edit(id) {
 

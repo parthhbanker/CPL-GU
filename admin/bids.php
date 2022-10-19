@@ -179,11 +179,12 @@
 </style>
 <script>
 	var players = [];
+	var randomPlayer;
 	// make a function to get a random player and set the value to the input
 	function getRandomPlayer() {
 		// get a random player from the array
 		if (players.length > 0) {
-			var randomPlayer = players[Math.floor(Math.random() * players.length)];
+			randomPlayer = players[Math.floor(Math.random() * players.length)];
 
 			if (document.getElementById("player").value == randomPlayer) {
 				getRandomPlayer();
@@ -191,7 +192,7 @@
 				// print the array to the console
 				console.log(players);
 				// print selected player to the console
-				console.log(randomPlayer);
+				alert(randomPlayer);
 
 				// set the value of the select input to the random player
 				$('#player').val(randomPlayer);
@@ -350,14 +351,13 @@
 
 		} else if (id == "player") {
 
-			var player_id = document.getElementById("player");
-			var player_id_value = player_id.value;
+			var player_id = document.getElementById("player").value;
 			var array;
 
 			jQuery.ajax({
 				url: 'get_players.php',
 				type: 'post',
-				data: '&player_id=' + player_id_value + '&data=player',
+				data: '&player_id=' + player_id + '&data=player',
 				success: function(result) {
 					var x = document.getElementById("base_price");
 					x.value = result;
