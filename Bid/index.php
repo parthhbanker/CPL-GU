@@ -1,5 +1,5 @@
-<?php 
-require __DIR__. '/counter/counter.php';
+<?php
+require __DIR__ . '/counter/counter.php';
 
 // make one hit
 makeHit();
@@ -19,30 +19,46 @@ addUniqueIP();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+
 </head>
+
 <body onload="table();">
-    
-<script>
-    function table(){
-        const xhttp = new XMLHttpRequest();
-        xhttp.onload = function(){
+
+
+    <script>
+        if (typeof(EventSource) !== "undefined") {
+            var source = new EventSource("server.php");
+            source.onmessage = function(event) {
+
+                table();
+                // document.getElementById("result").innerHTML += event.data + "<br>";
+            };
+        } else {
+            document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+        }
+    </script>
+
+    <script>
+        function table() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function() {
                 document.getElementById('main').innerHTML = this.responseText;
-            
+
+            }
+
+            xhttp.open("GET", "main.php");
+            xhttp.send();
         }
 
-        xhttp.open("GET","main.php");
-            xhttp.send();
-    }
+        // setInterval(function(){
+        //     table();
+        // },1000);
+    </script>
+    <div id="main">
 
-    setInterval(function(){
-        table();
-    },1000);
-</script>
-<div id="main">
-        
-</div>
+    </div>
 
 
 </html>

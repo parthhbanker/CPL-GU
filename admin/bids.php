@@ -37,7 +37,7 @@
 						</div>
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)" class="select" >
+							<select id="player" onchange="change(this.id)" class="select">
 
 								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
@@ -191,7 +191,7 @@
 			} else {
 				// set the value of the select input to the random player
 				$('#player').val(randomPlayer);
-
+				lol1();
 				change("player");
 			}
 		} else {
@@ -285,6 +285,8 @@
 				type: 'post',
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
+
+					lol1();
 					lol();
 
 					window.location.replace("index.php?page=bids");
@@ -378,6 +380,22 @@
 
 			}
 
+		})
+
+	}
+
+	function lol1() {
+
+
+		jQuery.ajax({
+			url: '../Bid/server.php',
+			type: 'post',
+			data: '&action=refresh',
+			success: function(result) {
+
+				// alert(result);
+
+			},
 		})
 
 	}
