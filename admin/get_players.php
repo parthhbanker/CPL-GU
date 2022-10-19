@@ -93,6 +93,8 @@ if ($_POST['data'] == "player") {
     $player_id = get_safe_value($conn, $_POST['player_id']);
     $result = mysqli_query($conn, "select base_price from player where id = '$player_id' ");
 
+    // echo "Player id in gep " . $player_id;
+
     while ($row = $result->fetch_assoc()) {
 
         foreach ($row as $value) {

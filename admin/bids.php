@@ -37,7 +37,7 @@
 						</div>
 						<div class="form-group" id="player_div" style="display:none">
 							<label class="control-label">Player</label>
-							<select id="player" onchange="change(this.id)" class="select" disabled>
+							<select id="player" onchange="change(this.id)" class="select" >
 
 								<option selected disabled id="select" onclick="on_select(this.id)">Select</option>
 
@@ -189,11 +189,6 @@
 			if (document.getElementById("player").value == randomPlayer) {
 				getRandomPlayer();
 			} else {
-				// print the array to the console
-				console.log(players);
-				// print selected player to the console
-				alert(randomPlayer);
-
 				// set the value of the select input to the random player
 				$('#player').val(randomPlayer);
 
@@ -215,7 +210,6 @@
 			type: 'post',
 			data: '&player_id=' + id + '&data=edit',
 			success: function(result) {
-
 				array = result.split(";");
 
 				var category_id = document.getElementById("base_price").value = array[4];
@@ -291,7 +285,6 @@
 				type: 'post',
 				data: '&player_id=' + player_id + '&team_id=' + team_id + '&base_price=' + base_price + '&bid_price=' + bid_price + '&data=save',
 				success: function(result) {
-					alert(result);
 					lol();
 
 					window.location.replace("index.php?page=bids");
@@ -318,6 +311,7 @@
 				type: 'post',
 				data: '&pro_id=' + player_role_value + '&data=category',
 				success: function(result) {
+					players = [];
 					array = result.split(";");
 
 					var x = document.getElementById("player");
