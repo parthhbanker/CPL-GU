@@ -130,6 +130,8 @@ while ($row = mysqli_fetch_array($rows)) { ?>
             <div class="columns w-row">
                 <div class="w-col w-col-6">
                     <h1 class="base-points">Base Points: <?php echo $row['base_price'] ?></h1>
+
+                    <hr>
                     <!-- if pro_id ==2 show all  -->
                     <?php
                     if ($row['pro_id'] == 2) {

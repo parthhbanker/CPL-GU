@@ -2519,7 +2519,7 @@ textarea.w-select {
   border-radius: 10px;
   background-color: transparent;
   color: #fff;
-  font-size: 46px;
+  font-size: 65px;
   text-align: center;
 }
 
@@ -2548,7 +2548,7 @@ textarea.w-select {
   border-radius: 10px;
   background-color: transparent;
   color: #fbdbdb;
-  font-size: 42px;
+  font-size: 56px;
   text-align: center;
 }
 
@@ -2556,7 +2556,7 @@ textarea.w-select {
   display: block;
   margin-top: 10px;
   padding-top: 0px;
-  padding-bottom: 0px;
+  padding-bottom: 10px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -2573,7 +2573,7 @@ textarea.w-select {
   align-content: center;
   border-radius: 10px;
   background-color: transparent;
-  font-size: 46px;
+  font-size: 60px;
 }
 
 .playing-detail {
@@ -2676,7 +2676,7 @@ textarea.w-select {
 
 .player-image {
   position: relative;
-  left: 5px;
+  left: 30px;
   display: block;
   overflow: auto;
   max-height: none;
@@ -2695,19 +2695,21 @@ textarea.w-select {
 
 .semester {
   color: #fffefe;
-  font-size: 28px;
+  font-size: 36px;
   line-height: 28px;
   text-align: center;
 }
 
 .player-name {
   color: #fff;
-  font-size: 42px;
+  font-size: 50px;
   line-height: 32px;
   text-align: center;
 }
 
 .player-detail {
+  position: relative;
+  bottom: 0%;
   margin: 10px 15px;
   padding-bottom: 0px;
   border-style: solid;
@@ -2727,10 +2729,10 @@ textarea.w-select {
 }
 
 .base-points {
-  margin-bottom: 0px;
+  margin-bottom: 50px;
   /* margin-left: 30px; */
   color: #fff;
-  font-size: 42px;
+  font-size: 62px;
   line-height: 50px;
   text-align: left;
 }
@@ -2743,8 +2745,8 @@ textarea.w-select {
 
 .player-stats {
   color: #fff;
-  font-size: 32px;
-  line-height: 26px;
+  font-size: 56px;
+  line-height: 50px;
   text-align: left;
 }
 
@@ -2758,7 +2760,7 @@ textarea.w-select {
 .team-logo {
   position: relative;
   left: 1rem;
-  max-width: 100%;
+  max-width: 80%;
 }
 
 .heading-14 {
@@ -2789,7 +2791,7 @@ textarea.w-select {
 }
 
 .paragraph {
-  font-size: 18px;
+  font-size: 29px;
 }
 
 .grid-5 {
@@ -2805,21 +2807,22 @@ textarea.w-select {
 }
 
 .vib-logo {
-  max-height: 6rem;
+  max-height: 6.8rem;
   max-width: 80%;
   margin-left: 10px;
 }
 
 .sponsors {
-  margin-top: 3rem;
+  /* margin-top: 3.5rem; */
+  position: relative;
+  bottom: 0%;
   margin-left: 2rem;
 }
 
 @media screen and (max-width: 991px) {
   .player-image {
     position: relative;
-    left: 30px;
-    right: 30px;
+    left: 50px;
     margin-right: 0px;
     margin-left: 0px;
     float: none;
