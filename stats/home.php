@@ -77,7 +77,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" id="pg_bar" style="width: <?php echo $per?>%" aria-valuenow="<?php echo $row['pc'] ?>" aria-valuemin="0" aria-valuemax="13"></div>
+                                                        <div class="progress-bar bg-info" role="progressbar" id="pg_bar" style="width: <?php echo $per?>%" aria-valuenow="<?php echo $row['pc'] ?>" aria-valuemin="0" aria-valuemax="12"></div>
                                                     </div>
                                                 </div>
                                             </div>

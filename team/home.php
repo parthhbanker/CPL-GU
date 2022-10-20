@@ -105,7 +105,7 @@
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar" id="pg_bar" style="width: 100%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="13"></div>
+                                                        <div class="progress-bar bg-info" role="progressbar" id="pg_bar" style="width: 100%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="12"></div>
                                                     </div>
                                                 </div>
                                             </div>
