@@ -377,6 +377,7 @@
 			data: '&bid_id=' + id + '&data=delete',
 			success: function(result) {
 				lol();
+				lol1();
 				lol2();
 				window.location.replace("index.php?page=bids");
 
