@@ -288,6 +288,7 @@
 
 					lol1();
 					lol();
+					lol2();
 
 					window.location.replace("index.php?page=bids");
 
@@ -376,6 +377,7 @@
 			data: '&bid_id=' + id + '&data=delete',
 			success: function(result) {
 				lol();
+				lol2();
 				window.location.replace("index.php?page=bids");
 
 			}
@@ -405,6 +407,22 @@
 
 		jQuery.ajax({
 			url: '../team/server.php',
+			type: 'post',
+			data: '&action=refresh',
+			success: function(result) {
+
+				// alert(result);
+
+			},
+		})
+
+	}
+
+	function lol2() {
+
+
+		jQuery.ajax({
+			url: '../stats/server.php',
 			type: 'post',
 			data: '&action=refresh',
 			success: function(result) {

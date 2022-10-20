@@ -116,7 +116,7 @@
                 if (resp.status == 1) {
                     alert_toast("Data successfully saved", 'success')
                     setTimeout(function() {
-                        location.reload()
+                        location.reload() 
                     }, 800)
 
                 }
