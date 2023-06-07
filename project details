@@ -1,0 +1,13 @@
+This website was built for Gujarat University (Animation Dept.) for CPL i.e. Cricket Premier League to bid on players and assort them into their respective teams. 
+There are 3 different website:
+1. Auction Page
+2. Admin Dashboard
+3. Team-wise Dashboard
+
+
+
+1. Auction Page: Here the current bidding player and stats were shown i.e player name, type, minimum bid price and other stats. After sold the player team is shown on the same page with bidded price
+
+2. Team-wise Dashboard: On this dashboard team wise details are shown and each individual teams login details are provided. Here list of all player are showed, their bid price and other details also. Points used and left points are also managed here with stats i.e Maximum bid, average bid and lowest bid.
+
+3. Admin Dashboard: On this page all the team and player details are managed including creating their login details and showing a random player on auction page. Here stats are also shown i.e highest and lowest bid till now, etc
