@@ -3,7 +3,7 @@
 
 This website was built for Gujarat University (Animation Dept.) for CPL i.e. Cricket Premier League to bid on players and assort them into their respective teams and to assure a smooth and reliable experience for all the stakeholders i.e players, team leads, team owners and the respective supporting organization & sponsors/partners.
  
-- There are 3 different modules:
+- There are 4 different modules:
     - Auction Page
     - Admin Dashboard
     - Team-wise Dashboard
@@ -94,11 +94,13 @@ This project is used by the following organization:
 
 ## Tech Stack
 
-**Client:** HTML, CSS, JS, Bootstrap, AJAX, JQuery
+**Frontend:** HTML, CSS, JS, Bootstrap, AJAX, JQuery
 
-**Server:** PHP
+**Back-end:** PHP
 
 **Database:** MySQL
+
+**Server:** Apache
 
 
 ## Run Locally
