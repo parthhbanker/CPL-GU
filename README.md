@@ -26,7 +26,7 @@ This project is used by the following organization:
 ## Authors
 
 - [@parthhbanker](https://github.com/parthhbanker/)
-- [@hetparekh](https://github.com/hetparekh21/)
+- [@hetparekh21](https://github.com/hetparekh21/)
 
 
 ## Acknowledgements
